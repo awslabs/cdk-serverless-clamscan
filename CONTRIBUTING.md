@@ -21,23 +21,49 @@ reported the issue. Please try to include as much information as you can. Detail
 
 
 ## Contributing via Pull Requests
+
+### Pull Request Checklist
+
+* [ ] Testing
+  - Unit test added (prefer not to modify an existing test, otherwise, it's probably a breaking change)
+* [ ] Docs
+  - __README__: README and/or documentation topic updated
+* [ ] Title and Description
+  - __Change type__: title prefixed with **fix**, **feat** and module name in parens, which will appear in changelog
+  - __Title__: use lower-case and doesn't end with a period
+  - __Breaking?__: last paragraph: "BREAKING CHANGE: <describe what changed + link for details>"
+  - __Issues__: Indicate issues fixed via: "**Fixes #xxx**" or "**Closes #xxx**"
+
 Contributions via pull requests are much appreciated. Before sending us a pull request, please ensure that:
 
 1. You are working against the latest source on the *main* branch.
-2. You check existing open, and recently merged, pull requests to make sure someone else hasn't addressed the problem already.
-3. You open an issue to discuss any significant work - we would hate for your time to be wasted.
 
-To send us a pull request, please:
+---
+### Step 1: Open Issue
 
-1. Fork the repository.
-2. Modify the source; please focus on the specific change you are contributing. If you also reformat all the code, it will be hard for us to focus on your change.
-3. Ensure local tests pass.
-4. Commit to your fork using clear commit messages.
-5. Send us a pull request, answering any default questions in the pull request interface.
-6. Pay attention to any automated CI failures reported in the pull request, and stay involved in the conversation.
+If there isn't one already, open an issue describing what you intend to contribute. It's useful to communicate in advance, because sometimes, someone is already working in this space, so maybe it's worth collaborating with them instead of duplicating the efforts.
 
-GitHub provides additional document on [forking a repository](https://help.github.com/articles/fork-a-repo/) and
-[creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
+### Step 2: Fork the repository
+GitHub provides additional document on [forking a repository](https://help.github.com/articles/fork-a-repo/). Make sure you are working against the latest source on the *main* branch.
+
+### Step 3: Develop
+
+This repository use [pre-commit](https://pre-commit.com/) hooks for linting and [projen](https://github.com/projen/projen) for building and testing
+
+1. Follow the [quickstart guide](https://pre-commit.com/#quick-start) for `pre-commit` (skipping step #2)
+2. Change code
+3. If relevant, add [tests](test\ServerlessClamscan.test.ts)
+4. Run tests
+   * `npx projen test`
+5. Build
+   * `npx projen build`
+6. Update relevant documentation
+7. Create the commit and update files based on `pre-commit` findings
+
+
+### Step 4: Make the pull request
+
+Send us a [pull request](https://help.github.com/articles/creating-a-pull-request/), answering any default questions in the pull request interface. Pay attention to any automated CI failures reported in the pull request, and stay involved in the conversation.
 
 
 ## Finding contributions to work on

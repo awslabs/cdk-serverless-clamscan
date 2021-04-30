@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/ambv/black
+    rev: 21.4b2
+    hooks:
+      - id: black
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.9.1
+    hooks:
+      - id: flake8
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: check-json
+      - id: trailing-whitespace
+        exclude: ^API.md$
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v7.25.0
+    hooks:
+    - id: eslint
+      files: \.[jt]sx?$
+      types: [file]
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+    rev: v1.1.1
+    hooks:
+    - id: dockerfile_lint
