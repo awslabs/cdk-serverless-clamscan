@@ -27,7 +27,7 @@ import { SnsTopic } from '@aws-cdk/aws-events-targets';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Topic } from '@aws-cdk/aws-sns';
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
-import { ServerlessClamscan } from '@donti/cdk-serverless-clamscan';
+import { ServerlessClamscan } from 'cdk-serverless-clamscan';
 
 export class CdkTestStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -98,7 +98,7 @@ import { SqsDestination, EventBridgeDestination } from '@aws-cdk/aws-lambda-dest
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Queue } from '@aws-cdk/aws-sqs';
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
-import { ServerlessClamscan } from '@donti/cdk-serverless-clamscan';
+import { ServerlessClamscan } from 'cdk-serverless-clamscan';
 
 export class CdkTestStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {

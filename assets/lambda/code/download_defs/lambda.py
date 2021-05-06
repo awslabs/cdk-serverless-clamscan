@@ -7,6 +7,7 @@ import json
 import logging
 import os
 import pwd
+import re
 import subprocess
 from aws_lambda_powertools import Logger
 
@@ -42,9 +43,14 @@ def download_s3_defs(download_path, defs_bucket):
     """download CVD and conf files from definitions bucket (if they exist)
     to compare against ClamAV database. Respect their hosting costs!"""
     try:
-        files = ["bytecode.cvd", "daily.cvd", "main.cvd", "freshclam.conf"]
-        for filename in files:
-            defs_bucket.download_file(filename, f"{download_path}/{filename}")
+        file_regex = [r"\w+.c[vl]d", r"freshclam.conf"]
+        file_pattern = r"||".join(file_regex)
+        for file in defs_bucket.objects.all():
+            filename = file.key
+            if re.match(file_pattern, filename):
+                defs_bucket.download_file(
+                    filename, f"{download_path}/{filename}"
+                )
     except botocore.exceptions.ClientError:
         pass
 
@@ -52,7 +58,7 @@ def download_s3_defs(download_path, defs_bucket):
 def upload_s3_defs(download_path, defs_bucket):
     """Upload CVD and DB files to definitions bucket"""
     try:
-        for root, dirs, files in os.walk(download_path):
+        for root, _, files in os.walk(download_path):
             for file in files:
                 defs_bucket.upload_file(os.path.join(root, file), file)
     except botocore.exceptions.ClientError as e:
@@ -97,7 +103,7 @@ def freshclam_update(download_path):
 
 
 def report_failure(message):
-    """ """
+    """Raise an error formatted for the POWERTOOLS namespace"""
     exception_json = {
         "source": "serverless-clamscan-update",
         "message": message,
