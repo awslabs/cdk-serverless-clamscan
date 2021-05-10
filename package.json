@@ -50,7 +50,7 @@
     "jsii-docgen": "^1.8.29",
     "jsii-pacmak": "^1.18.0",
     "json-schema": "^0.3.0",
-    "projen": "^0.17.81",
+    "projen": "^0.17.83",
     "projen-automate-it": "0.0.8",
     "standard-version": "^9",
     "ts-jest": "^26.4.4",
