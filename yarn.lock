@@ -5504,10 +5504,10 @@ projen-automate-it@0.0.8:
   dependencies:
     projen "^0.17"
 
-projen@^0.17, projen@^0.17.84:
-  version "0.17.84"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.17.84.tgz#ce804ecded53749a4f7ce2f0b882cce467dc6470"
-  integrity sha512-j39QxJiqbGBAzXkSjNXpo0CGkCKjqA1q7ZJVarNNAb/ZA1W+ogtmRM7NP0LFJSusQLGL6LRrfGdoUWHE1Tshgw==
+projen@^0.17, projen@^0.17.88:
+  version "0.17.88"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.17.88.tgz#1dd28133f643401e189b2fe05fa59b1462c3a0c0"
+  integrity sha512-VmzWGHtB/bdll0muOOvMp/SQ5BIjbI+oA4rDj2Og227wAepjUERA7EiKptUoMOIHD1dJo7WPNcS/eKznq1UmpQ==
   dependencies:
     "@iarna/toml" "^2.2.5"
     chalk "^4.1.0"
