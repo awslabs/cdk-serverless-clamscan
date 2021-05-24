@@ -1,5 +1,4 @@
 const { AwsCdkConstructLibrary } = require('projen');
-const { Automation } = require('projen-automate-it');
 
 const AUTOMATION_TOKEN = 'PROJEN_GITHUB_TOKEN';
 
@@ -35,22 +34,13 @@ const project = new AwsCdkConstructLibrary({
   },
 
   bin: ['./assets'],
-  devDeps: ['projen-automate-it'],
   description: 'Serverless architecture to virus scan objects in Amazon S3.',
   keywords: ['clamav', 'virus scan', 'aws', 'docker', 'serverless', 'lambda', 's3', 'efs', 'eventbridge', 'sqs'],
   license: 'Apache-2.0',
   defaultReleaseBranch: 'main',
   dependabot: false,
+  projenUpgradeSecret: 'PROJEN_GITHUB_TOKEN',
   gitignore: ['.vscode/', '.venv/', 'cdk.out', 'cdk.context.json', 'dockerAssets.d', 'yarn-error.log'],
 });
-
-const automation = new Automation(project, {
-  automationToken: AUTOMATION_TOKEN,
-});
-
-automation.autoApprove();
-automation.autoMerge();
-automation.projenYarnUpgrade();
-automation.projenYarnUpgrade('projenYarnUpgradeWithTest', { yarnTest: true });
 
 project.synth();
