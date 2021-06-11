@@ -6,6 +6,11 @@
       "type": "build"
     },
     {
+      "name": "@aws-cdk/assert",
+      "version": "^1.101.0",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },
@@ -73,8 +78,13 @@
       "type": "build"
     },
     {
+      "name": "npm-check-updates",
+      "version": "^11",
+      "type": "build"
+    },
+    {
       "name": "projen",
-      "version": "^0.22.8",
+      "version": "^0.17.95",
       "type": "build"
     },
     {
