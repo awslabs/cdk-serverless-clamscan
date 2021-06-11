@@ -14,6 +14,7 @@
 .vscode/
 .yarn-integrity
 /.changelog.tmp.md
+/.version.tmp.json
 /coverage
 /dist
 /lib
@@ -42,12 +43,12 @@ yarn-error.log*
 !/.github/workflows/build.yml
 !/.github/workflows/release.yml
 !/.github/workflows/upgrade-dependencies.yml
-!/.github/workflows/upgrade-projen.yml
 !/.mergify.yml
 !/.npmignore
 !/.projen/deps.json
 !/.projen/tasks.json
 !/.projenrc.js
+!/.versionrc.json
 !/API.md
 !/LICENSE
 !/package.json
