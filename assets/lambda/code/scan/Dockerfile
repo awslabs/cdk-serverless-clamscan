@@ -7,7 +7,7 @@ LABEL version=1.0
 
 RUN yum install -y amazon-linux-extras \
     && PYTHON=python2 amazon-linux-extras install epel \
-    && yum -y install clamav clamd p7zip \
+    && yum -y install clamav clamd p7zip-full \
     && yum clean all \
     && pip3 install --no-cache-dir cffi awslambdaric boto3 requests aws-lambda-powertools \
     && ln -s /etc/freshclam.conf /tmp/freshclam.conf
