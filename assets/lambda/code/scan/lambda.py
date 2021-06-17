@@ -1,6 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+from posixpath import join
 import boto3
 import botocore
 import glob
@@ -23,6 +24,7 @@ INPROGRESS = "IN PROGRESS"
 CLEAN = "CLEAN"
 INFECTED = "INFECTED"
 ERROR = "ERROR"
+SKIP = "N/A"
 
 MAX_BYTES = 4000000000
 
@@ -64,19 +66,34 @@ def lambda_handler(event, context):
     bucket_info = event["Records"][0]["s3"]
     input_bucket = bucket_info["bucket"]["name"]
     input_key = unquote_plus(bucket_info["object"]["key"])
-    mount_path = os.environ["EFS_MOUNT_PATH"]
-    definitions_path = f"{mount_path}/{os.environ['EFS_DEF_PATH']}"
-    payload_path = f"{mount_path}/{context.aws_request_id}"
-    set_status(input_bucket, input_key, INPROGRESS)
-    create_dir(input_bucket, input_key, payload_path)
-    download_object(input_bucket, input_key, payload_path)
-    expand_if_large_archive(
-        input_bucket, input_key, payload_path, bucket_info["object"]["size"]
-    )
-    create_dir(input_bucket, input_key, definitions_path)
-    freshclam_update(input_bucket, input_key, payload_path, definitions_path)
-    summary = scan(input_bucket, input_key, payload_path, definitions_path)
-    delete(payload_path)
+    summary = ""
+    if not input_key.endswith("/"):
+        mount_path = os.environ["EFS_MOUNT_PATH"]
+        definitions_path = f"{mount_path}/{os.environ['EFS_DEF_PATH']}"
+        payload_path = f"{mount_path}/{context.aws_request_id}"
+        set_status(input_bucket, input_key, INPROGRESS)
+        create_dir(input_bucket, input_key, payload_path)
+        download_object(input_bucket, input_key, payload_path)
+        expand_if_large_archive(
+            input_bucket,
+            input_key,
+            payload_path,
+            bucket_info["object"]["size"],
+        )
+        create_dir(input_bucket, input_key, definitions_path)
+        freshclam_update(
+            input_bucket, input_key, payload_path, definitions_path
+        )
+        summary = scan(input_bucket, input_key, payload_path, definitions_path)
+        delete(payload_path)
+    else:
+        summary = {
+            "source": "serverless-clamscan",
+            "input_bucket": input_bucket,
+            "input_key": input_key,
+            "status": SKIP,
+            "message": "S3 Event trigger was for a non-file object",
+        }
     logger.info(summary)
     return summary
 
@@ -98,9 +115,13 @@ def set_status(bucket, key, status):
 def create_dir(input_bucket, input_key, download_path):
     """Creates a directory at the specified location
     if it does not already exists"""
-    if not os.path.exists(download_path):
+    sub_dir = os.path.dirname(input_key)
+    full_path = download_path
+    if len(sub_dir) > 0:
+        full_path = os.path.join(full_path, sub_dir)
+    if not os.path.exists(full_path):
         try:
-            os.makedirs(download_path, exist_ok=True)
+            os.makedirs(full_path, exist_ok=True)
         except OSError as e:
             report_failure(input_bucket, input_key, download_path, str(e))
 
