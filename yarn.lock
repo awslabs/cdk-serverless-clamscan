@@ -4965,10 +4965,10 @@ jsii-diff@^1.30.0:
     typescript "~3.9.9"
     yargs "^16.2.0"
 
-jsii-docgen@^1.8.96:
-  version "1.8.96"
-  resolved "https://registry.yarnpkg.com/jsii-docgen/-/jsii-docgen-1.8.96.tgz#e8684288b5116868a9e4c9e1c9743eeb4f31c102"
-  integrity sha512-5FqDTBR/Bu5RUZ3/EIuD8ElaBuy9WXp0AbNP3tyi46HaLwRCYMlkz1myesVLMp66TD+uqUjeF9XrqQG2UkByxA==
+jsii-docgen@^1.8.98:
+  version "1.8.98"
+  resolved "https://registry.yarnpkg.com/jsii-docgen/-/jsii-docgen-1.8.98.tgz#7f27d7b06280ce25b3eccf383170df63d7b00ab6"
+  integrity sha512-0n0BqC+5ExqAJsfi53CGrZ478zYM+Rg5UqdwrIQewc34uRT2ygN+zjECEL4MKEk+TSg3qs8sOKogCQ0z48jaHA==
   dependencies:
     "@jsii/spec" "^1.30.0"
     fs-extra "^9.1.0"
@@ -7681,7 +7681,12 @@ typedoc@^0.20.35:
     shiki "^0.9.3"
     typedoc-default-themes "^0.12.10"
 
-typescript@^3.9.9, typescript@~3.9.9:
+typescript@^3.9.10:
+  version "3.9.10"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.10.tgz#70f3910ac7a51ed6bef79da7800690b19bf778b8"
+  integrity sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==
+
+typescript@~3.9.9:
   version "3.9.9"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.9.tgz#e69905c54bc0681d0518bd4d587cc6f2d0b1a674"
   integrity sha512-kdMjTiekY+z/ubJCATUPlRDl39vXYiMV9iyeMuEuXZh2we6zz80uovNN2WlAxmmdE/Z/YQe+EbOEXB5RHEED3w==
