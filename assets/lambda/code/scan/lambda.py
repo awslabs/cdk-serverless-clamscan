@@ -71,8 +71,10 @@ def lambda_handler(event, context):
         mount_path = os.environ["EFS_MOUNT_PATH"]
         definitions_path = f"{mount_path}/{os.environ['EFS_DEF_PATH']}"
         payload_path = f"{mount_path}/{context.aws_request_id}"
+        tmp_path = f"{payload_path}-tmp"
         set_status(input_bucket, input_key, INPROGRESS)
         create_dir(input_bucket, input_key, payload_path)
+        create_dir(input_bucket, input_key, tmp_path)
         download_object(input_bucket, input_key, payload_path)
         expand_if_large_archive(
             input_bucket,
@@ -84,8 +86,11 @@ def lambda_handler(event, context):
         freshclam_update(
             input_bucket, input_key, payload_path, definitions_path
         )
-        summary = scan(input_bucket, input_key, payload_path, definitions_path)
+        summary = scan(
+            input_bucket, input_key, payload_path, definitions_path, tmp_path
+        )
         delete(payload_path)
+        delete(tmp_path)
     else:
         summary = {
             "source": "serverless-clamscan",
@@ -213,7 +218,7 @@ def freshclam_update(input_bucket, input_key, download_path, definitions_path):
     return
 
 
-def scan(input_bucket, input_key, download_path, definitions_path):
+def scan(input_bucket, input_key, download_path, definitions_path, tmp_path):
     """Scans the object from S3"""
     # Max file size support by ClamAV
     try:
@@ -225,6 +230,7 @@ def scan(input_bucket, input_key, download_path, definitions_path):
             f"--max-scansize={MAX_BYTES}",
             f"--database={definitions_path}",
             "-r",
+            f"--tempdir={tmp_path}",
             f"{download_path}",
         ]
         scan_summary = subprocess.run(
