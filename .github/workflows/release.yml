@@ -52,8 +52,14 @@ jobs:
           find ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'
 
           find ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'
+      - name: Bump to next version
+        run: npx projen bump
       - name: Build for monocdk
         run: npx projen build
+      - name: Backup version file
+        run: cp -f package.json package.json.bak.json
+      - name: Unbump
+        run: npx projen unbump
       - name: Check for new commits
         id: git_remote
         run: echo ::set-output name=latest_commit::"$(git ls-remote origin -h ${{
