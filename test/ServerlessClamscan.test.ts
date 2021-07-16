@@ -575,44 +575,84 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
       },
     });
   }
-
-  expect(stack).toHaveResource('AWS::EC2::VPCEndpoint', {
-    PolicyDocument: {
-      Statement: [
-        {
-          Action: [
-            's3:GetObject',
-            's3:ListBucket',
-          ],
-          Effect: 'Allow',
-          Principal: '*',
-          Resource: [
-            {
-              'Fn::Join': [
-                '',
-                [
-                  {
-                    'Fn::GetAtt': [
-                      stringLike(virusDefs),
-                      'Arn',
-                    ],
-                  },
-                  '/*',
+  try {
+    expect(stack).toHaveResource('AWS::EC2::VPCEndpoint', {
+      PolicyDocument: {
+        Statement: [
+          {
+            Action: [
+              's3:GetObject',
+              's3:ListBucket',
+            ],
+            Effect: 'Allow',
+            Principal: { AWS: '*' },
+            Resource: [
+              {
+                'Fn::Join': [
+                  '',
+                  [
+                    {
+                      'Fn::GetAtt': [
+                        stringLike(virusDefs),
+                        'Arn',
+                      ],
+                    },
+                    '/*',
+                  ],
                 ],
-              ],
-            },
-            {
-              'Fn::GetAtt': [
-                stringLike(virusDefs),
-                'Arn',
-              ],
-            },
-          ],
-        },
-      ],
-      Version: '2012-10-17',
-    },
-  });
+              },
+              {
+                'Fn::GetAtt': [
+                  stringLike(virusDefs),
+                  'Arn',
+                ],
+              },
+            ],
+          },
+        ],
+        Version: '2012-10-17',
+      },
+    });
+  } catch (error) {
+    expect(stack).toHaveResource('AWS::EC2::VPCEndpoint', {
+      PolicyDocument: {
+        Statement: [
+          {
+            Action: [
+              's3:GetObject',
+              's3:ListBucket',
+            ],
+            Effect: 'Allow',
+            Principal: '*',
+            Resource: [
+              {
+                'Fn::Join': [
+                  '',
+                  [
+                    {
+                      'Fn::GetAtt': [
+                        stringLike(virusDefs),
+                        'Arn',
+                      ],
+                    },
+                    '/*',
+                  ],
+                ],
+              },
+              {
+                'Fn::GetAtt': [
+                  stringLike(virusDefs),
+                  'Arn',
+                ],
+              },
+            ],
+          },
+        ],
+        Version: '2012-10-17',
+      },
+    });
+  }
+
 });
 
 test('Check definition downloading event and custom resource permissions ', () => {
