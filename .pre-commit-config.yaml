@@ -12,14 +12,14 @@ repos:
     hooks:
       - id: check-json
       - id: trailing-whitespace
-        exclude: ^API.md$
+        exclude: ^API.md||.github/$
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v7.25.0
     hooks:
-    - id: eslint
-      files: \.[jt]sx?$
-      types: [file]
+      - id: eslint
+        files: \.[jt]sx?$
+        types: [file]
   - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
     rev: v1.1.1
     hooks:
-    - id: dockerfile_lint
+      - id: dockerfile_lint

@@ -130,7 +130,7 @@ test('expect VirusDefsBucket to use created access logs bucket by default', () =
 
 test('expect VirusDefsBucket to use provided logs bucket', () => {
   const stack = new Stack();
-  const logs_bucket= new Bucket(stack, 'rLogsBucket');
+  const logs_bucket = new Bucket(stack, 'rLogsBucket');
   new ServerlessClamscan(stack, 'default', {
     defsBucketAccessLogsConfig: { logsBucket: logs_bucket },
   });
@@ -143,7 +143,7 @@ test('expect VirusDefsBucket to use provided logs bucket', () => {
     },
   });
   const stack2 = new Stack();
-  const logs_bucket2= new Bucket(stack2, 'rLogsBucket');
+  const logs_bucket2 = new Bucket(stack2, 'rLogsBucket');
   new ServerlessClamscan(stack2, 'default', {
     defsBucketAccessLogsConfig: { logsBucket: logs_bucket2, logsPrefix: 'test' },
   });
@@ -257,175 +257,23 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
   new ServerlessClamscan(stack, 'default', {});
   expect(stack).toCountResources('AWS::S3::BucketPolicy', 2);
   const virusDefs = '*VirusDefs*';
-  expect(stack).toHaveResource('AWS::S3::BucketPolicy', {
-    Bucket: {
-      Ref: stringLike(virusDefs),
-    },
-    PolicyDocument: {
-      Statement: arrayWith(
-        {
-          Action: 's3:*',
-          Condition: {
-            Bool: {
-              'aws:SecureTransport': false,
-            },
-          },
-          Effect: 'Deny',
-          Principal: '*',
-          Resource: [{
-            'Fn::Join': [
-              '',
-              [
-                {
-                  'Fn::GetAtt': [
-                    stringLike(virusDefs),
-                    'Arn',
-                  ],
-                },
-                '/*',
-              ],
-            ],
-          },
+  try {
+    expect(stack).toHaveResource('AWS::S3::BucketPolicy', {
+      Bucket: {
+        Ref: stringLike(virusDefs),
+      },
+      PolicyDocument: {
+        Statement: arrayWith(
           {
-            'Fn::GetAtt': [
-              stringLike(virusDefs),
-              'Arn',
-            ],
-          }],
-        },
-        {
-          Action: [
-            's3:PutBucketPolicy',
-            's3:DeleteBucketPolicy',
-          ],
-          Effect: 'Deny',
-          NotPrincipal: {
-            AWS: {
-              'Fn::Join': [
-                '',
-                [
-                  'arn:',
-                  {
-                    Ref: 'AWS::Partition',
-                  },
-                  ':iam::',
-                  {
-                    Ref: 'AWS::AccountId',
-                  },
-                  ':root',
-                ],
-              ],
-            },
-          },
-          Resource: {
-            'Fn::GetAtt': [
-              stringLike(virusDefs),
-              'Arn',
-            ],
-          },
-        },
-        {
-          Action: [
-            's3:GetObject',
-            's3:ListBucket',
-          ],
-          Condition: {
-            StringEquals: {
-              'aws:SourceVpce': {
-                Ref: stringLike('*Scan*S3Endpoint*'),
+            Action: 's3:*',
+            Condition: {
+              Bool: {
+                'aws:SecureTransport': false,
               },
             },
-          },
-          Effect: 'Allow',
-          Principal: '*',
-          Resource: [{
-            'Fn::Join': [
-              '',
-              [
-                {
-                  'Fn::GetAtt': [
-                    stringLike(virusDefs),
-                    'Arn',
-                  ],
-                },
-                '/*',
-              ],
-            ],
-          },
-          {
-            'Fn::GetAtt': [
-              stringLike(virusDefs),
-              'Arn',
-            ],
-          }],
-        },
-        {
-          Action: 's3:PutObject*',
-          Effect: 'Deny',
-          NotPrincipal: {
-            AWS: [
-              {
-                'Fn::GetAtt': [
-                  stringLike('*DownloadDefs*'),
-                  'Arn',
-                ],
-              },
-              {
-                'Fn::Join': [
-                  '',
-                  [
-                    'arn:',
-                    {
-                      Ref: 'AWS::Partition',
-                    },
-                    ':sts::',
-                    {
-                      Ref: 'AWS::AccountId',
-                    },
-                    ':assumed-role/',
-                    {
-                      Ref: stringLike('*DownloadDefs*'),
-                    },
-                    '/',
-                    {
-                      Ref: stringLike('*DownloadDefs*'),
-                    },
-                  ],
-                ],
-              },
-            ],
-          },
-          Resource: {
-            'Fn::Join': [
-              '',
-              [
-                {
-                  'Fn::GetAtt': [
-                    stringLike(virusDefs),
-                    'Arn',
-                  ],
-                },
-                '/*',
-              ],
-            ],
-          },
-        },
-      ),
-      Version: '2012-10-17',
-    },
-  });
-  expect(stack).toHaveResource('AWS::EC2::VPCEndpoint', {
-    PolicyDocument: {
-      Statement: [
-        {
-          Action: [
-            's3:GetObject',
-            's3:ListBucket',
-          ],
-          Effect: 'Allow',
-          Principal: '*',
-          Resource: [
-            {
+            Effect: 'Deny',
+            Principal: { AWS: '*' },
+            Resource: [{
               'Fn::Join': [
                 '',
                 [
@@ -444,13 +292,367 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
                 stringLike(virusDefs),
                 'Arn',
               ],
+            }],
+          },
+          {
+            Action: [
+              's3:PutBucketPolicy',
+              's3:DeleteBucketPolicy',
+            ],
+            Effect: 'Deny',
+            NotPrincipal: {
+              AWS: {
+                'Fn::Join': [
+                  '',
+                  [
+                    'arn:',
+                    {
+                      Ref: 'AWS::Partition',
+                    },
+                    ':iam::',
+                    {
+                      Ref: 'AWS::AccountId',
+                    },
+                    ':root',
+                  ],
+                ],
+              },
             },
-          ],
-        },
-      ],
-      Version: '2012-10-17',
-    },
-  });
+            Resource: {
+              'Fn::GetAtt': [
+                stringLike(virusDefs),
+                'Arn',
+              ],
+            },
+          },
+          {
+            Action: [
+              's3:GetObject',
+              's3:ListBucket',
+            ],
+            Condition: {
+              StringEquals: {
+                'aws:SourceVpce': {
+                  Ref: stringLike('*Scan*S3Endpoint*'),
+                },
+              },
+            },
+            Effect: 'Allow',
+            Principal: { AWS: '*' },
+            Resource: [{
+              'Fn::Join': [
+                '',
+                [
+                  {
+                    'Fn::GetAtt': [
+                      stringLike(virusDefs),
+                      'Arn',
+                    ],
+                  },
+                  '/*',
+                ],
+              ],
+            },
+            {
+              'Fn::GetAtt': [
+                stringLike(virusDefs),
+                'Arn',
+              ],
+            }],
+          },
+          {
+            Action: 's3:PutObject*',
+            Effect: 'Deny',
+            NotPrincipal: {
+              AWS: [
+                {
+                  'Fn::GetAtt': [
+                    stringLike('*DownloadDefs*'),
+                    'Arn',
+                  ],
+                },
+                {
+                  'Fn::Join': [
+                    '',
+                    [
+                      'arn:',
+                      {
+                        Ref: 'AWS::Partition',
+                      },
+                      ':sts::',
+                      {
+                        Ref: 'AWS::AccountId',
+                      },
+                      ':assumed-role/',
+                      {
+                        Ref: stringLike('*DownloadDefs*'),
+                      },
+                      '/',
+                      {
+                        Ref: stringLike('*DownloadDefs*'),
+                      },
+                    ],
+                  ],
+                },
+              ],
+            },
+            Resource: {
+              'Fn::Join': [
+                '',
+                [
+                  {
+                    'Fn::GetAtt': [
+                      stringLike(virusDefs),
+                      'Arn',
+                    ],
+                  },
+                  '/*',
+                ],
+              ],
+            },
+          },
+        ),
+        Version: '2012-10-17',
+      },
+    });
+
+  } catch (error) {
+    expect(stack).toHaveResource('AWS::S3::BucketPolicy', {
+      Bucket: {
+        Ref: stringLike(virusDefs),
+      },
+      PolicyDocument: {
+        Statement: arrayWith(
+          {
+            Action: 's3:*',
+            Condition: {
+              Bool: {
+                'aws:SecureTransport': false,
+              },
+            },
+            Effect: 'Deny',
+            Principal: '*',
+            Resource: [{
+              'Fn::Join': [
+                '',
+                [
+                  {
+                    'Fn::GetAtt': [
+                      stringLike(virusDefs),
+                      'Arn',
+                    ],
+                  },
+                  '/*',
+                ],
+              ],
+            },
+            {
+              'Fn::GetAtt': [
+                stringLike(virusDefs),
+                'Arn',
+              ],
+            }],
+          },
+          {
+            Action: [
+              's3:PutBucketPolicy',
+              's3:DeleteBucketPolicy',
+            ],
+            Effect: 'Deny',
+            NotPrincipal: {
+              AWS: {
+                'Fn::Join': [
+                  '',
+                  [
+                    'arn:',
+                    {
+                      Ref: 'AWS::Partition',
+                    },
+                    ':iam::',
+                    {
+                      Ref: 'AWS::AccountId',
+                    },
+                    ':root',
+                  ],
+                ],
+              },
+            },
+            Resource: {
+              'Fn::GetAtt': [
+                stringLike(virusDefs),
+                'Arn',
+              ],
+            },
+          },
+          {
+            Action: [
+              's3:GetObject',
+              's3:ListBucket',
+            ],
+            Condition: {
+              StringEquals: {
+                'aws:SourceVpce': {
+                  Ref: stringLike('*Scan*S3Endpoint*'),
+                },
+              },
+            },
+            Effect: 'Allow',
+            Principal: '*',
+            Resource: [{
+              'Fn::Join': [
+                '',
+                [
+                  {
+                    'Fn::GetAtt': [
+                      stringLike(virusDefs),
+                      'Arn',
+                    ],
+                  },
+                  '/*',
+                ],
+              ],
+            },
+            {
+              'Fn::GetAtt': [
+                stringLike(virusDefs),
+                'Arn',
+              ],
+            }],
+          },
+          {
+            Action: 's3:PutObject*',
+            Effect: 'Deny',
+            NotPrincipal: {
+              AWS: [
+                {
+                  'Fn::GetAtt': [
+                    stringLike('*DownloadDefs*'),
+                    'Arn',
+                  ],
+                },
+                {
+                  'Fn::Join': [
+                    '',
+                    [
+                      'arn:',
+                      {
+                        Ref: 'AWS::Partition',
+                      },
+                      ':sts::',
+                      {
+                        Ref: 'AWS::AccountId',
+                      },
+                      ':assumed-role/',
+                      {
+                        Ref: stringLike('*DownloadDefs*'),
+                      },
+                      '/',
+                      {
+                        Ref: stringLike('*DownloadDefs*'),
+                      },
+                    ],
+                  ],
+                },
+              ],
+            },
+            Resource: {
+              'Fn::Join': [
+                '',
+                [
+                  {
+                    'Fn::GetAtt': [
+                      stringLike(virusDefs),
+                      'Arn',
+                    ],
+                  },
+                  '/*',
+                ],
+              ],
+            },
+          },
+        ),
+        Version: '2012-10-17',
+      },
+    });
+  }
+  try {
+    expect(stack).toHaveResource('AWS::EC2::VPCEndpoint', {
+      PolicyDocument: {
+        Statement: [
+          {
+            Action: [
+              's3:GetObject',
+              's3:ListBucket',
+            ],
+            Effect: 'Allow',
+            Principal: { AWS: '*' },
+            Resource: [
+              {
+                'Fn::Join': [
+                  '',
+                  [
+                    {
+                      'Fn::GetAtt': [
+                        stringLike(virusDefs),
+                        'Arn',
+                      ],
+                    },
+                    '/*',
+                  ],
+                ],
+              },
+              {
+                'Fn::GetAtt': [
+                  stringLike(virusDefs),
+                  'Arn',
+                ],
+              },
+            ],
+          },
+        ],
+        Version: '2012-10-17',
+      },
+    });
+  } catch (error) {
+    expect(stack).toHaveResource('AWS::EC2::VPCEndpoint', {
+      PolicyDocument: {
+        Statement: [
+          {
+            Action: [
+              's3:GetObject',
+              's3:ListBucket',
+            ],
+            Effect: 'Allow',
+            Principal: '*',
+            Resource: [
+              {
+                'Fn::Join': [
+                  '',
+                  [
+                    {
+                      'Fn::GetAtt': [
+                        stringLike(virusDefs),
+                        'Arn',
+                      ],
+                    },
+                    '/*',
+                  ],
+                ],
+              },
+              {
+                'Fn::GetAtt': [
+                  stringLike(virusDefs),
+                  'Arn',
+                ],
+              },
+            ],
+          },
+        ],
+        Version: '2012-10-17',
+      },
+    });
+  }
+
 });
 
 test('Check definition downloading event and custom resource permissions ', () => {
