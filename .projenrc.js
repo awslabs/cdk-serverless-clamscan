@@ -198,7 +198,7 @@ project.release.addJobs({
       {
         name: 'Create release',
         if: '${{ steps.git_remote.outputs.latest_commit == github.sha }}',
-        run: 'gh release create v$(node -p "require(\'./package.json.bak.json\').version") -F .changelog.tmp.md -t v$(node -p "require(\'./package.json.bak.json\').version")',
+        run: 'gh release create v$(node -p "require(\'./package.json.bak.json\').version") -F dist/changelog.md -t v$(node -p "require(\'./package.json.bak.json\').version")',
         env: {
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
         },
