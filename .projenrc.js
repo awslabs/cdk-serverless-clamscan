@@ -39,8 +39,6 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/core',
   ],
   cdkTestDependencies: ['@aws-cdk/assert'],
-  docgen: true,
-  eslint: true,
   publishToPypi: {
     distName: 'cdk-serverless-clamscan',
     module: 'cdk_serverless_clamscan',
@@ -68,12 +66,145 @@ const project = new AwsCdkConstructLibrary({
     'cdk.out',
     'cdk.context.json',
     'dockerAssets.d',
+    'package-lock.json',
     'yarn-error.log',
   ],
+  buildWorkflow: true,
+  release: true,
 });
 
 project.package.addField('resolutions', {
   'trim-newlines': '3.0.1',
+});
+project.buildWorkflow.file.addOverride('jobs.build.steps', [
+  {
+    name: 'Checkout',
+    uses: 'actions/checkout@v2',
+    with: {
+      ref: '${{ github.event.pull_request.head.ref }}',
+      repository: '${{ github.event.pull_request.head.repo.full_name }}',
+    },
+  },
+  {
+    name: 'Install dependencies',
+    run: 'yarn install --check-files --frozen-lockfile',
+  },
+  {
+    name: 'Set git identity',
+    run: 'git config user.name "Automation"\ngit config user.email "github-actions@github.com"',
+  },
+  {
+    name: 'Build for cdk',
+    run: 'npx projen build',
+  },
+  {
+    name: 'Check for changes',
+    id: 'git_diff',
+    run: 'git diff --exit-code || echo "::set-output name=has_changes::true"',
+  },
+  {
+    if: 'steps.git_diff.outputs.has_changes',
+    name: 'Commit and push changes (if changed)',
+    run: 'git add . && git commit -m "chore: self mutation" && git push origin HEAD:${{ github.event.pull_request.head.ref }}',
+  },
+  {
+    if: 'steps.git_diff.outputs.has_changes',
+    name: 'Update status check (if changed)',
+    run: 'gh api -X POST /repos/${{ github.event.pull_request.head.repo.full_name }}/check-runs -F name="build" -F head_sha="$(git rev-parse HEAD)" -F status="completed" -F conclusion="success"',
+  },
+  {
+    name: 'Setup for monocdk build',
+    run: "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'",
+  },
+  {
+    name: 'Build for monocdk',
+    run: 'npx projen build',
+    env: {
+      GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+    },
+  },
+]);
+project.release.addJobs({
+  release: {
+    runsOn: 'ubuntu-latest',
+    permissions: {
+      contents: 'write',
+    },
+    env: {
+      CI: 'true',
+      RELEASE: 'true',
+    },
+    steps: [
+      {
+        name: 'Checkout',
+        uses: 'actions/checkout@v2',
+        with: {
+          'fetch-depth': 0,
+        },
+      },
+      {
+        name: 'Set git identity',
+        run: 'git config user.name "Automation"\ngit config user.email "github-actions@github.com"',
+      },
+      {
+        name: 'Install dependencies',
+        run: 'yarn install --check-files --frozen-lockfile',
+      },
+      {
+        name: 'Bump to next version',
+        run: 'npx projen bump',
+      },
+      {
+        name: 'build',
+        run: 'npx projen build',
+      },
+      {
+        name: 'Backup version file',
+        run: 'cp -f package.json package.json.bak.json',
+      },
+      {
+        name: 'Unbump',
+        run: 'npx projen unbump',
+      },
+      {
+        name: 'Anti-tamper check',
+        run: 'git diff --ignore-space-at-eol --exit-code',
+      },
+      {
+        name: 'Setup for monocdk build',
+        run: "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'",
+      },
+      {
+        name: 'Build for monocdk',
+        run: 'npx projen build',
+      },
+      {
+        name: 'Check for new commits',
+        id: 'git_remote',
+        run: 'echo ::set-output name=latest_commit::"$(git ls-remote origin -h ${{ github.ref }} | cut -f1)"',
+      },
+      {
+        name: 'Create release',
+        if: '${{ steps.git_remote.outputs.latest_commit == github.sha }}',
+        run: 'gh release create v$(node -p "require(\'./package.json.bak.json\').version") -F .changelog.tmp.md -t v$(node -p "require(\'./package.json.bak.json\').version")',
+        env: {
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+        },
+      },
+      {
+        name: 'Upload artifact',
+        if: '${{ steps.git_remote.outputs.latest_commit == github.sha }}',
+        uses: 'actions/upload-artifact@v2.1.1',
+        with: {
+          name: 'dist',
+          path: 'dist',
+        },
+      },
+    ],
+    container: {
+      image: 'jsii/superchain',
+    },
+  },
 });
 
 project.synth();

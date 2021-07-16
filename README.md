@@ -1,12 +1,18 @@
 # cdk-serverless-clamscan
 
-[![python](https://img.shields.io/badge/jsii-python-blueviolet.svg)](https://pypi.org/project/cdk-serverless-clamscan/)
-[![typescript](https://img.shields.io/badge/jsii-typescript-blueviolet.svg)](https://www.npmjs.com/package/cdk-serverless-clamscan)
+## cdk
+
+[![PyPI version](https://badge.fury.io/py/cdk-serverless-clamscan.svg)](https://badge.fury.io/py/cdk-serverless-clamscan)
+[![npm version](https://badge.fury.io/js/cdk-serverless-clamscan.svg)](https://badge.fury.io/js/cdk-serverless-clamscan)
+
+## monocdk
+
+[![PyPI version](https://badge.fury.io/py/monocdk-serverless-clamscan.svg)](https://badge.fury.io/py/monocdk-serverless-clamscan)
+[![npm version](https://badge.fury.io/js/monocdk-serverless-clamscan.svg)](https://badge.fury.io/js/monocdk-serverless-clamscan)
 
 An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](https://www.clamav.net/) to scan objects in Amazon S3 for viruses. The construct provides a flexible interface for a system to act based on the results of a ClamAV virus scan.
 
 ![Overview](serverless-clamscan.png)
-
 
 ## Pre-Requisites
 
@@ -41,13 +47,18 @@ export class CdkTestStack extends Stack {
     });
     const bucket_3 = new Bucket(this, 'rBucket3');
     sc.addSourceBucket(bucket_3);
-    const infectedTopic = new Topic(this, 'rInfectedTopic')
-    sc.infectedRule?.addTarget(new SnsTopic(infectedTopic, {
-      message: RuleTargetInput.fromEventPath('$.detail.responsePayload.message')
-    }))
+    const infectedTopic = new Topic(this, 'rInfectedTopic');
+    sc.infectedRule?.addTarget(
+      new SnsTopic(infectedTopic, {
+        message: RuleTargetInput.fromEventPath(
+          '$.detail.responsePayload.message',
+        ),
+      }),
+    );
   }
 }
 ```
+
 </p>
 </details>
 
@@ -86,15 +97,20 @@ class CdkTestStack(core.Stack):
         )
       )
 ```
+
 </p>
 </details>
 
 ### Example 2. (Bring your own destinations)
+
 <details><summary>typescript</summary>
 <p>
 
 ```typescript
-import { SqsDestination, EventBridgeDestination } from '@aws-cdk/aws-lambda-destinations';
+import {
+  SqsDestination,
+  EventBridgeDestination,
+} from '@aws-cdk/aws-lambda-destinations';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Queue } from '@aws-cdk/aws-sqs';
 import { Construct, Stack, StackProps } from '@aws-cdk/core';
@@ -118,6 +134,7 @@ export class CdkTestStack extends Stack {
   }
 }
 ```
+
 </p>
 </details>
 
@@ -150,6 +167,7 @@ class CdkTestStack(core.Stack):
     bucket_3 = s3.Bucket(self, "rBucket3")
     sc.add_source_bucket(bucket_3)
 ```
+
 </p>
 </details>
 
