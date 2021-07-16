@@ -175,8 +175,20 @@ project.release.addJobs({
         run: "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'",
       },
       {
+        name: 'Bump to next version',
+        run: 'npx projen bump',
+      },
+      {
         name: 'Build for monocdk',
         run: 'npx projen build',
+      },
+      {
+        name: 'Backup version file',
+        run: 'cp -f package.json package.json.bak.json',
+      },
+      {
+        name: 'Unbump',
+        run: 'npx projen unbump',
       },
       {
         name: 'Check for new commits',
@@ -186,7 +198,7 @@ project.release.addJobs({
       {
         name: 'Create release',
         if: '${{ steps.git_remote.outputs.latest_commit == github.sha }}',
-        run: 'gh release create v$(node -p "require(\'./package.json.bak.json\').version") -F .changelog.tmp.md -t v$(node -p "require(\'./package.json.bak.json\').version")',
+        run: 'gh release create v$(node -p "require(\'./package.json.bak.json\').version") -F dist/changelog.md -t v$(node -p "require(\'./package.json.bak.json\').version")',
         env: {
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
         },
