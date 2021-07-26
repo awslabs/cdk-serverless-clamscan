@@ -13,17 +13,6 @@ const project = new AwsCdkConstructLibrary({
   name: 'cdk-serverless-clamscan',
   repositoryUrl: 'https://github.com/awslabs/cdk-serverless-clamscan',
 
-  depsUpgrade: DependenciesUpgradeMechanism.githubWorkflow({
-    workflowOptions: {
-      labels: ['auto-approve', 'auto-merge'],
-      secret: AUTOMATION_TOKEN,
-    },
-  }),
-  autoApproveOptions: {
-    secret: 'GITHUB_TOKEN',
-    allowedUsernames: ['dontirun', 'cdk-automation'],
-  },
-
   cdkDependencies: [
     '@aws-cdk/aws-cloudtrail',
     '@aws-cdk/aws-ec2',
@@ -39,11 +28,6 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/core',
   ],
   cdkTestDependencies: ['@aws-cdk/assert'],
-  publishToPypi: {
-    distName: 'cdk-serverless-clamscan',
-    module: 'cdk_serverless_clamscan',
-  },
-
   bin: ['./assets'],
   description: 'Serverless architecture to virus scan objects in Amazon S3.',
   keywords: [
@@ -69,6 +53,32 @@ const project = new AwsCdkConstructLibrary({
     'package-lock.json',
     'yarn-error.log',
   ],
+  pullRequestTemplateContents: [
+    '',
+    '----',
+    '',
+    '*By submitting this pull request, I confirm that my contribution is made under the terms of the Apache-2.0 license*',
+  ],
+  publishToPypi: {
+    distName: 'cdk-serverless-clamscan',
+    module: 'cdk_serverless_clamscan',
+  },
+  projenUpgradeSecret: AUTOMATION_TOKEN,
+  autoApproveOptions: {
+    secret: 'GITHUB_TOKEN',
+    allowedUsernames: ['dontirun'],
+  },
+  autoApproveUpgrades: true,
+  depsUpgrade: DependenciesUpgradeMechanism.githubWorkflow({
+    ignoreProjen: false,
+    workflowOptions: {
+      labels: ['auto-approve'],
+      secret: AUTOMATION_TOKEN,
+      container: {
+        image: 'jsii/superchain',
+      },
+    },
+  }),
   buildWorkflow: true,
   release: true,
 });
