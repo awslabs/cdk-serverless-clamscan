@@ -33,6 +33,8 @@ jobs:
         with:
           name: .upgrade.tmp.patch
           path: .upgrade.tmp.patch
+    container:
+      image: jsii/superchain
   pr:
     name: Create Pull Request
     needs: upgrade
@@ -73,7 +75,7 @@ jobs:
             *Automatically created by projen via the "upgrade-dependencies" workflow*
           branch: github-actions/upgrade-dependencies
           title: "chore(deps): upgrade dependencies"
-          labels: auto-approve,auto-merge
+          labels: auto-approve
           body: >-
             Upgrades project dependencies. See details in [workflow run].
 
