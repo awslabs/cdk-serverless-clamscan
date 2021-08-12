@@ -156,6 +156,7 @@ project.release.addJobs({
     },
     env: {
       CI: 'true',
+      RELEASE: 'true',
     },
     steps: [
       {
