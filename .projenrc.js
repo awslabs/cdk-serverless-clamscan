@@ -1,7 +1,6 @@
 const {
   AwsCdkConstructLibrary,
   DependenciesUpgradeMechanism,
-  JobS,
 } = require('projen');
 
 const AUTOMATION_TOKEN = 'PROJEN_GITHUB_TOKEN';
