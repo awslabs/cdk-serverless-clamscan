@@ -182,10 +182,6 @@ project.release.addJobs({
         run: 'npx projen build',
       },
       {
-        name: 'Backup version file',
-        run: 'cp -f package.json package.json.bak.json',
-      },
-      {
         name: 'remove changelog',
         run: 'rm dist/changelog.md',
       },
@@ -210,10 +206,6 @@ project.release.addJobs({
         run: 'npx projen build',
       },
       {
-        name: 'Backup version file',
-        run: 'cp -f package.json package.json.bak.json',
-      },
-      {
         name: 'Unbump',
         run: 'npx projen unbump',
       },
@@ -221,14 +213,6 @@ project.release.addJobs({
         name: 'Check for new commits',
         id: 'git_remote',
         run: 'echo ::set-output name=latest_commit::"$(git ls-remote origin -h ${{ github.ref }} | cut -f1)"',
-      },
-      {
-        name: 'Create release',
-        if: '${{ steps.git_remote.outputs.latest_commit == github.sha }}',
-        run: 'gh release create v$(node -p "require(\'./package.json.bak.json\').version") -F dist/changelog.md -t v$(node -p "require(\'./package.json.bak.json\').version")',
-        env: {
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
-        },
       },
       {
         name: 'Upload artifact',
