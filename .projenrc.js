@@ -1,6 +1,7 @@
 const {
   AwsCdkConstructLibrary,
   DependenciesUpgradeMechanism,
+  JobS,
 } = require('projen');
 
 const AUTOMATION_TOKEN = 'PROJEN_GITHUB_TOKEN';
@@ -152,7 +153,7 @@ project.release.addJobs({
       contents: 'write',
     },
     outputs: {
-      latest_commit: '${{ steps.git_remote.outputs.latest_commit }}',
+      latest_commit: { stepId: 'git_remote', outputName: 'latest_commit' },
     },
     env: {
       CI: 'true',

@@ -12,7 +12,7 @@ jobs:
     permissions:
       contents: write
     outputs:
-      latest_commit: ${{ steps.undefined.outputs.undefined }}
+      latest_commit: ${{ steps.git_remote.outputs.latest_commit }}
     env:
       CI: "true"
     steps:
