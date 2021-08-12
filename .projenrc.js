@@ -121,6 +121,17 @@ project.buildWorkflow.file.addOverride('jobs.build.steps', [
     if: 'steps.git_diff.outputs.has_changes',
     name: 'Update status check (if changed)',
     run: 'gh api -X POST /repos/${{ github.event.pull_request.head.repo.full_name }}/check-runs -F name="build" -F head_sha="$(git rev-parse HEAD)" -F status="completed" -F conclusion="success"',
+    env: {
+      GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+    },
+  },
+  {
+    if: 'steps.git_diff.outputs.has_changes',
+    name: 'Cancel workflow (if changed)',
+    run: 'gh api -X POST /repos/${{ github.event.pull_request.head.repo.full_name }}/actions/runs/${{ github.run_id }}/cancel',
+    env: {
+      GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}',
+    },
   },
   {
     name: 'Setup for monocdk build',
@@ -140,9 +151,11 @@ project.release.addJobs({
     permissions: {
       contents: 'write',
     },
+    outputs: {
+      latest_commit: { stepId: 'git_remote', outputName: 'latest_commit' },
+    },
     env: {
       CI: 'true',
-      RELEASE: 'true',
     },
     steps: [
       {
@@ -171,6 +184,10 @@ project.release.addJobs({
       {
         name: 'Backup version file',
         run: 'cp -f package.json package.json.bak.json',
+      },
+      {
+        name: 'remove changelog',
+        run: 'rm dist/changelog.md',
       },
       {
         name: 'Unbump',
