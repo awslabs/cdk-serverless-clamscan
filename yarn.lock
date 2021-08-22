@@ -1530,9 +1530,9 @@
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
 "@types/node@*":
-  version "16.7.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.0.tgz#f0374c4e89d1fc1ef705caad3021ba34c1a9294c"
-  integrity sha512-e66BrnjWQ3BRBZ2+iA5e85fcH9GLNe4S0n1H0T3OalK2sXg5XWEFTO4xvmGrYQ3edy+q6fdOh5t0/HOY8OAqBg==
+  version "16.7.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.1.tgz#c6b9198178da504dfca1fd0be9b2e1002f1586f0"
+  integrity sha512-ncRdc45SoYJ2H4eWU9ReDfp3vtFqDYhjOsKlFFUDEn8V1Bgr2RjYal8YT5byfadWIRluhPFU6JiDOl0H6Sl87A==
 
 "@types/node@^10.17.0", "@types/node@^10.17.60":
   version "10.17.60"
@@ -2450,9 +2450,9 @@ console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.3.128"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.128.tgz#f003bd0626c2ca811db79d0bd74c8746fcaffc83"
-  integrity sha512-rTU6aYZf0EZHpoMQ4mU23zZQAVYwmBPC/78w75diEmBs9DN4VSQ2tXm2um4OwpPUCu5jLMkhcdsRwdFpAlQdxQ==
+  version "3.3.129"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.129.tgz#18394f480fc2362f01ec1c800f640d415e4175ad"
+  integrity sha512-XSQ/TTinb25oA8KxlPXbAIo3SnkIRdgl6lX8qTze2cKrxdTtmjgaapO7fdv7bVj+Sd0v5ld9dE2K8P+j3b8z/g==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.12"
