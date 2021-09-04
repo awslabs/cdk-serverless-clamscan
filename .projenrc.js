@@ -75,7 +75,7 @@ const project = new AwsCdkConstructLibrary({
       labels: ['auto-approve'],
       secret: AUTOMATION_TOKEN,
       container: {
-        image: 'jsii/superchain',
+        image: 'jsii/superchain:node14',
       },
     },
   }),
@@ -115,7 +115,7 @@ project.buildWorkflow.file.addOverride('jobs.build.steps', [
   {
     if: 'steps.git_diff.outputs.has_changes',
     name: 'Commit and push changes (if changed)',
-    run: 'git add . && git commit -m "chore: self mutation" \n&& git push origin HEAD:${{ github.event.pull_request.head.ref }}',
+    run: 'git add . \ngit commit -m "chore: self mutation" \ngit push origin HEAD:${{ github.event.pull_request.head.ref }}',
   },
   {
     if: 'steps.git_diff.outputs.has_changes',
@@ -145,6 +145,9 @@ project.buildWorkflow.file.addOverride('jobs.build.steps', [
     },
   },
 ]);
+project.buildWorkflow.file.addOverride('jobs.build.container', {
+  image: 'jsii/superchain:node14',
+});
 project.release.addJobs({
   release: {
     runsOn: 'ubuntu-latest',
@@ -226,7 +229,7 @@ project.release.addJobs({
       },
     ],
     container: {
-      image: 'jsii/superchain',
+      image: 'jsii/superchain:node14',
     },
   },
 });
