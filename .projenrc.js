@@ -75,7 +75,7 @@ const project = new AwsCdkConstructLibrary({
       labels: ['auto-approve'],
       secret: AUTOMATION_TOKEN,
       container: {
-        image: 'jsii/superchain',
+        image: 'jsii/superchain:node14',
       },
     },
   }),
@@ -145,6 +145,9 @@ project.buildWorkflow.file.addOverride('jobs.build.steps', [
     },
   },
 ]);
+project.buildWorkflow.file.addOverride('jobs.build.container', {
+  image: 'jsii/superchain:node14',
+});
 project.release.addJobs({
   release: {
     runsOn: 'ubuntu-latest',
@@ -226,7 +229,7 @@ project.release.addJobs({
       },
     ],
     container: {
-      image: 'jsii/superchain',
+      image: 'jsii/superchain:node14',
     },
   },
 });
