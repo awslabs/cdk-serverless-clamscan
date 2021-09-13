@@ -347,6 +347,12 @@ export class ServerlessClamscan extends Construct {
     this._scanFunction = new DockerImageFunction(this, 'ServerlessClamscan', {
       code: DockerImageCode.fromImageAsset(
         path.join(__dirname, '../assets/lambda/code/scan'),
+        {
+          buildArgs: {
+            CACHE_DATE: new Date().toDateString(),
+          },
+          extraHash: Date.now().toString(),
+        },
       ),
       onSuccess: this.resultDest,
       onFailure: this.errorDest,
@@ -376,6 +382,12 @@ export class ServerlessClamscan extends Construct {
     const download_defs = new DockerImageFunction(this, 'DownloadDefs', {
       code: DockerImageCode.fromImageAsset(
         path.join(__dirname, '../assets/lambda/code/download_defs'),
+        {
+          buildArgs: {
+            CACHE_DATE: new Date().toDateString(),
+          },
+          extraHash: Date.now().toString(),
+        },
       ),
       timeout: Duration.minutes(5),
       memorySize: 1024,
