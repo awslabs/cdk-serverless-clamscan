@@ -6,7 +6,8 @@ LABEL name=lambda/python/clamav
 LABEL version=1.0
 
 ARG CACHE_DATE=1
-RUN yum install -y amazon-linux-extras \
+RUN yum update -y \
+    && yum install -y amazon-linux-extras \
     && PYTHON=python2 amazon-linux-extras install epel \
     && yum -y install clamav clamd \
     && yum clean all \
