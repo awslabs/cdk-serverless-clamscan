@@ -349,6 +349,7 @@ export class ServerlessClamscan extends Construct {
         path.join(__dirname, '../assets/lambda/code/scan'),
         {
           buildArgs: {
+            // Only force update the docker layer cache once a day
             CACHE_DATE: new Date().toDateString(),
           },
           extraHash: Date.now().toString(),
@@ -384,6 +385,7 @@ export class ServerlessClamscan extends Construct {
         path.join(__dirname, '../assets/lambda/code/download_defs'),
         {
           buildArgs: {
+            // Only force update the docker layer cache once a day
             CACHE_DATE: new Date().toDateString(),
           },
           extraHash: Date.now().toString(),
