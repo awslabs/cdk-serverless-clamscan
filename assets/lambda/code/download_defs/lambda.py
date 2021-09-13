@@ -77,6 +77,7 @@ def freshclam_update(download_path):
         with open(conf, "a") as f:
             f.write("\nDNSDatabaseInfo current.cvd.clamav.net")
             f.write("\nDatabaseMirror  database.clamav.net")
+            f.write("\nReceiveTimeout  0")
     try:
         command = [
             "freshclam",
@@ -94,6 +95,7 @@ def freshclam_update(download_path):
         if update_summary.returncode != 0:
             raise ClamAVException(
                 f"FreshClam exited with unexpected code: {update_summary.returncode}"
+                f"\nOutput: {update_summary.stdout}"
             )
     except subprocess.CalledProcessError as e:
         report_failure(str(e.stderr))
