@@ -5,7 +5,9 @@ FROM public.ecr.aws/lambda/python:3.8
 LABEL name=lambda/python/clamav
 LABEL version=1.0
 
-RUN yum install -y amazon-linux-extras \
+ARG CACHE_DATE=1
+RUN yum update -y \
+    && yum install -y amazon-linux-extras \
     && PYTHON=python2 amazon-linux-extras install epel \
     && yum -y install clamav clamd p7zip \
     && yum clean all \

@@ -210,6 +210,7 @@ def freshclam_update(input_bucket, input_key, download_path, definitions_path):
         if update_summary.returncode != 0:
             raise ClamAVException(
                 f"FreshClam exited with unexpected code: {update_summary.returncode}"
+                f"\nOutput: {update_summary.stdout.decode('utf-8')}"
             )
     except subprocess.CalledProcessError as e:
         report_failure(input_bucket, input_key, download_path, str(e.stderr))
@@ -246,7 +247,7 @@ def scan(input_bucket, input_key, download_path, definitions_path, tmp_path):
         else:
             raise ClamAVException(
                 f"ClamAV exited with unexpected code: {scan_summary.returncode}."
-                f"{scan_summary.stdout.decode('utf-8')}"
+                f"\nOutput: {scan_summary.stdout.decode('utf-8')}"
             )
         set_status(input_bucket, input_key, status)
         return {
