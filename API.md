@@ -23,7 +23,7 @@ An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](http
 The construct creates a Lambda function with EFS integration to support larger files.
 A VPC with isolated subnets, a S3 Gateway endpoint will also be created.
 
-Additionally creates an hourly job to download the latest ClamAV definition files to the
+Additionally creates an twice-daily job to download the latest ClamAV definition files to the
 Virus Definitions S3 Bucket by utilizing an EventBridge rule and a Lambda function and
 publishes CloudWatch Metrics to the 'serverless-clamscan' namespace.
 

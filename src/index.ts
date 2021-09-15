@@ -92,7 +92,7 @@ export interface ServerlessClamscanProps {
   The construct creates a Lambda function with EFS integration to support larger files.
   A VPC with isolated subnets, a S3 Gateway endpoint will also be created.
 
-  Additionally creates an hourly job to download the latest ClamAV definition files to the
+  Additionally creates an twice-daily job to download the latest ClamAV definition files to the
   Virus Definitions S3 Bucket by utilizing an EventBridge rule and a Lambda function and
   publishes CloudWatch Metrics to the 'serverless-clamscan' namespace.
 
@@ -418,7 +418,7 @@ export class ServerlessClamscan extends Construct {
     defs_bucket.grantReadWrite(download_defs);
 
     new Rule(this, 'VirusDefsUpdateRule', {
-      schedule: Schedule.rate(Duration.hours(1)),
+      schedule: Schedule.rate(Duration.hours(12)),
       targets: [new LambdaFunction(download_defs)],
     });
 
