@@ -43,7 +43,10 @@ def download_s3_defs(download_path, defs_bucket):
     """download CVD and conf files from definitions bucket (if they exist)
     to compare against ClamAV database. Respect their hosting costs!"""
     try:
-        file_regex = [r"\w+.c[vl]d", r"freshclam.conf"]
+        # Downloading ClamAV definitions and exceeds Lambda's tmp directory max size
+        # https://github.com/awslabs/cdk-serverless-clamscan/issues/118
+        # file_regex = [r"\w+.c[vl]d", r"freshclam.conf"]
+        file_regex = [r"freshclam.conf"]
         file_pattern = r"||".join(file_regex)
         for file in defs_bucket.objects.all():
             filename = file.key
@@ -78,6 +81,7 @@ def freshclam_update(download_path):
             f.write("\nDNSDatabaseInfo current.cvd.clamav.net")
             f.write("\nDatabaseMirror  database.clamav.net")
             f.write("\nReceiveTimeout  0")
+            f.write("\nCompressLocalDatabase  true")
     try:
         command = [
             "freshclam",
