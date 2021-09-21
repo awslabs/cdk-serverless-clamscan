@@ -19,6 +19,7 @@ import {
   ArnPrincipal,
   AnyPrincipal,
   AccountRootPrincipal,
+  CfnRole,
 } from '@aws-cdk/aws-iam';
 import {
   DockerImageCode,
@@ -35,13 +36,14 @@ import {
 } from '@aws-cdk/aws-lambda-destinations';
 import { S3EventSource } from '@aws-cdk/aws-lambda-event-sources';
 import { Bucket, BucketEncryption, EventType } from '@aws-cdk/aws-s3';
-import { Queue, QueueEncryption } from '@aws-cdk/aws-sqs';
+import { CfnQueue, Queue, QueueEncryption } from '@aws-cdk/aws-sqs';
 import {
   Construct,
   Duration,
   CustomResource,
   RemovalPolicy,
   Stack,
+  CfnResource,
 } from '@aws-cdk/core';
 
 /**
@@ -220,11 +222,17 @@ export class ServerlessClamscan extends Construct {
     } else {
       this.errorDest = props.onError;
     }
+    const cfnDlq = this.errorDeadLetterQueue?.node.defaultChild as CfnQueue;
+    cfnDlq.addMetadata('cdk_nag', {
+      rules_to_suppress: [
+        { id: 'AwsSolutions-SQS3', reason: 'This queue is a DLQ.' },
+      ],
+    });
 
     const vpc = new Vpc(this, 'ScanVPC', {
       subnetConfiguration: [
         {
-          subnetType: SubnetType.ISOLATED,
+          subnetType: SubnetType.PRIVATE_ISOLATED,
           name: 'Isolated',
         },
       ],
@@ -270,6 +278,13 @@ export class ServerlessClamscan extends Construct {
         {
           encryption: BucketEncryption.S3_MANAGED,
           removalPolicy: RemovalPolicy.RETAIN,
+          serverAccessLogsPrefix: 'access-logs-bucket-logs',
+          blockPublicAccess: {
+            blockPublicAcls: true,
+            blockPublicPolicy: true,
+            ignorePublicAcls: true,
+            restrictPublicBuckets: true,
+          },
         },
       );
       this.defsAccessLogsBucket.addToResourcePolicy(
@@ -299,6 +314,12 @@ export class ServerlessClamscan extends Construct {
       serverAccessLogsBucket: this.defsAccessLogsBucket,
       serverAccessLogsPrefix:
         logs_bucket === false ? undefined : logs_bucket_prefix,
+      blockPublicAccess: {
+        blockPublicAcls: true,
+        blockPublicPolicy: true,
+        ignorePublicAcls: true,
+        restrictPublicBuckets: true,
+      },
     });
 
     defs_bucket.addToResourcePolicy(
@@ -374,6 +395,33 @@ export class ServerlessClamscan extends Construct {
         POWERTOOLS_SERVICE_NAME: 'virus-scan',
       },
     });
+    if (this._scanFunction.role) {
+      const cfnScanRole = this._scanFunction.role.node.defaultChild as CfnRole;
+      cfnScanRole.addMetadata('cdk_nag', {
+        rules_to_suppress: [
+          {
+            id: 'AwsSolutions-IAM4',
+            reason:
+              'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch. The AWSLambdaVPCAccessExecutionRole is required for functions with VPC access to manage elastic network interfaces.',
+          },
+        ],
+      });
+      const cfnScanRoleChildren = this._scanFunction.role.node.children;
+      for (const child of cfnScanRoleChildren) {
+        const resource = child.node.defaultChild as CfnResource;
+        if (resource != undefined && resource.cfnResourceType == 'AWS::IAM::Policy') {
+          resource.addMetadata('cdk_nag', {
+            rules_to_suppress: [
+              {
+                id: 'AwsSolutions-IAM5',
+                reason:
+                  'The EFS mount point permissions are controlled through a condition which limit the scope of the * resources.',
+              },
+            ],
+          });
+        }
+      }
+    }
     this._scanFunction.connections.allowToAnyIpv4(
       Port.tcp(443),
       'Allow outbound HTTPS traffic for S3 access.',
@@ -413,9 +461,39 @@ export class ServerlessClamscan extends Construct {
           notPrincipals: [download_defs.role, download_defs_assumed_principal],
         }),
       );
+      defs_bucket.grantReadWrite(download_defs);
+      const cfnDownloadRole = download_defs.role.node.defaultChild as CfnRole;
+      cfnDownloadRole.addMetadata('cdk_nag', {
+        rules_to_suppress: [
+          {
+            id: 'AwsSolutions-IAM4',
+            reason:
+              'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch.',
+          },
+        ],
+      });
+      const cfnDownloadRoleChildren = download_defs.role.node.children;
+      for (const child of cfnDownloadRoleChildren) {
+        const resource = child.node.defaultChild as CfnResource;
+        if (resource != undefined && resource.cfnResourceType == 'AWS::IAM::Policy') {
+          resource.addMetadata('cdk_nag', {
+            rules_to_suppress: [
+              {
+                id: 'AwsSolutions-IAM5',
+                reason:
+                  'The function is allowed to perform operations on all prefixes in the specified bucket.',
+              },
+            ],
+          });
+        }
+      }
     }
 
-    defs_bucket.grantReadWrite(download_defs);
+    cfnDlq.addMetadata('cdk_nag', {
+      rules_to_suppress: [
+        { id: 'AwsSolutions-SQS3', reason: 'This queue is a DLQ.' },
+      ],
+    });
 
     new Rule(this, 'VirusDefsUpdateRule', {
       schedule: Schedule.rate(Duration.hours(12)),
@@ -431,7 +509,18 @@ export class ServerlessClamscan extends Construct {
       timeout: Duration.minutes(5),
     });
     download_defs.grantInvoke(init_defs_cr);
-
+    if (init_defs_cr.role) {
+      const cfnScanRole = init_defs_cr.role.node.defaultChild as CfnRole;
+      cfnScanRole.addMetadata('cdk_nag', {
+        rules_to_suppress: [
+          {
+            id: 'AwsSolutions-IAM4',
+            reason:
+              'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch.',
+          },
+        ],
+      });
+    }
     new CustomResource(this, 'InitDefsCr', {
       serviceToken: init_defs_cr.functionArn,
       properties: {

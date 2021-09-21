@@ -23,6 +23,10 @@
       "type": "build"
     },
     {
+      "name": "cdk-nag",
+      "type": "build"
+    },
+    {
       "name": "eslint",
       "type": "build"
     },
