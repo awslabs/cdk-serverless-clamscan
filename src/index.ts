@@ -219,15 +219,15 @@ export class ServerlessClamscan extends Construct {
         },
       });
       this.errorDest = new SqsDestination(this.errorQueue);
+      const cfnDlq = this.errorDeadLetterQueue.node.defaultChild as CfnQueue;
+      cfnDlq.addMetadata('cdk_nag', {
+        rules_to_suppress: [
+          { id: 'AwsSolutions-SQS3', reason: 'This queue is a DLQ.' },
+        ],
+      });
     } else {
       this.errorDest = props.onError;
     }
-    const cfnDlq = this.errorDeadLetterQueue?.node.defaultChild as CfnQueue;
-    cfnDlq.addMetadata('cdk_nag', {
-      rules_to_suppress: [
-        { id: 'AwsSolutions-SQS3', reason: 'This queue is a DLQ.' },
-      ],
-    });
 
     const vpc = new Vpc(this, 'ScanVPC', {
       subnetConfiguration: [
@@ -488,12 +488,6 @@ export class ServerlessClamscan extends Construct {
         }
       }
     }
-
-    cfnDlq.addMetadata('cdk_nag', {
-      rules_to_suppress: [
-        { id: 'AwsSolutions-SQS3', reason: 'This queue is a DLQ.' },
-      ],
-    });
 
     new Rule(this, 'VirusDefsUpdateRule', {
       schedule: Schedule.rate(Duration.hours(12)),
