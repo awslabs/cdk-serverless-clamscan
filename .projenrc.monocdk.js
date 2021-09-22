@@ -26,6 +26,7 @@ const project = new AwsCdkConstructLibrary({
 
   cdkDependencies: ['monocdk'],
   cdkTestDependencies: ['@monocdk-experiment/assert'],
+  devDeps: ['monocdk-nag'],
   publishToPypi: {
     distName: 'monocdk-serverless-clamscan',
     module: 'monocdk_serverless_clamscan',
