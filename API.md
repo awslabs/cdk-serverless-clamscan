@@ -4,7 +4,7 @@
 
 Name|Description
 ----|-----------
-[ServerlessClamscan](#cdk-serverless-clamscan-serverlessclamscan)|An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](https://www.clamav.net/). to scan objects in Amazon S3 for viruses. The construct provides a flexible interface for a system to act based on the results of a ClamAV virus scan.
+[ServerlessClamscan](#cdk-serverless-clamscan-serverlessclamscan)|An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](https://www.clamav.net/). to scan objects in Amazon S3 for viruses. The construct provides a flexible interface for a system to act based on the results of a ClamAV virus scan.  The construct creates a Lambda function with EFS integration to support larger files. A VPC with isolated subnets, a S3 Gateway endpoint will also be created.  Additionally creates an twice-daily job to download the latest ClamAV definition files to the Virus Definitions S3 Bucket by utilizing an EventBridge rule and a Lambda function and publishes CloudWatch Metrics to the 'serverless-clamscan' namespace.  __Important O&M__: When ClamAV publishes updates to the scanner you will see “Your ClamAV installation is OUTDATED” in your scan results. While the construct creates a system to keep the database definitions up to date, you must update the scanner to detect all the latest Viruses.  Update the docker images of the Lambda functions with the latest version of ClamAV by re-running `cdk deploy`.  Successful Scan Event format ```json {     "source": "serverless-clamscan",     "input_bucket": <input_bucket_name>,     "input_key": <object_key>,     "status": <"CLEAN"|"INFECTED"|"N/A">,     "message": <scan_summary>,   } ```  Note: The Virus Definitions bucket policy will likely cause a deletion error if you choose to delete the stack associated in the construct. However since the bucket itself gets deleted, you can delete the stack again to resolve the error.
 
 
 **Structs**
@@ -18,36 +18,7 @@ Name|Description
 
 ## class ServerlessClamscan  <a id="cdk-serverless-clamscan-serverlessclamscan"></a>
 
-An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](https://www.clamav.net/). to scan objects in Amazon S3 for viruses. The construct provides a flexible interface for a system to act based on the results of a ClamAV virus scan.
-
-The construct creates a Lambda function with EFS integration to support larger files.
-A VPC with isolated subnets, a S3 Gateway endpoint will also be created.
-
-Additionally creates an twice-daily job to download the latest ClamAV definition files to the
-Virus Definitions S3 Bucket by utilizing an EventBridge rule and a Lambda function and
-publishes CloudWatch Metrics to the 'serverless-clamscan' namespace.
-
-__Important O&M__:
-When ClamAV publishes updates to the scanner you will see “Your ClamAV installation is OUTDATED” in your scan results.
-While the construct creates a system to keep the database definitions up to date, you must update the scanner to
-detect all the latest Viruses.
-
-Update the docker images of the Lambda functions with the latest version of ClamAV by re-running `cdk deploy`.
-
-Successful Scan Event format
-```json
-{
-    "source": "serverless-clamscan",
-    "input_bucket": <input_bucket_name>,
-    "input_key": <object_key>,
-    "status": <"CLEAN"|"INFECTED"|"N/A">,
-    "message": <scan_summary>,
-  }
-```
-
-Note: The Virus Definitions bucket policy will likely cause a deletion error if you choose to delete
-the stack associated in the construct. However since the bucket itself gets deleted, you can delete
-the stack again to resolve the error.
+An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](https://www.clamav.net/). to scan objects in Amazon S3 for viruses. The construct provides a flexible interface for a system to act based on the results of a ClamAV virus scan.  The construct creates a Lambda function with EFS integration to support larger files. A VPC with isolated subnets, a S3 Gateway endpoint will also be created.  Additionally creates an twice-daily job to download the latest ClamAV definition files to the Virus Definitions S3 Bucket by utilizing an EventBridge rule and a Lambda function and publishes CloudWatch Metrics to the 'serverless-clamscan' namespace.  __Important O&M__: When ClamAV publishes updates to the scanner you will see “Your ClamAV installation is OUTDATED” in your scan results. While the construct creates a system to keep the database definitions up to date, you must update the scanner to detect all the latest Viruses.  Update the docker images of the Lambda functions with the latest version of ClamAV by re-running `cdk deploy`.  Successful Scan Event format ```json {     "source": "serverless-clamscan",     "input_bucket": <input_bucket_name>,     "input_key": <object_key>,     "status": <"CLEAN"|"INFECTED"|"N/A">,     "message": <scan_summary>,   } ```  Note: The Virus Definitions bucket policy will likely cause a deletion error if you choose to delete the stack associated in the construct. However since the bucket itself gets deleted, you can delete the stack again to resolve the error.
 
 __Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
 __Extends__: [Construct](#aws-cdk-core-construct)
@@ -69,6 +40,7 @@ new ServerlessClamscan(scope: Construct, id: string, props: ServerlessClamscanPr
   * **efsEncryption** (<code>boolean</code>)  Whether or not to enable encryption on EFS filesystem (Default: enabled). __*Optional*__
   * **onError** (<code>[IDestination](#aws-cdk-aws-lambda-idestination)</code>)  The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified). __*Optional*__
   * **onResult** (<code>[IDestination](#aws-cdk-aws-lambda-idestination)</code>)  The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified). __*Optional*__
+  * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  You can specify an existing VPC (Default: Creates a VPC with isolated subnets). __*Optional*__
 
 
 
@@ -135,6 +107,7 @@ Name | Type | Description
 **efsEncryption**? | <code>boolean</code> | Whether or not to enable encryption on EFS filesystem (Default: enabled).<br/>__*Optional*__
 **onError**? | <code>[IDestination](#aws-cdk-aws-lambda-idestination)</code> | The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified).<br/>__*Optional*__
 **onResult**? | <code>[IDestination](#aws-cdk-aws-lambda-idestination)</code> | The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified).<br/>__*Optional*__
+**vpc**? | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | You can specify an existing VPC (Default: Creates a VPC with isolated subnets).<br/>__*Optional*__
 
 
 

@@ -9,6 +9,7 @@ import {
   GatewayVpcEndpointAwsService,
   Port,
   SecurityGroup,
+  IVpc,
 } from '@aws-cdk/aws-ec2';
 import { FileSystem, LifecyclePolicy, PerformanceMode } from '@aws-cdk/aws-efs';
 import { EventBus, Rule, Schedule } from '@aws-cdk/aws-events';
@@ -84,6 +85,11 @@ export interface ServerlessClamscanProps {
    * Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs ).
    */
   readonly defsBucketAccessLogsConfig?: ServerlessClamscanLoggingProps;
+
+  /**
+   * You can specify an existing VPC (Default: Creates a VPC with isolated subnets).
+   */
+  readonly vpc?: IVpc;
 }
 
 /**
@@ -229,7 +235,7 @@ export class ServerlessClamscan extends Construct {
       this.errorDest = props.onError;
     }
 
-    const vpc = new Vpc(this, 'ScanVPC', {
+    const vpc = props.vpc ?? new Vpc(this, 'ScanVPC', {
       subnetConfiguration: [
         {
           subnetType: SubnetType.PRIVATE_ISOLATED,

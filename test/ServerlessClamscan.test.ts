@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ABSENT, arrayWith, stringLike } from '@aws-cdk/assert';
+import { Vpc } from '@aws-cdk/aws-ec2';
 import { EventBus } from '@aws-cdk/aws-events';
 import { SqsDestination, EventBridgeDestination } from '@aws-cdk/aws-lambda-destinations';
 import { Bucket } from '@aws-cdk/aws-s3';
@@ -112,6 +113,20 @@ test('expect ScanVpc to have FlowLogs enabled', () => {
   new ServerlessClamscan(stack, 'default', {});
   expect(stack).toHaveResourceLike('AWS::EC2::FlowLog', {
     ResourceId: { Ref: stringLike('*ScanVPC*') },
+  });
+});
+
+test('expect use existing VPC', () => {
+  const stack = new Stack();
+  const vpc = new Vpc(stack, 'rVPC', {});
+  new ServerlessClamscan(stack, 'default', { vpc: vpc });
+  expect(stack).toHaveResourceLike('AWS::EC2::VPC', {
+    Tags: [
+      {
+        Key: 'Name',
+        Value: 'Default/rVPC',
+      },
+    ],
   });
 });
 
