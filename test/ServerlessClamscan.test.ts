@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ABSENT, arrayWith, stringLike } from '@aws-cdk/assert';
-import { Vpc } from '@aws-cdk/aws-ec2';
+import { GatewayVpcEndpointAwsService, Vpc } from '@aws-cdk/aws-ec2';
 import { EventBus } from '@aws-cdk/aws-events';
 import { SqsDestination, EventBridgeDestination } from '@aws-cdk/aws-lambda-destinations';
 import { Bucket } from '@aws-cdk/aws-s3';
@@ -116,7 +116,7 @@ test('expect ScanVpc to have FlowLogs enabled', () => {
   });
 });
 
-test('expect use existing VPC', () => {
+test('expect use existing VPC if specified', () => {
   const stack = new Stack();
   const vpc = new Vpc(stack, 'rVPC', {});
   new ServerlessClamscan(stack, 'default', { vpc: vpc });
@@ -128,6 +128,31 @@ test('expect use existing VPC', () => {
       },
     ],
   });
+});
+
+test('expect use existing s3GatewayVpcEndpoint if specified', () => {
+  const stack = new Stack();
+  const vpc = new Vpc(stack, 'rVPC', {});
+  const s3GatewayVpcEndpoint = vpc.addGatewayEndpoint('S3Endpoint', {
+    service: GatewayVpcEndpointAwsService.S3,
+  });
+
+  new ServerlessClamscan(stack, 'default', { vpc, s3GatewayVpcEndpoint });
+  expect(stack).toHaveResourceLike('AWS::EC2::VPCEndpoint', {
+    VpcId: { Ref: stringLike('rVPC*') },
+    VpcEndpointType: 'Gateway',
+  });
+});
+
+test('expect fail when s3GatewayVpcEndpoint used without vpc', () => {
+  const stack = new Stack();
+  const vpc = new Vpc(stack, 'rVPC', {});
+  const s3GatewayVpcEndpoint = vpc.addGatewayEndpoint('S3Endpoint', {
+    service: GatewayVpcEndpointAwsService.S3,
+  });
+
+  expect(() => new ServerlessClamscan(stack, 'default', { s3GatewayVpcEndpoint }))
+    .toThrow(/'s3GatewayVpcEndpoint' property cannot be used if 'vpc' is not specified./);
 });
 
 test('expect VirusDefsBucket to use created access logs bucket by default', () => {

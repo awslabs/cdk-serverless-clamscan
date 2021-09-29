@@ -40,7 +40,8 @@ new ServerlessClamscan(scope: Construct, id: string, props: ServerlessClamscanPr
   * **efsEncryption** (<code>boolean</code>)  Whether or not to enable encryption on EFS filesystem (Default: enabled). __*Optional*__
   * **onError** (<code>[IDestination](#aws-cdk-aws-lambda-idestination)</code>)  The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified). __*Optional*__
   * **onResult** (<code>[IDestination](#aws-cdk-aws-lambda-idestination)</code>)  The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified). __*Optional*__
-  * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  You can specify an existing VPC (Default: Creates a VPC with isolated subnets). __*Optional*__
+  * **s3GatewayVpcEndpoint** (<code>[GatewayVpcEndpoint](#aws-cdk-aws-ec2-gatewayvpcendpoint)</code>)  You can specify an existing S3 Gateway enpoint (Default: Creates a new S3 Gateway enpoint). __*Optional*__
+  * **vpc** (<code>[Vpc](#aws-cdk-aws-ec2-vpc)</code>)  You can specify an existing VPC (Default: Creates a VPC with isolated subnets). __*Optional*__
 
 
 
@@ -107,7 +108,8 @@ Name | Type | Description
 **efsEncryption**? | <code>boolean</code> | Whether or not to enable encryption on EFS filesystem (Default: enabled).<br/>__*Optional*__
 **onError**? | <code>[IDestination](#aws-cdk-aws-lambda-idestination)</code> | The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified).<br/>__*Optional*__
 **onResult**? | <code>[IDestination](#aws-cdk-aws-lambda-idestination)</code> | The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified).<br/>__*Optional*__
-**vpc**? | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | You can specify an existing VPC (Default: Creates a VPC with isolated subnets).<br/>__*Optional*__
+**s3GatewayVpcEndpoint**? | <code>[GatewayVpcEndpoint](#aws-cdk-aws-ec2-gatewayvpcendpoint)</code> | You can specify an existing S3 Gateway enpoint (Default: Creates a new S3 Gateway enpoint).<br/>__*Optional*__
+**vpc**? | <code>[Vpc](#aws-cdk-aws-ec2-vpc)</code> | You can specify an existing VPC (Default: Creates a VPC with isolated subnets).<br/>__*Optional*__
 
 
 

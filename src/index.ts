@@ -9,7 +9,6 @@ import {
   GatewayVpcEndpointAwsService,
   Port,
   SecurityGroup,
-  IVpc,
 } from '@aws-cdk/aws-ec2';
 import { FileSystem, LifecyclePolicy, PerformanceMode } from '@aws-cdk/aws-efs';
 import { EventBus, Rule, Schedule } from '@aws-cdk/aws-events';
@@ -89,7 +88,14 @@ export interface ServerlessClamscanProps {
   /**
    * You can specify an existing VPC (Default: Creates a VPC with isolated subnets).
    */
-  readonly vpc?: IVpc;
+  readonly vpc?: Vpc;
+
+  /**
+  * You can specify an existing S3 Gateway enpoint (Default: Creates a new S3 Gateway enpoint).
+  *
+  * Only used if 'vpc' is supplied.
+  */
+  readonly s3GatewayVpcEndpoint?: GatewayVpcEndpoint;
 }
 
 /**
@@ -167,6 +173,7 @@ export class ServerlessClamscan extends Construct {
    */
   public readonly defsAccessLogsBucket?: Bucket;
 
+  private _vpc: Vpc;
   private _scanFunction: DockerImageFunction;
   private _s3Gw: GatewayVpcEndpoint;
   private _efsRootPath = '/lambda';
@@ -235,29 +242,40 @@ export class ServerlessClamscan extends Construct {
       this.errorDest = props.onError;
     }
 
-    const vpc = props.vpc ?? new Vpc(this, 'ScanVPC', {
-      subnetConfiguration: [
-        {
-          subnetType: SubnetType.PRIVATE_ISOLATED,
-          name: 'Isolated',
-        },
-      ],
-    });
+    if (props.vpc) {
+      this._vpc = props.vpc;
+    } else {
+      this._vpc = new Vpc(this, 'ScanVPC', {
+        subnetConfiguration: [
+          {
+            subnetType: SubnetType.PRIVATE_ISOLATED,
+            name: 'Isolated',
+          },
+        ],
+      });
 
-    vpc.addFlowLog('FlowLogs');
+      this._vpc.addFlowLog('FlowLogs');
+    }
 
-    this._s3Gw = vpc.addGatewayEndpoint('S3Endpoint', {
-      service: GatewayVpcEndpointAwsService.S3,
-    });
+    if (props.s3GatewayVpcEndpoint) {
+      if (!props.vpc) {
+        throw new Error('\'s3GatewayVpcEndpoint\' property cannot be used if \'vpc\' is not specified.');
+      }
+      this._s3Gw = props.s3GatewayVpcEndpoint;
+    } else {
+      this._s3Gw = this._vpc.addGatewayEndpoint('S3Endpoint', {
+        service: GatewayVpcEndpointAwsService.S3,
+      });
+    }
 
     const fileSystem = new FileSystem(this, 'ScanFileSystem', {
-      vpc: vpc,
+      vpc: this._vpc,
       encrypted: props.efsEncryption === false ? false : true,
       lifecyclePolicy: LifecyclePolicy.AFTER_7_DAYS,
       performanceMode: PerformanceMode.GENERAL_PURPOSE,
       removalPolicy: RemovalPolicy.DESTROY,
       securityGroup: new SecurityGroup(this, 'ScanFileSystemSecurityGroup', {
-        vpc: vpc,
+        vpc: this._vpc,
         allowAllOutbound: false,
       }),
     });
@@ -388,8 +406,8 @@ export class ServerlessClamscan extends Construct {
         lambda_ap,
         this._efsMountPath,
       ),
-      vpc: vpc,
-      vpcSubnets: { subnets: vpc.isolatedSubnets },
+      vpc: this._vpc,
+      vpcSubnets: { subnets: this._vpc.isolatedSubnets },
       allowAllOutbound: false,
       timeout: Duration.minutes(15),
       memorySize: 10240,
