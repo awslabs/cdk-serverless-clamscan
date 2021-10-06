@@ -6,6 +6,7 @@ const project = new AwsCdkConstructLibrary({
   author: 'Amazon Web Services',
   authorAddress: 'donti@amazon.com',
   cdkVersion: '1.101.0',
+  defaultReleaseBranch: 'main',
   jsiiFqn: 'projen.AwsCdkConstructLibrary',
   name: 'monocdk-serverless-clamscan',
   description: 'Serverless architecture to virus scan objects in Amazon S3.',
