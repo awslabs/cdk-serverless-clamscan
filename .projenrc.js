@@ -70,23 +70,20 @@ const project = new AwsCdkConstructLibrary({
     allowedUsernames: ['dontirun'],
   },
   autoApproveUpgrades: true,
-  depsUpgrade: DependenciesUpgradeMechanism.githubWorkflow({
+  depsUpgradeOptions: {
     ignoreProjen: false,
     workflowOptions: {
       labels: ['auto-approve'],
       secret: AUTOMATION_TOKEN,
       container: {
-        image: 'jsii/superchain:node14',
+        image: 'jsii/superchain:1-buster-slim-node12',
       },
     },
-  }),
+  },
   buildWorkflow: true,
   release: true,
 });
 
-project.package.addField('resolutions', {
-  'trim-newlines': '3.0.1',
-});
 project.buildWorkflow.file.addOverride('jobs.build.steps', [
   {
     name: 'Checkout',
@@ -95,6 +92,11 @@ project.buildWorkflow.file.addOverride('jobs.build.steps', [
       ref: '${{ github.event.pull_request.head.ref }}',
       repository: '${{ github.event.pull_request.head.repo.full_name }}',
     },
+  },
+  {
+    name: 'Setup Node.js',
+    uses: 'actions/setup-node@v2.2.0',
+    with: { 'node-version': '12.20.0' },
   },
   {
     name: 'Install dependencies',
@@ -116,7 +118,7 @@ project.buildWorkflow.file.addOverride('jobs.build.steps', [
   {
     if: 'steps.git_diff.outputs.has_changes',
     name: 'Commit and push changes (if changed)',
-    run: 'git add . \ngit commit -m "chore: self mutation" \ngit push origin HEAD:${{ github.event.pull_request.head.ref }}',
+    run: 'git add .\ngit commit -m "chore: self mutation"\ngit push origin HEAD:${{ github.event.pull_request.head.ref }}',
   },
   {
     if: 'steps.git_diff.outputs.has_changes',
@@ -136,7 +138,7 @@ project.buildWorkflow.file.addOverride('jobs.build.steps', [
   },
   {
     name: 'Setup for monocdk build',
-    run: "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'\nfind ./test -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'",
+    run: "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'",
   },
   {
     name: 'Build for monocdk',
@@ -147,7 +149,7 @@ project.buildWorkflow.file.addOverride('jobs.build.steps', [
   },
 ]);
 project.buildWorkflow.file.addOverride('jobs.build.container', {
-  image: 'jsii/superchain:node14',
+  image: 'jsii/superchain:1-buster-slim-node12',
 });
 project.release.addJobs({
   release: {
@@ -175,6 +177,11 @@ project.release.addJobs({
         run: 'git config user.name "Automation"\ngit config user.email "github-actions@github.com"',
       },
       {
+        name: 'Setup Node.js',
+        uses: 'actions/setup-node@v2.2.0',
+        with: { 'node-version': '12.20.0' },
+      },
+      {
         name: 'Install dependencies',
         run: 'yarn install --check-files --frozen-lockfile',
       },
@@ -200,7 +207,7 @@ project.release.addJobs({
       },
       {
         name: 'Setup for monocdk build',
-        run: "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'\nfind ./test -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'",
+        run: "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'",
       },
       {
         name: 'Bump to next version',
@@ -230,7 +237,7 @@ project.release.addJobs({
       },
     ],
     container: {
-      image: 'jsii/superchain:node14',
+      image: 'jsii/superchain:1-buster-slim-node12',
     },
   },
 });
