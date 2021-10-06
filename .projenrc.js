@@ -12,7 +12,7 @@ const project = new AwsCdkConstructLibrary({
   jsiiFqn: 'projen.AwsCdkConstructLibrary',
   name: 'cdk-serverless-clamscan',
   repositoryUrl: 'https://github.com/awslabs/cdk-serverless-clamscan',
-
+  description: 'Serverless architecture to virus scan objects in Amazon S3.',
   cdkDependencies: [
     '@aws-cdk/aws-cloudtrail',
     '@aws-cdk/aws-ec2',
@@ -30,7 +30,6 @@ const project = new AwsCdkConstructLibrary({
   cdkTestDependencies: ['@aws-cdk/assert'],
   devDeps: ['cdk-nag'],
   bin: ['./assets'],
-  description: 'Serverless architecture to virus scan objects in Amazon S3.',
   keywords: [
     'clamav',
     'virus scan',
