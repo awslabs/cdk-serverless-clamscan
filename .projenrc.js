@@ -82,7 +82,10 @@ const project = new AwsCdkConstructLibrary({
   buildWorkflow: true,
   release: true,
 });
-
+project.package.addField('resolutions', {
+  'set-value': '^4.0.1',
+  'ansi-regex': '^5.0.1',
+});
 project.buildWorkflow.file.addOverride('jobs.build.steps', [
   {
     name: 'Checkout',
