@@ -2536,10 +2536,10 @@ caseless@~0.12.0:
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
-cdk-nag@^0.0.123:
-  version "0.0.123"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-0.0.123.tgz#94da3f5bd6265a345d5cc9c696a181eac03659d6"
-  integrity sha512-rL2TjO6FmVi0+MK6vglNychBrZGn+4tz4v3iefRoAnNondoRZMZkQFGyW8mJoib7YOoImvCS0HEyFJbbviFWVw==
+cdk-nag@^0.0.124:
+  version "0.0.124"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-0.0.124.tgz#1cef30ce08cd4aab83e15b5d5edce003e5fcc29f"
+  integrity sha512-qNt8Y2Pwi+aKOqKn8vqGAY9zsSLRSsrWpx8/wqRANZdOgc+6apZ4bmIwEvYk0UYxd2aZ27UN1dHnXnZOHYREpw==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.110.0"
     "@aws-cdk/aws-apigatewayv2" "^1.110.0"
@@ -6634,10 +6634,10 @@ progress@^2.0.0, progress@^2.0.3:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-projen@^0.29.14:
-  version "0.29.14"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.29.14.tgz#5996088056329e3b3174763ea91fb365a03c8f02"
-  integrity sha512-4Cbr0r/Jt676jHQJtqZsk93WytkXODOMQ7Rf5ERUkmx9Z/DnIbCb6+UlrzQxlvZcB/Xb3cn2livZB9D/fLY26A==
+projen@^0.29.17:
+  version "0.29.17"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.29.17.tgz#19622be20aff044f7648dfaecea2ee86a914a26f"
+  integrity sha512-BjPur+KOh8Tqbvhp/+FOfONWXP+i7nB+o0g64eYhlJYvpGw85lGGs3boFZJIC8ZFuzEG1hMx5+YxPp8M5U/hcA==
   dependencies:
     "@iarna/toml" "^2.2.5"
     chalk "^4.1.2"
