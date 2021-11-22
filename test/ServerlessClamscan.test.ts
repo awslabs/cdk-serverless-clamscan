@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ABSENT, arrayWith, stringLike } from '@aws-cdk/assert';
-import { EventBus } from '@aws-cdk/aws-events';
-import { SqsDestination, EventBridgeDestination } from '@aws-cdk/aws-lambda-destinations';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Queue } from '@aws-cdk/aws-sqs';
-import { Stack } from '@aws-cdk/core';
+import { Stack } from 'aws-cdk-lib';
+import { EventBus } from 'aws-cdk-lib/aws-events';
+import { SqsDestination, EventBridgeDestination } from 'aws-cdk-lib/aws-lambda-destinations';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { Queue } from 'aws-cdk-lib/aws-sqs';
 import { ServerlessClamscan } from '../src';
 import '@aws-cdk/assert/jest';
 

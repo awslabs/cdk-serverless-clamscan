@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { SynthUtils } from '@aws-cdk/assert';
-import { Aspects, Stack } from '@aws-cdk/core';
+import { Aspects, Stack } from 'aws-cdk-lib';
 import { AwsSolutionsChecks } from 'cdk-nag';
 import { ServerlessClamscan } from '../src';
 

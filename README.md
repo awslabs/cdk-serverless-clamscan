@@ -1,14 +1,13 @@
 # cdk-serverless-clamscan
 
-## cdk
+| Language   | cdk-serverless-clamscan                                                                                   | monocdk-serverless-clamscan                                                                                       |
+| ---------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| Python     | [![PyPI version](https://badge.fury.io/py/cdk-serverless-clamscan.svg)](https://badge.fury.io/py/cdk-serverless-clamscan) | [![PyPI version](https://badge.fury.io/py/monocdk-serverless-clamscan.svg)](https://badge.fury.io/py/monocdk-serverless-clamscan) |
+| TypeScript | [![npm version](https://badge.fury.io/js/cdk-serverless-clamscan.svg)](https://badge.fury.io/js/cdk-serverless-clamscan)  | [![npm version](https://badge.fury.io/js/monocdk-serverless-clamscan.svg)](https://badge.fury.io/js/monocdk-serverless-clamscan)  |
 
-[![PyPI version](https://badge.fury.io/py/cdk-serverless-clamscan.svg)](https://badge.fury.io/py/cdk-serverless-clamscan)
-[![npm version](https://badge.fury.io/js/cdk-serverless-clamscan.svg)](https://badge.fury.io/js/cdk-serverless-clamscan)
-
-## monocdk
-
-[![PyPI version](https://badge.fury.io/py/monocdk-serverless-clamscan.svg)](https://badge.fury.io/py/monocdk-serverless-clamscan)
-[![npm version](https://badge.fury.io/js/monocdk-serverless-clamscan.svg)](https://badge.fury.io/js/monocdk-serverless-clamscan)
+- If your project uses cdk version **1.x.x** use `cdk-serverless-clamscan` **^1.0.0**
+- If your project uses cdk version **2.x.x** use `cdk-serverless-clamscan` **^2.0.0**
+- If your project uses monocdk use `monocdk-serverless-clamscan` **^1.0.0**
 
 An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](https://www.clamav.net/) to scan objects in Amazon S3 for viruses. The construct provides a flexible interface for a system to act based on the results of a ClamAV virus scan.
 
