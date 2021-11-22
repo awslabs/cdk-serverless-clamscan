@@ -3,16 +3,23 @@
 
 import * as path from 'path';
 import {
+  Duration,
+  CustomResource,
+  RemovalPolicy,
+  Stack,
+  CfnResource,
+} from 'aws-cdk-lib';
+import {
   Vpc,
   SubnetType,
   GatewayVpcEndpoint,
   GatewayVpcEndpointAwsService,
   Port,
   SecurityGroup,
-} from '@aws-cdk/aws-ec2';
-import { FileSystem, LifecyclePolicy, PerformanceMode } from '@aws-cdk/aws-efs';
-import { EventBus, Rule, Schedule } from '@aws-cdk/aws-events';
-import { LambdaFunction } from '@aws-cdk/aws-events-targets';
+} from 'aws-cdk-lib/aws-ec2';
+import { FileSystem, LifecyclePolicy, PerformanceMode } from 'aws-cdk-lib/aws-efs';
+import { EventBus, Rule, Schedule } from 'aws-cdk-lib/aws-events';
+import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
 import {
   Effect,
   PolicyStatement,
@@ -20,7 +27,7 @@ import {
   AnyPrincipal,
   AccountRootPrincipal,
   CfnRole,
-} from '@aws-cdk/aws-iam';
+} from 'aws-cdk-lib/aws-iam';
 import {
   DockerImageCode,
   DockerImageFunction,
@@ -29,22 +36,15 @@ import {
   FileSystem as LambdaFileSystem,
   Runtime,
   Code,
-} from '@aws-cdk/aws-lambda';
+} from 'aws-cdk-lib/aws-lambda';
 import {
   EventBridgeDestination,
   SqsDestination,
-} from '@aws-cdk/aws-lambda-destinations';
-import { S3EventSource } from '@aws-cdk/aws-lambda-event-sources';
-import { Bucket, BucketEncryption, EventType } from '@aws-cdk/aws-s3';
-import { CfnQueue, Queue, QueueEncryption } from '@aws-cdk/aws-sqs';
-import {
-  Construct,
-  Duration,
-  CustomResource,
-  RemovalPolicy,
-  Stack,
-  CfnResource,
-} from '@aws-cdk/core';
+} from 'aws-cdk-lib/aws-lambda-destinations';
+import { S3EventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
+import { Bucket, BucketEncryption, EventType } from 'aws-cdk-lib/aws-s3';
+import { CfnQueue, Queue, QueueEncryption } from 'aws-cdk-lib/aws-sqs';
+import { Construct } from 'constructs';
 
 /**
  * Interface for ServerlessClamscan Virus Definitions S3 Bucket Logging.
