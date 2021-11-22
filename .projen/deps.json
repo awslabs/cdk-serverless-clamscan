@@ -24,6 +24,7 @@
     },
     {
       "name": "cdk-nag",
+      "version": "^1",
       "type": "build"
     },
     {

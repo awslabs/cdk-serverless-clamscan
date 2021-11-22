@@ -1,7 +1,4 @@
-const {
-  AwsCdkConstructLibrary,
-  DependenciesUpgradeMechanism,
-} = require('projen');
+const { AwsCdkConstructLibrary } = require('projen');
 
 const AUTOMATION_TOKEN = 'PROJEN_GITHUB_TOKEN';
 
@@ -9,6 +6,9 @@ const project = new AwsCdkConstructLibrary({
   author: 'Amazon Web Services',
   authorAddress: 'donti@amazon.com',
   cdkVersion: '1.101.0',
+  defaultReleaseBranch: 'main',
+  majorVersion: 1,
+  releaseBranches: { 'v2-main': { majorVersion: 2 } },
   jsiiFqn: 'projen.AwsCdkConstructLibrary',
   name: 'cdk-serverless-clamscan',
   repositoryUrl: 'https://github.com/awslabs/cdk-serverless-clamscan',
@@ -28,7 +28,7 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/core',
   ],
   cdkTestDependencies: ['@aws-cdk/assert'],
-  devDeps: ['cdk-nag'],
+  devDeps: ['cdk-nag@^1'],
   bin: ['./assets'],
   keywords: [
     'clamav',
@@ -43,7 +43,6 @@ const project = new AwsCdkConstructLibrary({
     'sqs',
   ],
   license: 'Apache-2.0',
-  defaultReleaseBranch: 'main',
   gitignore: [
     '.vscode/',
     '.venv/',
@@ -75,7 +74,7 @@ const project = new AwsCdkConstructLibrary({
       labels: ['auto-approve'],
       secret: AUTOMATION_TOKEN,
       container: {
-        image: 'jsii/superchain:1-buster-slim-node12',
+        image: 'jsii/superchain:1-buster-slim-node14',
       },
     },
   },
@@ -85,6 +84,7 @@ const project = new AwsCdkConstructLibrary({
 project.package.addField('resolutions', {
   'set-value': '^4.0.1',
   'ansi-regex': '^5.0.1',
+  'json-schema': '^0.4.0',
 });
 project.buildWorkflow.file.addOverride('jobs.build.steps', [
   {
@@ -165,6 +165,7 @@ project.release.addJobs({
     env: {
       CI: 'true',
       RELEASE: 'true',
+      MAJOR: 1,
     },
     steps: [
       {
