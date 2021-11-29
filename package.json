@@ -24,6 +24,7 @@
     "publish:npm": "npx projen publish:npm",
     "publish:pypi": "npx projen publish:pypi",
     "release": "npx projen release",
+    "release:monocdk": "npx projen release:monocdk",
     "release:v2-main": "npx projen release:v2-main",
     "test": "npx projen test",
     "test:update": "npx projen test:update",
@@ -57,7 +58,7 @@
     "jsii-pacmak": "^1.46.0",
     "json-schema": "^0.4.0",
     "npm-check-updates": "^11",
-    "projen": "^0.34.20",
+    "projen": "^0.34.26",
     "standard-version": "^9",
     "ts-jest": "^26.5.6",
     "typescript": "^3.9.10"
