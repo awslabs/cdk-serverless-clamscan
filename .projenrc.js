@@ -1,8 +1,8 @@
-const { AwsCdkConstructLibrary } = require('projen');
+const { awscdk } = require('projen');
 
 const AUTOMATION_TOKEN = 'PROJEN_GITHUB_TOKEN';
 
-const project = new AwsCdkConstructLibrary({
+const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Amazon Web Services',
   authorAddress: 'donti@amazon.com',
   cdkVersion: '2.0.0-rc.22',
