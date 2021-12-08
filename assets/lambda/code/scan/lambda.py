@@ -110,7 +110,7 @@ def set_status(bucket, key, status):
         response = s3_client.get_object_tagging(Bucket=bucket,Key=key)
         old_tags = {i['Key']: i['Value'] for i in response['TagSet']}
     except Exception as e:
-        print("No tags")
+        logger.debug("No tags")
 
     new_tags = {"scan-status": status}
     tags = {**old_tags, **new_tags}
