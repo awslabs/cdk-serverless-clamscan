@@ -104,15 +104,24 @@ def lambda_handler(event, context):
 
 
 def set_status(bucket, key, status):
+    """Get previous tags and append scan-status tag"""
+    old_tags = {}
+    try:
+        response = s3_client.get_object_tagging(Bucket=bucket,Key=key)
+        old_tags = {i['Key']: i['Value'] for i in response['TagSet']}
+    except Exception as e:
+        print("No tags")
+
+    new_tags = {"scan-status": status}
+    tags = {**old_tags, **new_tags}
+
     """Set the scan-status tag of the S3 Object"""
     s3_client.put_object_tagging(
         Bucket=bucket,
         Key=key,
         Tagging={
-            "TagSet": [
-                {"Key": "scan-status", "Value": status},
-            ]
-        },
+            'TagSet': [{'Key': str(k), 'Value': str(v)} for k, v in tags.items()]
+        }
     )
     metrics.add_metric(name=status, unit="Count", value=1)
 
