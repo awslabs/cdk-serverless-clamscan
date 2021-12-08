@@ -1496,9 +1496,9 @@ caseless@~0.12.0:
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
 cdk-nag@^2:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.4.4.tgz#c4b7d1d9a1ad112624c1ab6916ada09f2a6c2eed"
-  integrity sha512-NhDy8fggwc6UZiZgIeUgxe6kGQmoKKv9so40UH7ytd+9hDIXK+tVFph3205r519SaG5uNz9KfM15n8IyW86r/Q==
+  version "2.4.5"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.4.5.tgz#cad97de531691990e3ba88bd50436e347ecb5fff"
+  integrity sha512-kBMI7NCUM/3ookXeNVUPKNX5d06ldUo6TkawUpdKMyNBZmcU7sjd3/E6cbSZwATbvPfC7jWQT8/a+Tk2NRAa7Q==
   dependencies:
     aws-cdk-lib "^2.0.0-rc.22"
     constructs "^10.0.5"
