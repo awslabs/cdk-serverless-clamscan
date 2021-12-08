@@ -2583,9 +2583,9 @@ caseless@~0.12.0:
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
 
 cdk-nag@^1:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.4.4.tgz#6ff65ee247fad4368cfcd818a47e8b620aa8aa19"
-  integrity sha512-S4JqPr+qgxZqF0GResp3Wv49nSIlVN4KgXWFxPPXicoZ31tr+nH4f/xskSqB0QM7hIPnPT9d4TcYrhd53gNpkw==
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.4.5.tgz#767856b92523c9a8c96bbb1ea24800cababa21a6"
+  integrity sha512-vWEBZAhheto2TJsCZH6xrIcEWKGSP2yBDt6g8/zWuKk/Gzvv8zLKsTKavUY8FxW/FlJhTh1YyidsGrbwA1o73A==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
