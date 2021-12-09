@@ -6,6 +6,11 @@
       "type": "build"
     },
     {
+      "name": "@aws-cdk/assertions",
+      "version": "^1.101.0",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },

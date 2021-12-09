@@ -12,6 +12,17 @@
     "@aws-cdk/cx-api" "1.134.0"
     constructs "^3.3.69"
 
+"@aws-cdk/assertions@^1.101.0":
+  version "1.134.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/assertions/-/assertions-1.134.0.tgz#13d70cacf3c135778b9fe117e47fe6871ca5de33"
+  integrity sha512-DZCTK/WirGMZSVorvo/N7IMlQ5QPMhXINzHYQjIdwmzmgwoa1cLBU2SlL+/RZE1Pytpum0SMSQQltPMKtOSuAw==
+  dependencies:
+    "@aws-cdk/cloud-assembly-schema" "1.134.0"
+    "@aws-cdk/core" "1.134.0"
+    "@aws-cdk/cx-api" "1.134.0"
+    constructs "^3.3.69"
+    fs-extra "^9.1.0"
+
 "@aws-cdk/assets@1.134.0":
   version "1.134.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/assets/-/assets-1.134.0.tgz#506955c0c08486edee0315586d2c5963be9fd03b"
@@ -3382,9 +3393,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 electron-to-chromium@^1.3.896:
-  version "1.4.12"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.12.tgz#5f73d1278c6205fc41d7a0ebd75563046b77c5d8"
-  integrity sha512-zjfhG9Us/hIy8AlQ5OzfbR/C4aBv1Dg/ak4GX35CELYlJ4tDAtoEcQivXvyBdqdNQ+R6PhlgQqV8UNPJmhkJog==
+  version "1.4.14"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.14.tgz#b0aa41fbfbf2eff8c2c6f7a871c03075250f8956"
+  integrity sha512-RsGkAN9JEAYMObS72kzUsPPcPGMqX1rBqGuXi9aa4TBKLzICoLf+DAAtd0fVFzrniJqYzpby47gthCUoObfs0Q==
 
 emittery@^0.7.1:
   version "0.7.2"
@@ -6661,10 +6672,10 @@ progress@^2.0.0, progress@^2.0.3:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-projen@^0.38.2:
-  version "0.38.2"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.38.2.tgz#acf5f1bad462c82c2331d570f21dae7d8df2dfa4"
-  integrity sha512-GnZyrXD4uwojoZmdC4SrWUKQvnhO544HiszbfPUs7HRXWKu3QuZYTDAaWjpSN6qP9s5XelettibfpRZ41iVE+g==
+projen@^0.39.2:
+  version "0.39.2"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.39.2.tgz#d13ba08371148203ad570b51b5edbbf56beb4937"
+  integrity sha512-67rS7/3MsSdNwih/Ono4q4y3wBA+QW3RWLWj4r2RaBM6WdOrj+Cqf37EL7WdQtmr2sd6K8agCP4Jf5zZwYgOhw==
   dependencies:
     "@iarna/toml" "^2.2.5"
     case "^1.6.3"
