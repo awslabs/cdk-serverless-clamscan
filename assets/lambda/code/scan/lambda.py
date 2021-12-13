@@ -107,20 +107,20 @@ def set_status(bucket, key, status):
     """Set the scan-status tag of the S3 Object"""
     old_tags = {}
     try:
-        response = s3_client.get_object_tagging(Bucket=bucket,Key=key)
-        old_tags = {i['Key']: i['Value'] for i in response['TagSet']}
+        response = s3_client.get_object_tagging(Bucket=bucket, Key=key)
+        old_tags = {i["Key"]: i["Value"] for i in response["TagSet"]}
     except botocore.exceptions.ClientError as e:
         logger.debug(e.response["Error"]["Message"])
-
     new_tags = {"scan-status": status}
     tags = {**old_tags, **new_tags}
-
     s3_client.put_object_tagging(
         Bucket=bucket,
         Key=key,
         Tagging={
-            'TagSet': [{'Key': str(k), 'Value': str(v)} for k, v in tags.items()]
-        }
+            "TagSet": [
+                {"Key": str(k), "Value": str(v)} for k, v in tags.items()
+            ]
+        },
     )
     metrics.add_metric(name=status, unit="Count", value=1)
 
