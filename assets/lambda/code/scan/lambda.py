@@ -104,18 +104,17 @@ def lambda_handler(event, context):
 
 
 def set_status(bucket, key, status):
-    """Get previous tags and append scan-status tag"""
+    """Set the scan-status tag of the S3 Object"""
     old_tags = {}
     try:
         response = s3_client.get_object_tagging(Bucket=bucket,Key=key)
         old_tags = {i['Key']: i['Value'] for i in response['TagSet']}
-    except Exception as e:
-        logger.debug("No tags")
+    except botocore.exceptions.ClientError as e:
+        logger.debug(e.response["Error"]["Message"])
 
     new_tags = {"scan-status": status}
     tags = {**old_tags, **new_tags}
 
-    """Set the scan-status tag of the S3 Object"""
     s3_client.put_object_tagging(
         Bucket=bucket,
         Key=key,
