@@ -1181,7 +1181,7 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-cdk-lib@2.1.0, aws-cdk-lib@^2.0.0-rc.22:
+aws-cdk-lib@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.1.0.tgz#2497484cfd4e2eeaba99b070bbfa54486d52ae34"
   integrity sha512-W607G3aSrWpawpcqzIuUYKlU+grfvkbszyqikyVYqJgMHFCCQXq0S1ynPMzfQ49CwjlwZsu4LIsPM+dNR+Yj6g==
@@ -1462,12 +1462,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2:
-  version "2.4.5"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.4.5.tgz#cad97de531691990e3ba88bd50436e347ecb5fff"
-  integrity sha512-kBMI7NCUM/3ookXeNVUPKNX5d06ldUo6TkawUpdKMyNBZmcU7sjd3/E6cbSZwATbvPfC7jWQT8/a+Tk2NRAa7Q==
-  dependencies:
-    aws-cdk-lib "^2.0.0-rc.22"
-    constructs "^10.0.5"
+  version "2.4.6"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.4.6.tgz#87c3a5fefec2524d0e53417a175d24a5b3ad170e"
+  integrity sha512-i777fSdKHWMoZeg41wmVgq/WrHKqi8FnK/wSVaKa3/VNfq7g3oxcwpBWHv2YyIhSUAyRRNjIfbel8xek92GM2Q==
 
 chalk@^2.0.0, chalk@^2.4.2:
   version "2.4.2"
@@ -1710,11 +1707,6 @@ constructs@10.0.5:
   version "10.0.5"
   resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.0.5.tgz#48c0402f1b98bbf5664efff74a8015e6e8a9f41e"
   integrity sha512-IwOwekzrASFC3qt4ozCtV09rteAIAesuCGsW0p+uBfqHd2XcvA5CXqJjgf4eUqm6g8e/noXlVCMDWwC8GaLtrg==
-
-constructs@^10.0.5:
-  version "10.0.12"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.0.12.tgz#64f314d87f7cdf6da127c9eb0bf6a3d990989c4a"
-  integrity sha512-wVQcQgwwK7b//7yI54/3hundmXAw7RBpuy5f6yIBFNceJr8feTK6Cs2I2f3+gp3/ikszzTouLup9AzxioEEXPQ==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
