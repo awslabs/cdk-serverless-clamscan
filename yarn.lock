@@ -2537,9 +2537,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1:
-  version "1.4.14"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.4.14.tgz#3b914c4d1cffd35638098e83ad7dc3339efeede4"
-  integrity sha512-Dfl+V7p83rdMbg5FC+Tr17V8xK2t5d+LNNME9kYQRQNVbRgN5o9cx5OIHs80RVJGNyM47phNRUqD9lqiUl0kuw==
+  version "1.4.15"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.4.15.tgz#8d32086b5183939ed4fae16c3a6cbc95fb5dd4fc"
+  integrity sha512-7PPBn22lh5C94E53aq6vFUHFIcnRSiImu8Uw6O7GR3cIs4wDJBG6Vh8unU4F23fcxRKkSIZ/N/TJ7l8kQnN4Wg==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -3316,9 +3316,9 @@ duplexer3@^0.1.4:
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
 
 electron-to-chromium@^1.4.17:
-  version "1.4.26"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.26.tgz#d71b9da220543cf10614a576c3d5ebbe43d96efb"
-  integrity sha512-cA1YwlRzO6TGp7yd3+KAqh9Tt6Z4CuuKqsAJP6uF/H5MQryjAGDhMhnY5cEXo8MaRCczpzSBhMPdqRIodkbZYw==
+  version "1.4.27"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.27.tgz#bfc6e798d8a56a17d658312f4b7ae1a7ca87724f"
+  integrity sha512-uZ95szi3zUbzRDx1zx/xnsCG+2xgZyy57pDOeaeO4r8zx5Dqe8Jv1ti8cunvBwJHVI5LzPuw8umKwZb3WKYxSQ==
 
 emittery@^0.7.1:
   version "0.7.2"
