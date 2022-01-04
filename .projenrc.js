@@ -102,6 +102,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
       run: 'npx projen unbump',
     },
   ],
+  projenVersion: '0.45.4',
 });
 project.package.addField('resolutions', {
   'set-value': '^4.0.1',
