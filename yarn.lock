@@ -2549,9 +2549,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1:
-  version "1.4.24"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.4.24.tgz#d92cc9c08f96a10bc9f76898a2532626653ea465"
-  integrity sha512-+/EXTSY9OUj+brXWxqoCWN8sr7vLhFyeySn0I3AiJGDRqOHjWg77vUZL4j8Mhb9PIcy5lVafxHwLbdLbHWi81Q==
+  version "1.4.25"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.4.25.tgz#8d9cdf2d3e4a621efcd558ae36f838e0920bad13"
+  integrity sha512-fCWI9aZ2d5+j7zaYCy1yagtJPmz/YrTv1InLBL95aifyyrNOW27UEsmHY2hNNdH3tvHXX1E5HUyv5I8tdHQezA==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2776,9 +2776,9 @@ colors@1.0.3:
   integrity sha1-BDP0TYCWgP3rYO0mDxsMJi6CpAs=
 
 colors@^1.4.0:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.1.tgz#57e798423c5fa9182f7531e4c587bfce9483175d"
-  integrity sha512-urbBmMVnD1vk0mUwCpnWv06P3f16EF+RMTtIXTkylJk5mAdfrMepu9B3hhSnL8DGkc1Ra6pENJHrXTKvcAZ0wA==
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.2.tgz#cd4fe227412ca2c75bb6f5683ec2e5e68de4f317"
+  integrity sha512-5QhJWPFZqkKIieXJPpCprdOytvH7v0AGWpu9K2jZ4LWkGg3dVBNoYPgGGRpEsc0jb8Boy0ElYrdjH9uXfhRSqw==
 
 combined-stream@^1.0.8:
   version "1.0.8"
@@ -2848,9 +2848,9 @@ console-control-strings@^1.0.0, console-control-strings@^1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.3.183"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.183.tgz#c5739cd69d6ab32a4dfd8cb92277321d1a1a4dd7"
-  integrity sha512-JeM0U7gS/zPv8yazZ8vAZmBGqRRsDavX6HADfvR3pxxqkqhwlsAfTVNyOSUHF50kN5+/fGW8xi2syHb6ZmGNhA==
+  version "3.3.184"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.184.tgz#299fbf73194a24ca960bd243311e00412101f245"
+  integrity sha512-zifixiwsiB7g8IFAuIb48M7fXXLiWr6fzt48WvIQF/wwtIcmZBD5FdvFpsXdaDXznnNfDln+oDI1X5M+bTwziA==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
@@ -3744,9 +3744,9 @@ fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
 
 fast-glob@^3.2.9:
-  version "3.2.9"
-  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.9.tgz#8f55f664b68a236bd29fa165817fc44f2b11faba"
-  integrity sha512-MBwILhhD92sziIrMQwpqcuGERF+BH99ei2a3XsGJuqEKcSycAL+w0HWokFenZXona+kjFr82Lf71eTxNRC06XQ==
+  version "3.2.10"
+  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.10.tgz#2734f83baa7f43b7fd41e13bc34438f4ffe284ee"
+  integrity sha512-s9nFhFnvR63wls6/kM88kQqDhMu0AfdjqouE2l5GVQPbqLgyFjjU5ry/r2yKsJxpb9Py1EYNqieFrmMaX4v++A==
   dependencies:
     "@nodelib/fs.stat" "^2.0.2"
     "@nodelib/fs.walk" "^1.2.3"
