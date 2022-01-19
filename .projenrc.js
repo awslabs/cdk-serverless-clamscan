@@ -78,6 +78,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
       },
     },
   },
+  githubOptions: {
+    mergify: false,
+  },
   buildWorkflow: true,
   release: true,
   postBuildSteps: [
