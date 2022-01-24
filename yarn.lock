@@ -2544,9 +2544,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1:
-  version "1.4.29"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.4.29.tgz#770e7e063739ec5d6cf68101d0822e8264b32f4f"
-  integrity sha512-FmQ2uBSIw1MTPjajkFtBIfdcvYqwtgeF031zHZU2W3rM4Ca6bO0I7isooNVLndmIGxQKUs7xpfigPbB72PJI4g==
+  version "1.4.30"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.4.30.tgz#c2c5201a1552fa107879e966a1f36ea98cb3a1e8"
+  integrity sha512-NsF/TUWrdQBSe5TGuD4yyIrXsXJLALM4dTWPrLCn3xlNX+MS0LsvGdiY5tG/riXon+eZ3Nzvf/B2vBMQbSiRJA==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2843,9 +2843,9 @@ console-control-strings@^1.0.0, console-control-strings@^1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.3.196"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.196.tgz#6662c3a07aa07e87e422f4120cb2d9eafdeae0a9"
-  integrity sha512-0Sz3L28vykhG57fc2DljNBph2MBkedSZZcYIArv+wDYKm3vvio2PNMbK66FB9Vl+dKicE/RV9LDMD/Cd3MSelg==
+  version "3.3.197"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.197.tgz#50a35b9bb0af70ca99efc03836788c6f4a99c16e"
+  integrity sha512-s+sDpPt7JYyUixb6f89UIGfUp8cfSj9mJTvsbE1Kjc/ALZxpgg0yYwlV1UBoVVoKH0kzpX8S5EdbWkw1uLY7yw==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
@@ -5555,9 +5555,9 @@ lodash@4.x, lodash@^4.17.15, lodash@^4.17.21, lodash@^4.7.0:
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 log4js@^6.3.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/log4js/-/log4js-6.4.0.tgz#3f63ccfc8033c83cd617a4d2d50e48be5944eae9"
-  integrity sha512-ysc/XUecZJuN8NoKOssk3V0cQ29xY4fra6fnigZa5VwxFsCsvdqsdnEuAxNN89LlHpbE4KUD3zGcn+kFqonSVQ==
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/log4js/-/log4js-6.4.1.tgz#9d3a8bf2c31c1e213fe3fc398a6053f7a2bc53e8"
+  integrity sha512-iUiYnXqAmNKiIZ1XSAitQ4TmNs8CdZYTAWINARF3LjnsLN8tY5m0vRwd6uuWj/yNY0YHxeZodnbmxKFUOM2rMg==
   dependencies:
     date-format "^4.0.3"
     debug "^4.3.3"
@@ -5879,9 +5879,9 @@ natural-compare@^1.4.0:
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
 negotiator@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
-  integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.3.tgz#58e323a72fedc0d6f9cd4d31fe49f51479590ccd"
+  integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
 
 neo-async@^2.6.0:
   version "2.6.2"
