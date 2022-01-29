@@ -30,12 +30,13 @@ jobs:
         run: npx projen release:v2-main
       - name: Check for new commits
         id: git_remote
-        run: echo ::set-output name=latest_commit::"$(git ls-remote origin -h ${{ github.ref }} | cut -f1)"
+        run: echo ::set-output name=latest_commit::"$(git ls-remote origin -h ${{
+          github.ref }} | cut -f1)"
       - name: Upload artifact
         if: ${{ steps.git_remote.outputs.latest_commit == github.sha }}
         uses: actions/upload-artifact@v2.1.1
         with:
-          name: build-artifact
+          name: dist
           path: dist
     container:
       image: jsii/superchain:1-buster-slim-node14
@@ -49,18 +50,18 @@ jobs:
     steps:
       - uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 14
       - name: Download build artifacts
         uses: actions/download-artifact@v2
         with:
-          name: build-artifact
+          name: dist
           path: dist
-      - name: Prepare Repository
-        run: mv dist .repo
-      - name: Collect GitHub Metadata
-        run: mv .repo/dist dist
       - name: Release
-        run: errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q "Release.tag_name already exists" $errout; then cat $errout; exit $exitcode; fi
+        run: errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R
+          $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt)
+          --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode
+          -ne 0 ] && ! grep -q "Release.tag_name already exists" $errout; then
+          cat $errout; exit $exitcode; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
@@ -75,20 +76,12 @@ jobs:
     steps:
       - uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 14
       - name: Download build artifacts
         uses: actions/download-artifact@v2
         with:
-          name: build-artifact
+          name: dist
           path: dist
-      - name: Prepare Repository
-        run: mv dist .repo
-      - name: Install Dependencies
-        run: cd .repo && yarn install --check-files --frozen-lockfile
-      - name: Create js artifact
-        run: cd .repo && npx projen package:js
-      - name: Collect js Artifact
-        run: mv .repo/dist dist
       - name: Release
         run: npx -p jsii-release@latest jsii-release-npm
         env:
@@ -105,23 +98,15 @@ jobs:
     steps:
       - uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 14
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.x
+          python-version: 3
       - name: Download build artifacts
         uses: actions/download-artifact@v2
         with:
-          name: build-artifact
+          name: dist
           path: dist
-      - name: Prepare Repository
-        run: mv dist .repo
-      - name: Install Dependencies
-        run: cd .repo && yarn install --check-files --frozen-lockfile
-      - name: Create python artifact
-        run: cd .repo && npx projen package:python
-      - name: Collect python Artifact
-        run: mv .repo/dist dist
       - name: Release
         run: npx -p jsii-release@latest jsii-release-pypi
         env:
