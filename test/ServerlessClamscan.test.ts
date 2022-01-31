@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { ABSENT, arrayWith, stringLike } from '@aws-cdk/assert';
+import { ABSENT, anything, arrayWith, stringLike } from '@aws-cdk/assert';
 import { Stack } from 'aws-cdk-lib';
 import { EventBus } from 'aws-cdk-lib/aws-events';
 import { SqsDestination, EventBridgeDestination } from 'aws-cdk-lib/aws-lambda-destinations';
@@ -164,6 +164,24 @@ test('expect VirusDefsBucket to not have access logging enabled', () => {
   });
   expect(stack).toHaveResourceLike('AWS::S3::Bucket', {
     LoggingConfiguration: ABSENT,
+  });
+});
+
+test('expect reserved concurrency prop to set scan Lambda reserved concurrency', () => {
+  const stack = new Stack();
+  new ServerlessClamscan(stack, 'default', {
+    reservedConcurrency: 100,
+  });
+  expect(stack).toHaveResourceLike('AWS::Lambda::Function', {
+    ReservedConcurrentExecutions: 100,
+  });
+});
+
+test('expect no reserved concurrency settings by default', () => {
+  const stack = new Stack();
+  new ServerlessClamscan(stack, 'default', {});
+  expect(stack).not.toHaveResourceLike('AWS::Lambda::Function', {
+    ReservedConcurrentExecutions: anything(),
   });
 });
 
