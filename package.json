@@ -16,9 +16,14 @@
     "compile": "npx projen compile",
     "default": "npx projen default",
     "docgen": "npx projen docgen",
+    "eject": "npx projen eject",
     "eslint": "npx projen eslint",
     "package": "npx projen package",
+    "package-all": "npx projen package-all",
+    "package:js": "npx projen package:js",
+    "package:python": "npx projen package:python",
     "post-compile": "npx projen post-compile",
+    "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
     "release:v2-main": "npx projen release:v2-main",
     "test": "npx projen test",
@@ -52,7 +57,6 @@
     "jsii": "^1.52.1",
     "jsii-diff": "^1.52.1",
     "jsii-docgen": "^1.8.110",
-    "jsii-pacmak": "^1.52.1",
     "json-schema": "^0.4.0",
     "npm-check-updates": "^12",
     "projen": "^0.52.8",
@@ -64,7 +68,6 @@
     "aws-cdk-lib": "^2.1.0",
     "constructs": "^10.0.5"
   },
-  "bundledDependencies": [],
   "keywords": [
     "aws",
     "cdk",
@@ -83,8 +86,8 @@
   "version": "0.0.0",
   "jest": {
     "testMatch": [
-      "**/__tests__/**/*.ts?(x)",
-      "**/?(*.)+(spec|test).ts?(x)"
+      "<rootDir>/src/**/__tests__/**/*.ts?(x)",
+      "<rootDir>/(test|src)/**/?(*.)+(spec|test).ts?(x)"
     ],
     "clearMocks": true,
     "collectCoverage": true,
@@ -92,6 +95,7 @@
       "json",
       "lcov",
       "clover",
+      "cobertura",
       "text"
     ],
     "coverageDirectory": "coverage",
