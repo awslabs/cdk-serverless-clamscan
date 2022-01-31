@@ -69,6 +69,11 @@ export interface ServerlessClamscanProps {
    */
   readonly buckets?: Bucket[];
   /**
+   * Optionally set a reserved concurrency for the virus scanning Lambda.
+   * @see https://docs.aws.amazon.com/lambda/latest/operatorguide/reserved-concurrency.html
+   */
+  readonly reservedConcurrency?: number;
+  /**
    * The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified).
    */
   readonly onResult?: IDestination;
@@ -387,6 +392,7 @@ export class ServerlessClamscan extends Construct {
       allowAllOutbound: false,
       timeout: Duration.minutes(15),
       memorySize: 10240,
+      reservedConcurrentExecutions: props.reservedConcurrency,
       environment: {
         EFS_MOUNT_PATH: this._efsMountPath,
         EFS_DEF_PATH: this._efsDefsPath,

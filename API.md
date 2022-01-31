@@ -69,6 +69,7 @@ new ServerlessClamscan(scope: Construct, id: string, props: ServerlessClamscanPr
   * **efsEncryption** (<code>boolean</code>)  Whether or not to enable encryption on EFS filesystem (Default: enabled). __*Optional*__
   * **onError** (<code>[IDestination](#aws-cdk-aws-lambda-idestination)</code>)  The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified). __*Optional*__
   * **onResult** (<code>[IDestination](#aws-cdk-aws-lambda-idestination)</code>)  The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified). __*Optional*__
+  * **reservedConcurrency** (<code>number</code>)  Optionally set a reserved concurrency for the virus scanning Lambda. __*Optional*__
 
 
 
@@ -135,6 +136,7 @@ Name | Type | Description
 **efsEncryption**? | <code>boolean</code> | Whether or not to enable encryption on EFS filesystem (Default: enabled).<br/>__*Optional*__
 **onError**? | <code>[IDestination](#aws-cdk-aws-lambda-idestination)</code> | The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified).<br/>__*Optional*__
 **onResult**? | <code>[IDestination](#aws-cdk-aws-lambda-idestination)</code> | The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified).<br/>__*Optional*__
+**reservedConcurrency**? | <code>number</code> | Optionally set a reserved concurrency for the virus scanning Lambda.<br/>__*Optional*__
 
 
 
