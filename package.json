@@ -68,7 +68,7 @@
     "constructs": "^10.0.5"
   },
   "dependencies": {
-    "cdk-nag": "latest"
+    "cdk-nag": "^2.6.1"
   },
   "keywords": [
     "aws",

@@ -110,7 +110,7 @@
     },
     {
       "name": "cdk-nag",
-      "version": "latest",
+      "version": "^2.6.1",
       "type": "runtime"
     }
   ],
