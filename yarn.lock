@@ -1195,15 +1195,15 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-cdk-lib@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.1.0.tgz#2497484cfd4e2eeaba99b070bbfa54486d52ae34"
-  integrity sha512-W607G3aSrWpawpcqzIuUYKlU+grfvkbszyqikyVYqJgMHFCCQXq0S1ynPMzfQ49CwjlwZsu4LIsPM+dNR+Yj6g==
+aws-cdk-lib@2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.11.0.tgz#a837f856d337db7dbc727bd718da8113e4596652"
+  integrity sha512-zN0K65oOAi5vedvRL9vXTQrYrpYO8rLCyajBpEKwi8z2D/rGUM9jnH1NHseUCJwQuP+I78FcUQgeFNPO80PUeg==
   dependencies:
     "@balena/dockerignore" "^1.0.2"
     case "1.6.3"
     fs-extra "^9.1.0"
-    ignore "^5.1.9"
+    ignore "^5.2.0"
     jsonschema "^1.4.0"
     minimatch "^3.0.4"
     punycode "^2.1.1"
@@ -1475,10 +1475,10 @@ case@1.6.3, case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdk-nag@^2:
-  version "2.4.54"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.4.54.tgz#f781e2c1abd7807c31b2abad997f60dfc44bc470"
-  integrity sha512-OEwnMcw4VfRDI/U0WOTBp4t4vFZj/uV4KVFu9H3hIq2bl491rIOR+icgMvbKx16mbaIfNTB3VpRlZCurBP3wwg==
+cdk-nag@^2.6.1:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.6.2.tgz#21fdfe565374a4545a9fdfaa43cee484a51d2380"
+  integrity sha512-QEPagmOTNasRJ3XQ8ddt7ImeudjbF/w95TykDp+ovWjOqEdlchyIFTYoJi7bHdE+Me3Nw8uV2BzIj1wX0duE7g==
 
 chalk@^2.0.0, chalk@^2.4.2:
   version "2.4.2"
@@ -3151,7 +3151,7 @@ ignore@^4.0.6:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
   integrity sha512-cyFDKrqc/YdcWFniJhzI42+AzS+gNwmUzOSFcRCQYwySuBBBy/KjuxWLZ/FHEH6Moq1NizMOBWyTcv8O4OZIMg==
 
-ignore@^5.1.8, ignore@^5.1.9, ignore@^5.2.0:
+ignore@^5.1.8, ignore@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.2.0.tgz#6d3bac8fa7fe0d45d9f9be7bac2fc279577e345a"
   integrity sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==
