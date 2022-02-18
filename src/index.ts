@@ -19,7 +19,6 @@ import {
   ArnPrincipal,
   AnyPrincipal,
   AccountRootPrincipal,
-  CfnRole,
 } from '@aws-cdk/aws-iam';
 import {
   DockerImageCode,
@@ -36,16 +35,15 @@ import {
 } from '@aws-cdk/aws-lambda-destinations';
 import { S3EventSource } from '@aws-cdk/aws-lambda-event-sources';
 import { Bucket, BucketEncryption, EventType } from '@aws-cdk/aws-s3';
-import { CfnQueue, Queue, QueueEncryption } from '@aws-cdk/aws-sqs';
+import { Queue, QueueEncryption } from '@aws-cdk/aws-sqs';
 import {
   Construct,
   Duration,
   CustomResource,
   RemovalPolicy,
   Stack,
-  CfnResource,
 } from '@aws-cdk/core';
-
+import { NagSuppressions } from 'cdk-nag';
 /**
  * Interface for ServerlessClamscan Virus Definitions S3 Bucket Logging.
  */
@@ -216,6 +214,13 @@ export class ServerlessClamscan extends Construct {
       this.errorDeadLetterQueue = new Queue(this, 'ScanErrorDeadLetterQueue', {
         encryption: QueueEncryption.KMS_MANAGED,
       });
+      this.errorDeadLetterQueue.addToResourcePolicy(new PolicyStatement({
+        actions: ['sqs:*'],
+        effect: Effect.DENY,
+        principals: [new AnyPrincipal()],
+        conditions: { Bool: { 'aws:SecureTransport': false } },
+        resources: [this.errorDeadLetterQueue.queueArn],
+      }));
       this.errorQueue = new Queue(this, 'ScanErrorQueue', {
         encryption: QueueEncryption.KMS_MANAGED,
         deadLetterQueue: {
@@ -223,13 +228,17 @@ export class ServerlessClamscan extends Construct {
           queue: this.errorDeadLetterQueue,
         },
       });
+      this.errorQueue.addToResourcePolicy(new PolicyStatement({
+        actions: ['sqs:*'],
+        effect: Effect.DENY,
+        principals: [new AnyPrincipal()],
+        conditions: { Bool: { 'aws:SecureTransport': false } },
+        resources: [this.errorQueue.queueArn],
+      }));
       this.errorDest = new SqsDestination(this.errorQueue);
-      const cfnDlq = this.errorDeadLetterQueue.node.defaultChild as CfnQueue;
-      cfnDlq.addMetadata('cdk_nag', {
-        rules_to_suppress: [
-          { id: 'AwsSolutions-SQS3', reason: 'This queue is a DLQ.' },
-        ],
-      });
+      NagSuppressions.addResourceSuppressions(this.errorDeadLetterQueue, [
+        { id: 'AwsSolutions-SQS3', reason: 'This queue is a DLQ.' },
+      ]);
     } else {
       this.errorDest = props.onError;
     }
@@ -402,31 +411,14 @@ export class ServerlessClamscan extends Construct {
       },
     });
     if (this._scanFunction.role) {
-      const cfnScanRole = this._scanFunction.role.node.defaultChild as CfnRole;
-      cfnScanRole.addMetadata('cdk_nag', {
-        rules_to_suppress: [
-          {
-            id: 'AwsSolutions-IAM4',
-            reason:
-              'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch. The AWSLambdaVPCAccessExecutionRole is required for functions with VPC access to manage elastic network interfaces.',
-          },
-        ],
-      });
-      const cfnScanRoleChildren = this._scanFunction.role.node.children;
-      for (const child of cfnScanRoleChildren) {
-        const resource = child.node.defaultChild as CfnResource;
-        if (resource != undefined && resource.cfnResourceType == 'AWS::IAM::Policy') {
-          resource.addMetadata('cdk_nag', {
-            rules_to_suppress: [
-              {
-                id: 'AwsSolutions-IAM5',
-                reason:
-                  'The EFS mount point permissions are controlled through a condition which limit the scope of the * resources.',
-              },
-            ],
-          });
-        }
-      }
+      NagSuppressions.addResourceSuppressions(this._scanFunction.role, [
+        { id: 'AwsSolutions-IAM4', reason: 'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch. The AWSLambdaVPCAccessExecutionRole is required for functions with VPC access to manage elastic network interfaces.' },
+      ]);
+      NagSuppressions.addResourceSuppressions(this._scanFunction.role, [{
+        id: 'AwsSolutions-IAM5',
+        reason:
+          'The EFS mount point permissions are controlled through a condition which limit the scope of the * resources.',
+      }], true);
     }
     this._scanFunction.connections.allowToAnyIpv4(
       Port.tcp(443),
@@ -468,31 +460,16 @@ export class ServerlessClamscan extends Construct {
         }),
       );
       defs_bucket.grantReadWrite(download_defs);
-      const cfnDownloadRole = download_defs.role.node.defaultChild as CfnRole;
-      cfnDownloadRole.addMetadata('cdk_nag', {
-        rules_to_suppress: [
-          {
-            id: 'AwsSolutions-IAM4',
-            reason:
-              'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch.',
-          },
-        ],
-      });
-      const cfnDownloadRoleChildren = download_defs.role.node.children;
-      for (const child of cfnDownloadRoleChildren) {
-        const resource = child.node.defaultChild as CfnResource;
-        if (resource != undefined && resource.cfnResourceType == 'AWS::IAM::Policy') {
-          resource.addMetadata('cdk_nag', {
-            rules_to_suppress: [
-              {
-                id: 'AwsSolutions-IAM5',
-                reason:
-                  'The function is allowed to perform operations on all prefixes in the specified bucket.',
-              },
-            ],
-          });
-        }
-      }
+      NagSuppressions.addResourceSuppressions(download_defs.role, [{
+        id: 'AwsSolutions-IAM4',
+        reason:
+          'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch.',
+      }]);
+      NagSuppressions.addResourceSuppressions(download_defs.role, [{
+        id: 'AwsSolutions-IAM5',
+        reason:
+          'The function is allowed to perform operations on all prefixes in the specified bucket.',
+      }], true);
     }
 
     new Rule(this, 'VirusDefsUpdateRule', {
@@ -510,16 +487,11 @@ export class ServerlessClamscan extends Construct {
     });
     download_defs.grantInvoke(init_defs_cr);
     if (init_defs_cr.role) {
-      const cfnScanRole = init_defs_cr.role.node.defaultChild as CfnRole;
-      cfnScanRole.addMetadata('cdk_nag', {
-        rules_to_suppress: [
-          {
-            id: 'AwsSolutions-IAM4',
-            reason:
-              'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch.',
-          },
-        ],
-      });
+      NagSuppressions.addResourceSuppressions(init_defs_cr.role, [{
+        id: 'AwsSolutions-IAM4',
+        reason:
+          'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch.',
+      }]);
     }
     new CustomResource(this, 'InitDefsCr', {
       serviceToken: init_defs_cr.functionArn,

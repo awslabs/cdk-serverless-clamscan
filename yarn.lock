@@ -614,7 +614,7 @@
     "@aws-cdk/custom-resources" "1.144.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-events@1.144.0", "@aws-cdk/aws-events@^1.101.0":
+"@aws-cdk/aws-events@1.144.0", "@aws-cdk/aws-events@^1.101.0", "@aws-cdk/aws-events@^1.123.0":
   version "1.144.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-events/-/aws-events-1.144.0.tgz#e8e0b72ef93c984f462cd613dfdb6e45676395e0"
   integrity sha512-/ksVrO+T4YUNhPlfx/mQBw1hBfARAY+tbM8vmWgkWm0kU2X3DukZy3QIzF1tBYiMZ1+vO7fzixKb36lcc2uCRw==
@@ -629,6 +629,24 @@
   integrity sha512-bADwr5iqTm0uemPE9cHEqEVjrpcGiayGOngZtUgpCWuJhMkNWiwtO/tm0v/oSbFWFGPgAFt/f1W+N3SwewEURw==
   dependencies:
     "@aws-cdk/aws-ec2" "1.144.0"
+    "@aws-cdk/core" "1.144.0"
+    "@aws-cdk/custom-resources" "1.144.0"
+    constructs "^3.3.69"
+
+"@aws-cdk/aws-glue@^1.123.0":
+  version "1.144.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-glue/-/aws-glue-1.144.0.tgz#8f8e9890688e868853656a52e25161d7a9f33ec4"
+  integrity sha512-Q2sxWGCvL8k0YOlnwRypy2SfjH8rmoFKRT0XjvslQ69yuc0sH0auJbqzps16bpyKgDZRIp3rZXdgo/5VVo1BFw==
+  dependencies:
+    "@aws-cdk/assets" "1.144.0"
+    "@aws-cdk/aws-cloudwatch" "1.144.0"
+    "@aws-cdk/aws-ec2" "1.144.0"
+    "@aws-cdk/aws-events" "1.144.0"
+    "@aws-cdk/aws-iam" "1.144.0"
+    "@aws-cdk/aws-kms" "1.144.0"
+    "@aws-cdk/aws-logs" "1.144.0"
+    "@aws-cdk/aws-s3" "1.144.0"
+    "@aws-cdk/aws-s3-assets" "1.144.0"
     "@aws-cdk/core" "1.144.0"
     "@aws-cdk/custom-resources" "1.144.0"
     constructs "^3.3.69"
@@ -2574,10 +2592,10 @@ case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdk-nag@^1:
-  version "1.4.49"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.4.49.tgz#9755378e9d8ae70506c8b1443335202d5a5e6aeb"
-  integrity sha512-aUf8OUsNEs1Ou/9KfpazAVciWh5dw68jKJVYOClMsMqmAiDkbrkRX0K1bTzvn3fd+y9W2kxHpWUzUALyO4fD2g==
+cdk-nag@^1.6.1:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.6.2.tgz#62f526a9f6aeb6c72cdef16e51ebefd8d8a02e17"
+  integrity sha512-Fn288lHE/Zr+qtKKHoeMtPMRfJ2SJZ25I+C81VGSpssRuFuY2JOnrKMrGHKEBua8FV3d8Ox8u2iVZn1Ah55O1Q==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2612,6 +2630,8 @@ cdk-nag@^1:
     "@aws-cdk/aws-elasticloadbalancingv2" "^1.123.0"
     "@aws-cdk/aws-elasticsearch" "^1.123.0"
     "@aws-cdk/aws-emr" "^1.123.0"
+    "@aws-cdk/aws-events" "^1.123.0"
+    "@aws-cdk/aws-glue" "^1.123.0"
     "@aws-cdk/aws-iam" "^1.123.0"
     "@aws-cdk/aws-kinesis" "^1.123.0"
     "@aws-cdk/aws-kinesisanalytics" "^1.123.0"

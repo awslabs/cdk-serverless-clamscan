@@ -28,7 +28,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '@aws-cdk/aws-sqs',
     '@aws-cdk/core',
   ],
-  devDeps: ['cdk-nag@^1', '@aws-cdk/assert@^1'],
+  deps: ['cdk-nag@^1.6.1'],
+  devDeps: ['@aws-cdk/assert@^1'],
   bin: ['./assets'],
   keywords: [
     'clamav',
@@ -90,7 +91,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
     {
       name: 'Setup for monocdk build',
-      run: "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'\nfind ./test -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'",
+      run: "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'\nfind ./src -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'\nfind ./test -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'",
     },
     {
       name: 'Bump to next version',
@@ -123,7 +124,7 @@ monocdkTask.exec('[ -e dist/changelog.md ] && rm dist/changelog.md', {
   name: 'remove changelog',
 });
 monocdkTask.exec(
-  "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'\nfind ./test -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'",
+  "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'\nfind ./src -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'\nfind ./test -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'",
   { name: 'Setup for monocdk build' },
 );
 monocdkTask.spawn('bump');
@@ -140,7 +141,7 @@ project.buildWorkflow.file.addOverride(
   project.buildWorkflow.jobs.build.steps.concat([
     {
       name: 'Setup for monocdk build',
-      run: "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'\nfind ./test -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'",
+      run: "rm yarn.lock\nrm .projenrc.js\nmv .projenrc.monocdk.js .projenrc.js\nfind ./src -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk/core,monocdk,g'\nfind ./src -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,@aws-cdk,monocdk,g'\nfind ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'\nfind ./src -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'\nfind ./test -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'",
     },
     {
       name: 'Build for monocdk',
