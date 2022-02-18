@@ -13,7 +13,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   name: 'cdk-serverless-clamscan',
   repositoryUrl: 'https://github.com/awslabs/cdk-serverless-clamscan',
   description: 'Serverless architecture to virus scan objects in Amazon S3.',
-  devDeps: ['cdk-nag@^2', '@aws-cdk/assert@^2.1'],
+  deps: ['cdk-nag@latest'],
+  devDeps: ['@aws-cdk/assert@^2.1'],
   bin: ['./assets'],
   keywords: [
     'clamav',
