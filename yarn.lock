@@ -2592,7 +2592,7 @@ case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdk-nag@latest-1:
+cdk-nag@^1.6.1:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.6.2.tgz#62f526a9f6aeb6c72cdef16e51ebefd8d8a02e17"
   integrity sha512-Fn288lHE/Zr+qtKKHoeMtPMRfJ2SJZ25I+C81VGSpssRuFuY2JOnrKMrGHKEBua8FV3d8Ox8u2iVZn1Ah55O1Q==

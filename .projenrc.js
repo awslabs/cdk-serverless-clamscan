@@ -28,7 +28,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '@aws-cdk/aws-sqs',
     '@aws-cdk/core',
   ],
-  deps: ['cdk-nag@latest-1'],
+  deps: ['cdk-nag@^1.6.1'],
   devDeps: ['@aws-cdk/assert@^1'],
   bin: ['./assets'],
   keywords: [
