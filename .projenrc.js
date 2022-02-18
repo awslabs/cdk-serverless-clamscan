@@ -28,7 +28,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '@aws-cdk/aws-sqs',
     '@aws-cdk/core',
   ],
-  devDeps: ['cdk-nag@^1', '@aws-cdk/assert@^1'],
+  deps: ['cdk-nag@latest-1'],
+  devDeps: ['@aws-cdk/assert@^1'],
   bin: ['./assets'],
   keywords: [
     'clamav',
