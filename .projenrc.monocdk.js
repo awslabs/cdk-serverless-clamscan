@@ -1,7 +1,5 @@
 const { awscdk } = require('projen');
 
-const AUTOMATION_TOKEN = 'PROJEN_GITHUB_TOKEN';
-
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Amazon Web Services',
   authorAddress: 'donti@amazon.com',
@@ -11,10 +9,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
   name: 'monocdk-serverless-clamscan',
   description: 'Serverless architecture to virus scan objects in Amazon S3.',
   repositoryUrl: 'https://github.com/awslabs/cdk-serverless-clamscan',
-
   cdkDependencies: ['monocdk'],
   cdkTestDependencies: ['@monocdk-experiment/assert'],
-  devDeps: ['monocdk-nag'],
+  deps: ['monocdk-nag@^1.6.1'],
   publishToPypi: {
     distName: 'monocdk-serverless-clamscan',
     module: 'monocdk_serverless_clamscan',

@@ -48,6 +48,8 @@ jobs:
 
           find ./test -type f | xargs sed -i  's,monocdk/assert,@monocdk-experiment/assert,g'
 
+          find ./src -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'
+
           find ./test -type f | xargs sed -i  's,cdk-nag,monocdk-nag,g'
       - name: Bump to next version
         run: npx projen bump
