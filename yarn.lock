@@ -2602,9 +2602,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1.6.1:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.7.2.tgz#ac2d488466fbaddbfae682f226e4c74b98e15c5d"
-  integrity sha512-sYwQ0fwpXussHACnROqzlXvY6/1INdiUum2TmjuG62hnAyTYlJWrJkKf4N1Fi/OZp3C0MvhJ/bhJCUjcOghbqw==
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.7.3.tgz#0685a6caed8ab90a284681111729c3fe7557a016"
+  integrity sha512-s+z0riLaWbqRvcPfpf2ZQA3xDQCTTJo4KXh+M3TnRUHa3u6t89/Mx/NBZj3aL0MTvo0nAuL1BJBBKL528uqpiw==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2898,9 +2898,9 @@ console-control-strings@^1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.3.228"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.228.tgz#870f97354311198113120c5986f3036f66c21be3"
-  integrity sha512-kqON0rN1qHLgO8Ef0ubT1FuvGYjh8kFV9zEiHNfnJwRonYWAyFZDaK+vVQbJ253SfjKnDUi/10ZIgljJaz17Sw==
+  version "3.3.229"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.229.tgz#6b43f9f0f83d4a1d82485d1483b38917bde3b5f2"
+  integrity sha512-GnYuEWKBiQWFnRoaQgniXb30hUIboO4avtbvukdQxCKssXST60Jwxbg+OF+RpEJr2Ag7Qinw/g72nURV/ITFOg==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
