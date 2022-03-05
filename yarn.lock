@@ -2585,9 +2585,9 @@ camelcase@^6.0.0, camelcase@^6.2.0, camelcase@^6.3.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001312:
-  version "1.0.30001312"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001312.tgz#e11eba4b87e24d22697dae05455d5aea28550d5f"
-  integrity sha512-Wiz1Psk2MEK0pX3rUzWaunLTZzqS2JYZFzNKqAiJGiuxIjRPLgV6+VDPOg6lQOUxmDwhTlh198JsTTi8Hzw6aQ==
+  version "1.0.30001313"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001313.tgz#a380b079db91621e1b7120895874e2fd62ed2e2f"
+  integrity sha512-rI1UN0koZUiKINjysQDuRi2VeSCce3bYJNmDcj3PIKREiAmjakugBul1QSkg/fPrlULYl6oWfGg3PbgOSY9X4Q==
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -2602,9 +2602,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1.6.1:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.9.0.tgz#3753e58cb02cc5158e2a86dddefe010a1618581e"
-  integrity sha512-bghHehkHISANajnds/OIZ1Uh39bNUI+uDPrTmMmT6Iw0wdzqnpnUu0j+xXlorY+VD0Q870u3pIQ6eeM2Z3rx2A==
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.9.1.tgz#ede6742f71b5c8ac7cbb27908a86a55098fe2c35"
+  integrity sha512-28MovlpGdqFQesCR5/B96gRnj/XhUernAYrcyqt+hzmhIe1ipun3t6te/DoEPkD5RmsAhiBVvzlem0fHS3Geag==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2898,9 +2898,9 @@ console-control-strings@^1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.3.232"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.232.tgz#f4a0f086741ec17db6a6d17066a60e0a7ba73b08"
-  integrity sha512-fW/gE9+lINTrfhMLev+e0AIyzwKISyYYx1bNZhuxgnIno0yl+Y+GovEOjxoy5aOk8abFzri4I4U0EvykP1BO3g==
+  version "3.3.234"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.234.tgz#21fc96bdf6a06d52620c2dfff90f56a3783952a4"
+  integrity sha512-u6SX0mT98lVZoFuHX3H2xsJPt8gEGRg1E5vvr3I8RFR6VMKShDZw25AhpxokghVaCeIVFzqNV/8Ao9WcpX9HRA==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
