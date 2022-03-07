@@ -40,7 +40,7 @@ import {
   SqsDestination,
 } from 'aws-cdk-lib/aws-lambda-destinations';
 import { S3EventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
-import { Bucket, BucketEncryption, EventType } from 'aws-cdk-lib/aws-s3';
+import { IBucket, Bucket, BucketEncryption, EventType } from 'aws-cdk-lib/aws-s3';
 import { Queue, QueueEncryption } from 'aws-cdk-lib/aws-sqs';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
@@ -52,7 +52,7 @@ export interface ServerlessClamscanLoggingProps {
   /**
    * Destination bucket for the server access logs (Default: Creates a new S3 Bucket for access logs ).
    */
-  readonly logsBucket?: boolean | Bucket;
+  readonly logsBucket?: boolean | IBucket;
   /**
    * Optional log file prefix to use for the bucket's access logs, option is ignored if logs_bucket is set to false.
    */
@@ -163,7 +163,7 @@ export class ServerlessClamscan extends Construct {
   /**
     Conditional: The Bucket for access logs for the virus definitions bucket if logging is enabled (defsBucketAccessLogsConfig).
    */
-  public readonly defsAccessLogsBucket?: Bucket;
+  public readonly defsAccessLogsBucket?: IBucket;
 
   private _scanFunction: DockerImageFunction;
   private _s3Gw: GatewayVpcEndpoint;
