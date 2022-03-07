@@ -134,6 +134,7 @@ test('expect VirusDefsBucket to use provided logs bucket', () => {
   new ServerlessClamscan(stack, 'default', {
     defsBucketAccessLogsConfig: { logsBucket: logs_bucket },
   });
+
   expect(stack).toHaveResourceLike('AWS::S3::Bucket', {
     LoggingConfiguration: {
       DestinationBucketName: {
@@ -153,6 +154,18 @@ test('expect VirusDefsBucket to use provided logs bucket', () => {
         Ref: stringLike('*rLogsBucket*'),
       },
       LogFilePrefix: 'test',
+    },
+  });
+
+  const stack3 = new Stack();
+  new ServerlessClamscan(stack3, 'default', {
+    defsBucketAccessLogsConfig: {
+      logsBucket: Bucket.fromBucketName(stack3, 'rImportedLogsBucket', 'imported'),
+    },
+  });
+  expect(stack3).toHaveResourceLike('AWS::S3::Bucket', {
+    LoggingConfiguration: {
+      DestinationBucketName: 'imported',
     },
   });
 });
