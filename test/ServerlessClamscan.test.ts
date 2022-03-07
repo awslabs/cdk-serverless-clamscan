@@ -6,7 +6,7 @@ import { EventBus } from '@aws-cdk/aws-events';
 import { SqsDestination, EventBridgeDestination } from '@aws-cdk/aws-lambda-destinations';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Queue } from '@aws-cdk/aws-sqs';
-import { CfnOutput, Fn, Stack } from '@aws-cdk/core';
+import { Stack } from '@aws-cdk/core';
 import { ServerlessClamscan } from '../src';
 import '@aws-cdk/assert/jest';
 
@@ -134,10 +134,6 @@ test('expect VirusDefsBucket to use provided logs bucket', () => {
   new ServerlessClamscan(stack, 'default', {
     defsBucketAccessLogsConfig: { logsBucket: logs_bucket },
   });
-  new CfnOutput(stack, 'rLogsBucketArnExport', {
-    value: logs_bucket.bucketArn,
-    exportName: 'rLogsBucketArn',
-  });
 
   expect(stack).toHaveResourceLike('AWS::S3::Bucket', {
     LoggingConfiguration: {
@@ -162,37 +158,14 @@ test('expect VirusDefsBucket to use provided logs bucket', () => {
   });
 
   const stack3 = new Stack();
-  const imported_logs_bucket = Bucket.fromBucketArn(stack3, 'rImportedLogsBucket', Fn.importValue('rLogsBucketArn'));
   new ServerlessClamscan(stack3, 'default', {
-    defsBucketAccessLogsConfig: { logsBucket: imported_logs_bucket },
+    defsBucketAccessLogsConfig: {
+      logsBucket: Bucket.fromBucketName(stack3, 'rImportedLogsBucket', 'imported'),
+    },
   });
   expect(stack3).toHaveResourceLike('AWS::S3::Bucket', {
     LoggingConfiguration: {
-      DestinationBucketName:
-      {
-        'Fn::Select': [
-          0,
-          {
-            'Fn::Split': [
-              '/',
-              {
-                'Fn::Select': [
-                  5,
-                  {
-                    'Fn::Split': [
-                      ':',
-                      {
-                        'Fn::ImportValue': stringLike('*rLogsBucket*'),
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      LogFilePrefix: ABSENT,
+      DestinationBucketName: 'imported',
     },
   });
 });
