@@ -2466,12 +2466,12 @@ browser-process-hrtime@^1.0.0:
   integrity sha512-9o5UecI3GhkpM6DrXr69PblIuWxPKk9Y0jHBRhdocZ2y7YECBFCsHm79Pr3OyR2AvjhDkabFJaDJMYRazHgsow==
 
 browserslist@^4.17.5:
-  version "4.19.3"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.19.3.tgz#29b7caad327ecf2859485f696f9604214bedd383"
-  integrity sha512-XK3X4xtKJ+Txj8G5c30B4gsm71s69lqXlkYui4s6EkKxuv49qjYlY6oVd+IFJ73d4YymtM3+djvvt/R/iJwwDg==
+  version "4.20.0"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.20.0.tgz#35951e3541078c125d36df76056e94738a52ebe9"
+  integrity sha512-bnpOoa+DownbciXj0jVGENf8VYQnE2LNWomhYuCsMmmx9Jd9lwq0WXODuwpSsp8AVdKM2/HorrzxAfbKvWTByQ==
   dependencies:
-    caniuse-lite "^1.0.30001312"
-    electron-to-chromium "^1.4.71"
+    caniuse-lite "^1.0.30001313"
+    electron-to-chromium "^1.4.76"
     escalade "^3.1.1"
     node-releases "^2.0.2"
     picocolors "^1.0.0"
@@ -2584,7 +2584,7 @@ camelcase@^6.0.0, camelcase@^6.2.0, camelcase@^6.3.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.3.0.tgz#5685b95eb209ac9c0c177467778c9c84df58ba9a"
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
-caniuse-lite@^1.0.30001312:
+caniuse-lite@^1.0.30001313:
   version "1.0.30001313"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001313.tgz#a380b079db91621e1b7120895874e2fd62ed2e2f"
   integrity sha512-rI1UN0koZUiKINjysQDuRi2VeSCce3bYJNmDcj3PIKREiAmjakugBul1QSkg/fPrlULYl6oWfGg3PbgOSY9X4Q==
@@ -2602,9 +2602,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1.6.1:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.9.2.tgz#3f06f2217f2b2bdab2006decc3a82e3063cf9842"
-  integrity sha512-1Hq5879MHZUdauS5L19rWuKN+d8LNqQ7WIV8/884xvmErHQvmwYhKtC+X7QQ0s4rJjaW0vTQ7OcMOqG+b9vqXg==
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.9.3.tgz#9d063e2da763a2baa68fe8d7d7edff468d03bd1f"
+  integrity sha512-mCqh9RLyD7ovESwSg+FfLGnPhRgZMrTsjmIFKnkkHh7Ges8gcmvMp9LMKYOy3lj9vjFLjN9XRrdHu3DAI9uiFA==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2898,9 +2898,9 @@ console-control-strings@^1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.3.235"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.235.tgz#cf347a911618c6d4cd7f547c1e5653fd7fe9da55"
-  integrity sha512-dE8DfZ+81XE1njyvZeuTdsCXY52K6+0keIEr/H/j77snJn3TiReuhaaJK3ls6QS3BwC7Xn0QWQRff6WxBUfRYg==
+  version "3.3.236"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.236.tgz#f70b58d97a43219abefc275850c479e5f386f9d4"
+  integrity sha512-tYYAn8XtPOMa24KEBtIYeHwi5OxVQGKu19Ie9NhojOLlQsCgP+6knjEVfuZ0Hgn1T8nMRqMriwAgM19GiwCjDg==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
@@ -3381,7 +3381,7 @@ duplexer3@^0.1.4:
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
 
-electron-to-chromium@^1.4.71:
+electron-to-chromium@^1.4.76:
   version "1.4.76"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.76.tgz#a0494baedaf51094b1c172999919becd9975a934"
   integrity sha512-3Vftv7cenJtQb+k00McEBZ2vVmZ/x+HEF7pcZONZIkOsESqAqVuACmBxMv0JhzX7u0YltU0vSqRqgBSTAhFUjA==
