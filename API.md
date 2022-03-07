@@ -81,7 +81,7 @@ Name | Type | Description
 **errorDest** | <code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code> | The Lambda Destination for failed on erred scans [ERROR, IN PROGRESS (If error is due to Lambda timeout)].
 **resultDest** | <code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code> | The Lambda Destination for completed ClamAV scans [CLEAN, INFECTED].
 **cleanRule**? | <code>[aws_events.Rule](#aws-cdk-lib-aws-events-rule)</code> | Conditional: An Event Bridge Rule for files that are marked 'CLEAN' by ClamAV if a success destination was not specified.<br/>__*Optional*__
-**defsAccessLogsBucket**? | <code>[aws_s3.Bucket](#aws-cdk-lib-aws-s3-bucket)</code> | Conditional: The Bucket for access logs for the virus definitions bucket if logging is enabled (defsBucketAccessLogsConfig).<br/>__*Optional*__
+**defsAccessLogsBucket**? | <code>[aws_s3.IBucket](#aws-cdk-lib-aws-s3-ibucket)</code> | Conditional: The Bucket for access logs for the virus definitions bucket if logging is enabled (defsBucketAccessLogsConfig).<br/>__*Optional*__
 **errorDeadLetterQueue**? | <code>[aws_sqs.Queue](#aws-cdk-lib-aws-sqs-queue)</code> | Conditional: The SQS Dead Letter Queue for the errorQueue if a failure (onError) destination was not specified.<br/>__*Optional*__
 **errorQueue**? | <code>[aws_sqs.Queue](#aws-cdk-lib-aws-sqs-queue)</code> | Conditional: The SQS Queue for erred scans if a failure (onError) destination was not specified.<br/>__*Optional*__
 **infectedRule**? | <code>[aws_events.Rule](#aws-cdk-lib-aws-events-rule)</code> | Conditional: An Event Bridge Rule for files that are marked 'INFECTED' by ClamAV if a success destination was not specified.<br/>__*Optional*__
@@ -117,7 +117,7 @@ Interface for ServerlessClamscan Virus Definitions S3 Bucket Logging.
 
 Name | Type | Description 
 -----|------|-------------
-**logsBucket**? | <code>boolean &#124; [aws_s3.Bucket](#aws-cdk-lib-aws-s3-bucket)</code> | Destination bucket for the server access logs (Default: Creates a new S3 Bucket for access logs ).<br/>__*Optional*__
+**logsBucket**? | <code>boolean &#124; [aws_s3.IBucket](#aws-cdk-lib-aws-s3-ibucket)</code> | Destination bucket for the server access logs (Default: Creates a new S3 Bucket for access logs ).<br/>__*Optional*__
 **logsPrefix**? | <code>string</code> | Optional log file prefix to use for the bucket's access logs, option is ignored if logs_bucket is set to false.<br/>__*Optional*__
 
 
