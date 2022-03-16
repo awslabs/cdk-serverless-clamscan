@@ -63,6 +63,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
     distName: 'cdk-serverless-clamscan',
     module: 'cdk_serverless_clamscan',
   },
+  publishToNuget: {
+    dotNetNamespace: 'cdk.serverless.clamscan',
+    packageId: 'cdk.serverless.clamscan',
+  },
   projenUpgradeSecret: AUTOMATION_TOKEN,
   autoApproveOptions: {
     secret: 'GITHUB_TOKEN',

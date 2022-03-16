@@ -153,6 +153,10 @@
       "python": {
         "distName": "cdk-serverless-clamscan",
         "module": "cdk_serverless_clamscan"
+      },
+      "dotnet": {
+        "namespace": "cdk.serverless.clamscan",
+        "packageId": "cdk.serverless.clamscan"
       }
     },
     "tsc": {
