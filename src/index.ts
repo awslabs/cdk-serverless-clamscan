@@ -214,13 +214,15 @@ export class ServerlessClamscan extends Construct {
       this.errorDeadLetterQueue = new Queue(this, 'ScanErrorDeadLetterQueue', {
         encryption: QueueEncryption.KMS_MANAGED,
       });
-      this.errorDeadLetterQueue.addToResourcePolicy(new PolicyStatement({
-        actions: ['sqs:*'],
-        effect: Effect.DENY,
-        principals: [new AnyPrincipal()],
-        conditions: { Bool: { 'aws:SecureTransport': false } },
-        resources: [this.errorDeadLetterQueue.queueArn],
-      }));
+      this.errorDeadLetterQueue.addToResourcePolicy(
+        new PolicyStatement({
+          actions: ['sqs:*'],
+          effect: Effect.DENY,
+          principals: [new AnyPrincipal()],
+          conditions: { Bool: { 'aws:SecureTransport': false } },
+          resources: [this.errorDeadLetterQueue.queueArn],
+        }),
+      );
       this.errorQueue = new Queue(this, 'ScanErrorQueue', {
         encryption: QueueEncryption.KMS_MANAGED,
         deadLetterQueue: {
@@ -228,13 +230,15 @@ export class ServerlessClamscan extends Construct {
           queue: this.errorDeadLetterQueue,
         },
       });
-      this.errorQueue.addToResourcePolicy(new PolicyStatement({
-        actions: ['sqs:*'],
-        effect: Effect.DENY,
-        principals: [new AnyPrincipal()],
-        conditions: { Bool: { 'aws:SecureTransport': false } },
-        resources: [this.errorQueue.queueArn],
-      }));
+      this.errorQueue.addToResourcePolicy(
+        new PolicyStatement({
+          actions: ['sqs:*'],
+          effect: Effect.DENY,
+          principals: [new AnyPrincipal()],
+          conditions: { Bool: { 'aws:SecureTransport': false } },
+          resources: [this.errorQueue.queueArn],
+        }),
+      );
       this.errorDest = new SqsDestination(this.errorQueue);
       NagSuppressions.addResourceSuppressions(this.errorDeadLetterQueue, [
         { id: 'AwsSolutions-SQS3', reason: 'This queue is a DLQ.' },
@@ -412,13 +416,23 @@ export class ServerlessClamscan extends Construct {
     });
     if (this._scanFunction.role) {
       NagSuppressions.addResourceSuppressions(this._scanFunction.role, [
-        { id: 'AwsSolutions-IAM4', reason: 'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch. The AWSLambdaVPCAccessExecutionRole is required for functions with VPC access to manage elastic network interfaces.' },
+        {
+          id: 'AwsSolutions-IAM4',
+          reason:
+            'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch. The AWSLambdaVPCAccessExecutionRole is required for functions with VPC access to manage elastic network interfaces.',
+        },
       ]);
-      NagSuppressions.addResourceSuppressions(this._scanFunction.role, [{
-        id: 'AwsSolutions-IAM5',
-        reason:
-          'The EFS mount point permissions are controlled through a condition which limit the scope of the * resources.',
-      }], true);
+      NagSuppressions.addResourceSuppressions(
+        this._scanFunction.role,
+        [
+          {
+            id: 'AwsSolutions-IAM5',
+            reason:
+              'The EFS mount point permissions are controlled through a condition which limit the scope of the * resources.',
+          },
+        ],
+        true,
+      );
     }
     this._scanFunction.connections.allowToAnyIpv4(
       Port.tcp(443),
@@ -460,16 +474,24 @@ export class ServerlessClamscan extends Construct {
         }),
       );
       defs_bucket.grantReadWrite(download_defs);
-      NagSuppressions.addResourceSuppressions(download_defs.role, [{
-        id: 'AwsSolutions-IAM4',
-        reason:
-          'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch.',
-      }]);
-      NagSuppressions.addResourceSuppressions(download_defs.role, [{
-        id: 'AwsSolutions-IAM5',
-        reason:
-          'The function is allowed to perform operations on all prefixes in the specified bucket.',
-      }], true);
+      NagSuppressions.addResourceSuppressions(download_defs.role, [
+        {
+          id: 'AwsSolutions-IAM4',
+          reason:
+            'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch.',
+        },
+      ]);
+      NagSuppressions.addResourceSuppressions(
+        download_defs.role,
+        [
+          {
+            id: 'AwsSolutions-IAM5',
+            reason:
+              'The function is allowed to invoke the download defs Lambda function.',
+          },
+        ],
+        true,
+      );
     }
 
     new Rule(this, 'VirusDefsUpdateRule', {
@@ -487,11 +509,22 @@ export class ServerlessClamscan extends Construct {
     });
     download_defs.grantInvoke(init_defs_cr);
     if (init_defs_cr.role) {
-      NagSuppressions.addResourceSuppressions(init_defs_cr.role, [{
-        id: 'AwsSolutions-IAM4',
-        reason:
-          'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch.',
-      }]);
+      NagSuppressions.addResourceSuppressions(
+        init_defs_cr.role,
+        [
+          {
+            id: 'AwsSolutions-IAM4',
+            reason:
+              'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch.',
+          },
+          {
+            id: 'AwsSolutions-IAM5',
+            reason:
+              'The AWSLambdaBasicExecutionRole does not provide permissions beyond uploading logs to CloudWatch.',
+          },
+        ],
+        true,
+      );
     }
     new CustomResource(this, 'InitDefsCr', {
       serviceToken: init_defs_cr.functionArn,

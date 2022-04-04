@@ -3,13 +3,15 @@
 
 import { ABSENT, anything, arrayWith, stringLike } from '@aws-cdk/assert';
 import { EventBus } from '@aws-cdk/aws-events';
-import { SqsDestination, EventBridgeDestination } from '@aws-cdk/aws-lambda-destinations';
+import {
+  SqsDestination,
+  EventBridgeDestination,
+} from '@aws-cdk/aws-lambda-destinations';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { Queue } from '@aws-cdk/aws-sqs';
 import { Stack } from '@aws-cdk/core';
 import { ServerlessClamscan } from '../src';
 import '@aws-cdk/assert/jest';
-
 
 test('expect default EventBridge Lambda destination and Event Rules for onSuccess and SQS Destination for onDelete', () => {
   const stack = new Stack();
@@ -22,7 +24,7 @@ test('expect default EventBridge Lambda destination and Event Rules for onSucces
     },
   });
   const statuses = ['CLEAN', 'INFECTED'];
-  statuses.forEach(status => {
+  statuses.forEach((status) => {
     expect(stack).toHaveResourceLike('AWS::Events::Rule', {
       EventBusName: {
         Ref: stringLike('*ScanResultBus*'),
@@ -40,7 +42,9 @@ test('expect default EventBridge Lambda destination and Event Rules for onSucces
   expect(stack).toHaveResourceLike('AWS::Lambda::EventInvokeConfig', {
     DestinationConfig: {
       OnFailure: {
-        Destination: { 'Fn::GetAtt': arrayWith(stringLike('*ScanErrorQueue*')) },
+        Destination: {
+          'Fn::GetAtt': arrayWith(stringLike('*ScanErrorQueue*')),
+        },
       },
     },
   });
@@ -49,15 +53,14 @@ test('expect default EventBridge Lambda destination and Event Rules for onSucces
 test('expect onSuccess to have a SQS queue destination', () => {
   const stack = new Stack();
   const queue = new Queue(stack, 'rQueue');
-  new ServerlessClamscan(stack, 'default', { onResult: new SqsDestination(queue) });
+  new ServerlessClamscan(stack, 'default', {
+    onResult: new SqsDestination(queue),
+  });
   expect(stack).toHaveResourceLike('AWS::Lambda::EventInvokeConfig', {
     DestinationConfig: {
       OnSuccess: {
         Destination: {
-          'Fn::GetAtt': [
-            stringLike('rQueue*'),
-            'Arn',
-          ],
+          'Fn::GetAtt': [stringLike('rQueue*'), 'Arn'],
         },
       },
     },
@@ -65,7 +68,9 @@ test('expect onSuccess to have a SQS queue destination', () => {
   expect(stack).toHaveResourceLike('AWS::Lambda::EventInvokeConfig', {
     DestinationConfig: {
       OnFailure: {
-        Destination: { 'Fn::GetAtt': arrayWith(stringLike('*ScanErrorQueue*')) },
+        Destination: {
+          'Fn::GetAtt': arrayWith(stringLike('*ScanErrorQueue*')),
+        },
       },
     },
   });
@@ -75,7 +80,9 @@ test('expect onSuccess to have a SQS queue destination', () => {
 test('expect onFailure to have an EventBridge destination', () => {
   const stack = new Stack();
   const bus = new EventBus(stack, 'rScanFailBus');
-  new ServerlessClamscan(stack, 'default', { onError: new EventBridgeDestination(bus) });
+  new ServerlessClamscan(stack, 'default', {
+    onError: new EventBridgeDestination(bus),
+  });
   expect(stack).toHaveResourceLike('AWS::Lambda::EventInvokeConfig', {
     DestinationConfig: {
       OnSuccess: {
@@ -146,7 +153,10 @@ test('expect VirusDefsBucket to use provided logs bucket', () => {
   const stack2 = new Stack();
   const logs_bucket2 = new Bucket(stack2, 'rLogsBucket');
   new ServerlessClamscan(stack2, 'default', {
-    defsBucketAccessLogsConfig: { logsBucket: logs_bucket2, logsPrefix: 'test' },
+    defsBucketAccessLogsConfig: {
+      logsBucket: logs_bucket2,
+      logsPrefix: 'test',
+    },
   });
   expect(stack2).toHaveResourceLike('AWS::S3::Bucket', {
     LoggingConfiguration: {
@@ -160,7 +170,11 @@ test('expect VirusDefsBucket to use provided logs bucket', () => {
   const stack3 = new Stack();
   new ServerlessClamscan(stack3, 'default', {
     defsBucketAccessLogsConfig: {
-      logsBucket: Bucket.fromBucketName(stack3, 'rImportedLogsBucket', 'imported'),
+      logsBucket: Bucket.fromBucketName(
+        stack3,
+        'rImportedLogsBucket',
+        'imported',
+      ),
     },
   });
   expect(stack3).toHaveResourceLike('AWS::S3::Bucket', {
@@ -210,25 +224,19 @@ test('check bucket triggers and policies for source buckets ', () => {
   sc.addSourceBucket(bucket_3);
   expect(stack).toCountResources('AWS::S3::BucketPolicy', 5);
   bucketList.push(bucket_3);
-  bucketList.forEach(bucket => {
+  bucketList.forEach((bucket) => {
     const approxId = bucket.node.id + '*';
     expect(stack).toHaveResource('AWS::Lambda::Permission', {
       Action: 'lambda:InvokeFunction',
       FunctionName: {
-        'Fn::GetAtt': [
-          stringLike('*ServerlessClamscan*'),
-          'Arn',
-        ],
+        'Fn::GetAtt': [stringLike('*ServerlessClamscan*'), 'Arn'],
       },
       Principal: 's3.amazonaws.com',
       SourceAccount: {
         Ref: 'AWS::AccountId',
       },
       SourceArn: {
-        'Fn::GetAtt': [
-          stringLike(approxId),
-          'Arn',
-        ],
+        'Fn::GetAtt': [stringLike(approxId), 'Arn'],
       },
     });
     expect(stack).toHaveResource('AWS::S3::BucketPolicy', {
@@ -250,25 +258,28 @@ test('check bucket triggers and policies for source buckets ', () => {
             },
             Effect: 'Deny',
             NotPrincipal: {
-              AWS: [{
-                'Fn::GetAtt': [
-                  stringLike('*ServerlessClamscan*'),
-                  'Arn',
-                ],
-              },
-              {
-                'Fn::Join': ['', arrayWith(stringLike('*sts*'), stringLike('*assumed-role*'), { Ref: stringLike('*ServerlessClamscan*') })],
-              }],
+              AWS: [
+                {
+                  'Fn::GetAtt': [stringLike('*ServerlessClamscan*'), 'Arn'],
+                },
+                {
+                  'Fn::Join': [
+                    '',
+                    arrayWith(
+                      stringLike('*sts*'),
+                      stringLike('*assumed-role*'),
+                      { Ref: stringLike('*ServerlessClamscan*') },
+                    ),
+                  ],
+                },
+              ],
             },
             Resource: {
               'Fn::Join': [
                 '',
                 [
                   {
-                    'Fn::GetAtt': [
-                      stringLike(approxId),
-                      'Arn',
-                    ],
+                    'Fn::GetAtt': [stringLike(approxId), 'Arn'],
                   },
                   '/*',
                 ],
@@ -304,32 +315,25 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
             },
             Effect: 'Deny',
             Principal: { AWS: '*' },
-            Resource: [{
-              'Fn::Join': [
-                '',
-                [
-                  {
-                    'Fn::GetAtt': [
-                      stringLike(virusDefs),
-                      'Arn',
-                    ],
-                  },
-                  '/*',
+            Resource: [
+              {
+                'Fn::Join': [
+                  '',
+                  [
+                    {
+                      'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
+                    },
+                    '/*',
+                  ],
                 ],
-              ],
-            },
-            {
-              'Fn::GetAtt': [
-                stringLike(virusDefs),
-                'Arn',
-              ],
-            }],
+              },
+              {
+                'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
+              },
+            ],
           },
           {
-            Action: [
-              's3:PutBucketPolicy',
-              's3:DeleteBucketPolicy',
-            ],
+            Action: ['s3:PutBucketPolicy', 's3:DeleteBucketPolicy'],
             Effect: 'Deny',
             NotPrincipal: {
               AWS: {
@@ -350,17 +354,11 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
               },
             },
             Resource: {
-              'Fn::GetAtt': [
-                stringLike(virusDefs),
-                'Arn',
-              ],
+              'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
             },
           },
           {
-            Action: [
-              's3:GetObject',
-              's3:ListBucket',
-            ],
+            Action: ['s3:GetObject', 's3:ListBucket'],
             Condition: {
               StringEquals: {
                 'aws:SourceVpce': {
@@ -370,26 +368,22 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
             },
             Effect: 'Allow',
             Principal: { AWS: '*' },
-            Resource: [{
-              'Fn::Join': [
-                '',
-                [
-                  {
-                    'Fn::GetAtt': [
-                      stringLike(virusDefs),
-                      'Arn',
-                    ],
-                  },
-                  '/*',
+            Resource: [
+              {
+                'Fn::Join': [
+                  '',
+                  [
+                    {
+                      'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
+                    },
+                    '/*',
+                  ],
                 ],
-              ],
-            },
-            {
-              'Fn::GetAtt': [
-                stringLike(virusDefs),
-                'Arn',
-              ],
-            }],
+              },
+              {
+                'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
+              },
+            ],
           },
           {
             Action: 's3:PutObject*',
@@ -397,10 +391,7 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
             NotPrincipal: {
               AWS: [
                 {
-                  'Fn::GetAtt': [
-                    stringLike('*DownloadDefs*'),
-                    'Arn',
-                  ],
+                  'Fn::GetAtt': [stringLike('*DownloadDefs*'), 'Arn'],
                 },
                 {
                   'Fn::Join': [
@@ -432,10 +423,7 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
                 '',
                 [
                   {
-                    'Fn::GetAtt': [
-                      stringLike(virusDefs),
-                      'Arn',
-                    ],
+                    'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
                   },
                   '/*',
                 ],
@@ -446,7 +434,6 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
         Version: '2012-10-17',
       },
     });
-
   } catch (error) {
     expect(stack).toHaveResource('AWS::S3::BucketPolicy', {
       Bucket: {
@@ -463,32 +450,25 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
             },
             Effect: 'Deny',
             Principal: '*',
-            Resource: [{
-              'Fn::Join': [
-                '',
-                [
-                  {
-                    'Fn::GetAtt': [
-                      stringLike(virusDefs),
-                      'Arn',
-                    ],
-                  },
-                  '/*',
+            Resource: [
+              {
+                'Fn::Join': [
+                  '',
+                  [
+                    {
+                      'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
+                    },
+                    '/*',
+                  ],
                 ],
-              ],
-            },
-            {
-              'Fn::GetAtt': [
-                stringLike(virusDefs),
-                'Arn',
-              ],
-            }],
+              },
+              {
+                'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
+              },
+            ],
           },
           {
-            Action: [
-              's3:PutBucketPolicy',
-              's3:DeleteBucketPolicy',
-            ],
+            Action: ['s3:PutBucketPolicy', 's3:DeleteBucketPolicy'],
             Effect: 'Deny',
             NotPrincipal: {
               AWS: {
@@ -509,17 +489,11 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
               },
             },
             Resource: {
-              'Fn::GetAtt': [
-                stringLike(virusDefs),
-                'Arn',
-              ],
+              'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
             },
           },
           {
-            Action: [
-              's3:GetObject',
-              's3:ListBucket',
-            ],
+            Action: ['s3:GetObject', 's3:ListBucket'],
             Condition: {
               StringEquals: {
                 'aws:SourceVpce': {
@@ -529,26 +503,22 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
             },
             Effect: 'Allow',
             Principal: '*',
-            Resource: [{
-              'Fn::Join': [
-                '',
-                [
-                  {
-                    'Fn::GetAtt': [
-                      stringLike(virusDefs),
-                      'Arn',
-                    ],
-                  },
-                  '/*',
+            Resource: [
+              {
+                'Fn::Join': [
+                  '',
+                  [
+                    {
+                      'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
+                    },
+                    '/*',
+                  ],
                 ],
-              ],
-            },
-            {
-              'Fn::GetAtt': [
-                stringLike(virusDefs),
-                'Arn',
-              ],
-            }],
+              },
+              {
+                'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
+              },
+            ],
           },
           {
             Action: 's3:PutObject*',
@@ -556,10 +526,7 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
             NotPrincipal: {
               AWS: [
                 {
-                  'Fn::GetAtt': [
-                    stringLike('*DownloadDefs*'),
-                    'Arn',
-                  ],
+                  'Fn::GetAtt': [stringLike('*DownloadDefs*'), 'Arn'],
                 },
                 {
                   'Fn::Join': [
@@ -591,10 +558,7 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
                 '',
                 [
                   {
-                    'Fn::GetAtt': [
-                      stringLike(virusDefs),
-                      'Arn',
-                    ],
+                    'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
                   },
                   '/*',
                 ],
@@ -611,10 +575,7 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
       PolicyDocument: {
         Statement: [
           {
-            Action: [
-              's3:GetObject',
-              's3:ListBucket',
-            ],
+            Action: ['s3:GetObject', 's3:ListBucket'],
             Effect: 'Allow',
             Principal: { AWS: '*' },
             Resource: [
@@ -623,20 +584,14 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
                   '',
                   [
                     {
-                      'Fn::GetAtt': [
-                        stringLike(virusDefs),
-                        'Arn',
-                      ],
+                      'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
                     },
                     '/*',
                   ],
                 ],
               },
               {
-                'Fn::GetAtt': [
-                  stringLike(virusDefs),
-                  'Arn',
-                ],
+                'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
               },
             ],
           },
@@ -649,10 +604,7 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
       PolicyDocument: {
         Statement: [
           {
-            Action: [
-              's3:GetObject',
-              's3:ListBucket',
-            ],
+            Action: ['s3:GetObject', 's3:ListBucket'],
             Effect: 'Allow',
             Principal: '*',
             Resource: [
@@ -661,20 +613,14 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
                   '',
                   [
                     {
-                      'Fn::GetAtt': [
-                        stringLike(virusDefs),
-                        'Arn',
-                      ],
+                      'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
                     },
                     '/*',
                   ],
                 ],
               },
               {
-                'Fn::GetAtt': [
-                  stringLike(virusDefs),
-                  'Arn',
-                ],
+                'Fn::GetAtt': [stringLike(virusDefs), 'Arn'],
               },
             ],
           },
@@ -683,7 +629,6 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
       },
     });
   }
-
 });
 
 test('Check definition downloading event and custom resource permissions ', () => {
@@ -700,18 +645,27 @@ test('Check definition downloading event and custom resource permissions ', () =
         {
           Action: 'lambda:InvokeFunction',
           Effect: 'Allow',
-          Resource: {
-            'Fn::GetAtt': [
-              stringLike('*DownloadDefs*'),
-              'Arn',
-            ],
-          },
+          Resource: [
+            {
+              'Fn::GetAtt': [stringLike('*DownloadDefs*'), 'Arn'],
+            },
+            {
+              'Fn::Join': [
+                '',
+                [
+                  {
+                    'Fn::GetAtt': [stringLike('*DownloadDefs*'), 'Arn'],
+                  },
+                  ':*',
+                ],
+              ],
+            },
+          ],
         },
       ],
     },
     Roles: [{ Ref: stringLike('*InitDefsServiceRole*') }],
   });
-
 });
 
 test('Check EFS existence and Lambda Configuration ', () => {
@@ -720,10 +674,12 @@ test('Check EFS existence and Lambda Configuration ', () => {
   expect(stack).toCountResources('AWS::EFS::FileSystem', 1);
   expect(stack).toHaveResourceLike('AWS::Lambda::Function', {
     VpcConfig: {
-      SecurityGroupIds: arrayWith({ 'Fn::GetAtt': arrayWith(stringLike('*ServerlessClamscan*')) }),
+      SecurityGroupIds: arrayWith({
+        'Fn::GetAtt': arrayWith(stringLike('*ServerlessClamscan*')),
+      }),
     },
-    FileSystemConfigs: [{ Arn: { 'Fn::Join': ['', arrayWith(':elasticfilesystem:')] } }],
+    FileSystemConfigs: [
+      { Arn: { 'Fn::Join': ['', arrayWith(':elasticfilesystem:')] } },
+    ],
   });
 });
-
-
