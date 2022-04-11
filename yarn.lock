@@ -1964,9 +1964,9 @@
   integrity sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==
 
 "@types/prettier@^2.0.0":
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.4.4.tgz#5d9b63132df54d8909fce1c3f8ca260fdd693e17"
-  integrity sha512-ReVR2rLTV1kvtlWFyuot+d1pkpG2Fw/XKE3PDAdj57rbM97ttSp9JZ2UsP+2EHTylra9cUf6JA7tGwW1INzUrA==
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.6.0.tgz#efcbd41937f9ae7434c714ab698604822d890759"
+  integrity sha512-G/AdOadiZhnJp0jXCaBQU449W2h716OW/EoXeYkCytxKL06X1WCXB4DZpp8TpZ8eyIJVS1cw4lrlkkSYU21cDw==
 
 "@types/stack-utils@^2.0.0":
   version "2.0.1"
@@ -2599,9 +2599,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1.6.1:
-  version "1.12.19"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.12.19.tgz#bd686d9812fbabce2b54fe314aafac3b56b209d8"
-  integrity sha512-voV4CToKhQord/CKvCvNcEIucL+SZv+AsZj8EiKI5F4NE6iuEVGr0+dPmcYLVmp42sK47mpGhOEgLzhmYRwxLw==
+  version "1.12.20"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.12.20.tgz#689cdecd5912a70b4acd27f2a24416c0ecb76099"
+  integrity sha512-p+qEDefGj/5nDGKrAGyOu9XRjQUWd5hDs3yanT+/B+OTbE15YHVn5q4zg1SW1HWKXmKmzMXWRXOIy7Bz4ySxZg==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
