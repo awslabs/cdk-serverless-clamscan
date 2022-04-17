@@ -2600,9 +2600,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1.6.1:
-  version "1.12.25"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.12.25.tgz#b9a82ff7e114c6cee5d34385a6b79e82b267f13e"
-  integrity sha512-twU5UkfTIlT74WpZ1JD13UfqXIe7pYvOMSAu7zdDvWYCCoQhRppt4dRnmNkfd+hVWE5yl3l3R3Tqoo5C03nGkQ==
+  version "1.12.26"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.12.26.tgz#8c4f7ee50ed534057cd37b96e9c07c987849556c"
+  integrity sha512-gBaIR2YaMLsQbKb8q+Y6yXliRySXHsTsR1CKl0duvVq/0mbkHMBRd5zqbwmFnVGhsXXSQKSwzH4stHSFgtO0Gg==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2896,9 +2896,9 @@ console-control-strings@^1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.3.269"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.269.tgz#ef326bf783c91b5c9acf4b0df0d226b83f2b4bfc"
-  integrity sha512-Qx9qG5hoT1IaRCFYvWrwCqdfqGm+spLL6vkcqjCR+wKIiiMqE39Ji36KQ8r9TxdbHesEgbzu39BoT00Z97J7HA==
+  version "3.3.270"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.270.tgz#e74a10e4564cdf18f231ecb1270d4f0074e8b1be"
+  integrity sha512-oRxTHcNzdVh/JhOyaylZFxUJzBi7jKNywDdmKTlKwb50vP+CSgQ7GqM1+sfBy/5bZQkYc3qsVdkwzQ+qdjHVfQ==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
@@ -3381,9 +3381,9 @@ duplexer3@^0.1.4:
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
 
 electron-to-chromium@^1.4.84:
-  version "1.4.110"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.110.tgz#269208d7cf7e32123b1d87bf4e6e1fd9ac7ff51d"
-  integrity sha512-TvHZrkj9anfWkxgblHlNr4IMQdm2N6D0o8Wu1BDpSL/RKT4DHyUt/tvDFtApgZ+LGFL3U9EO4LRZ1eSlQ8xMYA==
+  version "1.4.111"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.111.tgz#897613f6504f3f17c9381c7499a635b413e4df4e"
+  integrity sha512-/s3+fwhKf1YK4k7btOImOzCQLpUjS6MaPf0ODTNuT4eTM1Bg4itBpLkydhOzJmpmH6Z9eXFyuuK5czsmzRzwtw==
 
 emittery@^0.7.1:
   version "0.7.2"
@@ -3942,9 +3942,9 @@ fs-access@^1.0.1:
     null-check "^1.0.0"
 
 fs-extra@^10.0.1:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.0.1.tgz#27de43b4320e833f6867cc044bfce29fdf0ef3b8"
-  integrity sha512-NbdoVMZso2Lsrn/QwLXOy6rm0ufY2zEOKCDzJR/0kBsb0E6qed0P3iYK+Ath3BfvXEeu4JhEtXLgILx5psUfag==
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-10.1.0.tgz#02873cfbc4084dde127eaa5f9905eef2325d1abf"
+  integrity sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==
   dependencies:
     graceful-fs "^4.2.0"
     jsonfile "^6.0.1"
