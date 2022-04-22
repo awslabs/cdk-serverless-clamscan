@@ -2499,9 +2499,9 @@ builtins@^5.0.0:
     semver "^7.0.0"
 
 cacache@^16.0.0, cacache@^16.0.2:
-  version "16.0.5"
-  resolved "https://registry.yarnpkg.com/cacache/-/cacache-16.0.5.tgz#149f02b276ee4773896d147f6b1559680c62cba2"
-  integrity sha512-8s/08Kgu5sk9JcmOrekdUTM7cPPewz2FIQWVQOGOCdWPMRxBUD10WXApQD39Qvg1y5AKXcjo+pnOHkeveEFHCA==
+  version "16.0.6"
+  resolved "https://registry.yarnpkg.com/cacache/-/cacache-16.0.6.tgz#3e4b1e8196673486e725a66eaa747a91da753963"
+  integrity sha512-9a/MLxGaw3LEGes0HaPez2RgZWDV6X0jrgChsuxfEh8xoDoYGxaGrkMe7Dlyjrb655tA/b8fX0qlUg6Ii5MBvw==
   dependencies:
     "@npmcli/fs" "^2.1.0"
     "@npmcli/move-file" "^2.0.0"
@@ -2600,9 +2600,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1.6.1:
-  version "1.12.30"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.12.30.tgz#6c80363c4eea4b89e3bb0d4f9f8d82e5b6a88c99"
-  integrity sha512-/69KPOpspS2X38QeSLQlCWB+rFk8B97WWSpfUxctwjJKEehp4K0EalMUxw3glrWPXlilDoBs8opxN7mjMVCntg==
+  version "1.12.31"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.12.31.tgz#c659b2cd9a8c40eda8fc8b6a04b3f4fd38f781b1"
+  integrity sha512-Gh4nMQYX3ejRzujJqT2qTpvBd3y2qOL7EomvF2yYSrMSgOsdN2/Hj4KZbW8p+KmRfzdlnhX6PEB/A/I+0BbEcQ==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2896,9 +2896,9 @@ console-control-strings@^1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.3.274"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.274.tgz#85d659b09f34b0d62273ec1069ea09cb4700fb7c"
-  integrity sha512-3jJTpEgyO1ARjK/K7Fk+lkZgzn/PGRwBGQ2Xa0uv+WZr/g98G3ZYeiXvevU3/ZfiYnlTKdnkKuRFdSYMn2UkNg==
+  version "3.3.275"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.275.tgz#f274f9437cc721c8c0b4481bda26a6065937b4ee"
+  integrity sha512-c9uxPBEfXPhrlXFD4IRGaD2c5O6EuAkmeKmAc3q4LVnmN5G2kTyIwokxKUdifBuQDMaK0RnbiyGxTh8WToRDuw==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
@@ -3381,9 +3381,9 @@ duplexer3@^0.1.4:
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
 
 electron-to-chromium@^1.4.84:
-  version "1.4.115"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.115.tgz#62d68576385f17e9b268b04e98cc132ed04c6671"
-  integrity sha512-yy1W7cTcreskCWSRTtvp8CNLEci3uYBn5s1U4IytDz7v485iLVPh4QwFuSCavsFbxRLVvwnHNXEFIDShrk/UnQ==
+  version "1.4.117"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.117.tgz#829d747deb9faa653cab72764a891ef523ba7413"
+  integrity sha512-ypZHxY+Sf/PXu7LVN+xoeanyisnJeSOy8Ki439L/oLueZb4c72FI45zXcK3gPpmTwyufh9m6NnbMLXnJh/0Fxg==
 
 emittery@^0.7.1:
   version "0.7.2"
@@ -6159,9 +6159,9 @@ npm-package-arg@^9.0.0, npm-package-arg@^9.0.1:
     validate-npm-package-name "^4.0.0"
 
 npm-packlist@^5.0.0:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/npm-packlist/-/npm-packlist-5.0.1.tgz#029bf0fb465c3fde73908a833def48c212fb0547"
-  integrity sha512-4nBmzp7u9kqQSqqWxXId+gwFCqXQ5Vt+3GtmjPb2m9p7BCWHH/t/ZOw2Rkgp8jjFHiY72YF2zsvJbtmddgmBWA==
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/npm-packlist/-/npm-packlist-5.0.2.tgz#a5eb2503faec92ad6853a2bbb2231dced6cfc549"
+  integrity sha512-jLhcNisUgpz6v2KC75qSeEYAM8UBMYjQ2OhlCOJjB4Ovu7XXnD25UqZ6hOQNeGShL/2ju3LL2E/zBbsuzkIQ8w==
   dependencies:
     glob "^8.0.1"
     ignore-walk "^5.0.1"
