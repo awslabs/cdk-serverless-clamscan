@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-FROM public.ecr.aws/lambda/python:3.8
+FROM --platform=linux/amd64 public.ecr.aws/lambda/python:3.8
 LABEL name=lambda/python/clamav
 LABEL version=1.0
 
