@@ -1959,9 +1959,9 @@
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
 "@types/node@*":
-  version "17.0.30"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.30.tgz#2c6e8512acac70815e8176aa30c38025067880ef"
-  integrity sha512-oNBIZjIqyHYP8VCNAV9uEytXVeXG2oR0w9lgAXro20eugRQfY002qr3CUl6BAe+Yf/z3CRjPdz27Pu6WWtuSRw==
+  version "17.0.31"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.31.tgz#a5bb84ecfa27eec5e1c802c6bbf8139bdb163a5d"
+  integrity sha512-AR0x5HbXGqkEx9CadRH3EBYx/VkiUgZIhP4wvPn/+5KIsgpNoyFaRlVe0Zlx9gRtg8fA06a9tskE2MSN7TcG4Q==
 
 "@types/node@^10.17.60":
   version "10.17.60"
@@ -2615,9 +2615,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1.6.1:
-  version "1.12.40"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.12.40.tgz#cfccae5070d06b127d18b0ab3ae3428dd03ade76"
-  integrity sha512-WtXTMM4VW00dAi86s0rPCHMEAn269ya5XLqYbo4z2QR47tPtsa2XXDZ5snxTMSmS5A4F8KG8+4gsGIV/M8Cfpw==
+  version "1.12.41"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.12.41.tgz#927cb4362d2334aa0a0ef49bce5519c95a035070"
+  integrity sha512-8k0QGiglQ1f+RL5TuGOtVq+cHVAhzoKoTtRRzjSDI3tSAYJDPyurUJtKQRg0M/pkVXFev4ALj69vG+2RyktEjw==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2911,9 +2911,9 @@ console-control-strings@^1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.3.282"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.282.tgz#6db2cf026362a40827fd60eb87387e78ee602f74"
-  integrity sha512-wwAfFhTMvqYoKVT2+0p/8/BSoevOZMalElPZAxnOEwCdW/oAD66ZrObtXeUA1Wl54Y6EG4sxLDAJ0QZIsrHGWw==
+  version "3.3.283"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.3.283.tgz#de79629ea9442d8711b04b3472799e7fc5697171"
+  integrity sha512-0LbWDLDPE6sa19F87kTg/a+7ZhO6YXaGs3JYPYcYcd1vzastOUbJQ+GY9O7BweDMLj0Hcw4WP33qV0SFmGnipQ==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
@@ -6118,9 +6118,9 @@ npm-bundled@^1.1.1, npm-bundled@^1.1.2:
     npm-normalize-package-bin "^1.0.1"
 
 npm-check-updates@^12:
-  version "12.5.10"
-  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-12.5.10.tgz#779d201c17c4c0e690cc4fb7eceeed1d00f3f878"
-  integrity sha512-GKBmgC6ZDZwshsOSuse+JYDFVQcaKj9NWNWXW9oWX0TdrKJx26/iR6d4t6LG+iNm5jX+voBoGcEIaGF8CRzWpw==
+  version "12.5.11"
+  resolved "https://registry.yarnpkg.com/npm-check-updates/-/npm-check-updates-12.5.11.tgz#c594902b21af8c251a5ebf12686143b0d2f06356"
+  integrity sha512-uS3yYYK/F1VvZlJRymuCkq+MY2R7v/WlORo5WPUTYx+1OwkqeDMC/CEEGfCN7ATwT2M+JxVVKk9Gq/TGiZjJOw==
   dependencies:
     chalk "^4.1.2"
     cint "^8.2.1"
