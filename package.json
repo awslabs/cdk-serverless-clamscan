@@ -42,7 +42,7 @@
   "devDependencies": {
     "@aws-cdk/assert": "^2.1",
     "@types/jest": "^26.0.24",
-    "@types/node": "^12",
+    "@types/node": "^14",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
     "aws-cdk-lib": "2.11.0",
@@ -59,7 +59,7 @@
     "jsii-pacmak": "^1.57.0",
     "json-schema": "^0.4.0",
     "npm-check-updates": "^12",
-    "projen": "^0.54.57",
+    "projen": "^0.55.1",
     "standard-version": "^9",
     "ts-jest": "^27",
     "typescript": "^3.9.10"
