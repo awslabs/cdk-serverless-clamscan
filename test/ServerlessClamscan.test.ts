@@ -282,6 +282,44 @@ test('check bucket triggers and policies for source buckets ', () => {
   });
 });
 
+test('Check bucket triggers and policies for external bucket', () => {
+  const stack = new Stack();
+  const externalBucket = Bucket.fromBucketName(stack, 'ExternalBucket', 'external-bucket-name');
+  new ServerlessClamscan(stack, 'default', {
+    buckets: [externalBucket],
+    acceptResponsibilityForUsingExistingBucket: true,
+  });
+
+  // policy for the source bucket shouldn't be added
+  expect(stack).toCountResources('AWS::S3::BucketPolicy', 2);
+
+  expect(stack).toHaveResource('AWS::Lambda::Permission', {
+    Action: 'lambda:InvokeFunction',
+    FunctionName: {
+      'Fn::GetAtt': [
+        stringLike('*ServerlessClamscan*'),
+        'Arn',
+      ],
+    },
+    Principal: 's3.amazonaws.com',
+    SourceAccount: {
+      Ref: 'AWS::AccountId',
+    },
+    SourceArn: {
+      'Fn::Join': [
+        '',
+        [
+          'arn:',
+          {
+            Ref: 'AWS::Partition',
+          },
+          ':s3:::external-bucket-name',
+        ],
+      ],
+    },
+  });
+});
+
 test('check Virus Definition buckets policy security and S3 Gateway endpoint policy', () => {
   const stack = new Stack();
 

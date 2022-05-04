@@ -66,7 +66,7 @@ export interface ServerlessClamscanProps {
   /**
    * An optional list of S3 buckets to configure for ClamAV Virus Scanning; buckets can be added later by calling addSourceBucket.
    */
-  readonly buckets?: Bucket[];
+  readonly buckets?: IBucket[];
   /**
    * Optionally set a reserved concurrency for the virus scanning Lambda.
    * @see https://docs.aws.amazon.com/lambda/latest/operatorguide/reserved-concurrency.html
@@ -88,6 +88,11 @@ export interface ServerlessClamscanProps {
    * Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs ).
    */
   readonly defsBucketAccessLogsConfig?: ServerlessClamscanLoggingProps;
+
+  /**
+   * Allow reusing existing buckets which are not created in the CDK project. When using external buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution.
+   */
+  readonly acceptResponsibilityForUsingExistingBucket?: boolean;
 }
 
 /**
@@ -165,6 +170,11 @@ export class ServerlessClamscan extends Construct {
    */
   public readonly defsAccessLogsBucket?: IBucket;
 
+  /**
+    Conditional: When true, the user accepted the responsibility for using external buckets
+   */
+  public readonly useExternalBuckets?: boolean;
+
   private _scanFunction: DockerImageFunction;
   private _s3Gw: GatewayVpcEndpoint;
   private _efsRootPath = '/lambda';
@@ -179,6 +189,8 @@ export class ServerlessClamscan extends Construct {
    */
   constructor(scope: Construct, id: string, props: ServerlessClamscanProps) {
     super(scope, id);
+
+    this.useExternalBuckets = props.acceptResponsibilityForUsingExistingBucket;
 
     if (!props.onResult) {
       this.resultBus = new EventBus(this, 'ScanResultBus');
@@ -509,14 +521,63 @@ export class ServerlessClamscan extends Construct {
   }
 
   /**
+   * @returns ArnPrincipal the ARN of the assumed role principal for the scan function
+   */
+  get scanAssumedPrincipal(): ArnPrincipal {
+    if (this._scanFunction.role) {
+      const stack = Stack.of(this);
+      const scan_assumed_role = `arn:${stack.partition}:sts::${stack.account}:assumed-role/${this._scanFunction.role.roleName}/${this._scanFunction.functionName}`;
+      return new ArnPrincipal(scan_assumed_role);
+    } else {
+      throw new Error('The scan function role is undefined');
+    }
+  }
+
+
+  /**
+   * Returns the statement that should be added to the bucket policy
+     in order to prevent objects to be accessed when they are not clean
+     or there have been scanning errors: this policy should be added
+     manually if external buckets are passed to addSourceBucket()
+   * @param bucket The bucket which you need to protect with the policy
+   * @returns PolicyStatement the policy statement if available
+   */
+  getPolicyStatementForBucket(bucket: IBucket): PolicyStatement {
+    if (this._scanFunction.role) {
+      const scan_assumed_principal = this.scanAssumedPrincipal;
+      return new PolicyStatement({
+        effect: Effect.DENY,
+        actions: ['s3:GetObject'],
+        resources: [bucket.arnForObjects('*')],
+        notPrincipals: [this._scanFunction.role, scan_assumed_principal],
+        conditions: {
+          StringEquals: {
+            's3:ExistingObjectTag/scan-status': [
+              'IN PROGRESS',
+              'INFECTED',
+              'ERROR',
+            ],
+          },
+        },
+      });
+    } else {
+      throw new Error("Can't generate a valid S3 bucket policy, the scan function role is undefined");
+    }
+  }
+
+  /**
    * Sets the specified S3 Bucket as a s3:ObjectCreate* for the ClamAV function.
      Grants the ClamAV function permissions to get and tag objects.
      Adds a bucket policy to disallow GetObject operations on files that are tagged 'IN PROGRESS', 'INFECTED', or 'ERROR'.
    * @param bucket The bucket to add the scanning bucket policy and s3:ObjectCreate* trigger to.
    */
-  addSourceBucket(bucket: Bucket) {
+  addSourceBucket(bucket: IBucket) {
+    if (!(bucket instanceof Bucket) && !this.useExternalBuckets) {
+      throw new Error('acceptResponsibilityForUsingExistingBucket must be set when adding an external bucket');
+    }
+
     this._scanFunction.addEventSource(
-      new S3EventSource(bucket, { events: [EventType.OBJECT_CREATED] }),
+      new S3EventSource(bucket as Bucket, { events: [EventType.OBJECT_CREATED] }),
     );
     bucket.grantRead(this._scanFunction);
     this._scanFunction.addToRolePolicy(
@@ -528,9 +589,7 @@ export class ServerlessClamscan extends Construct {
     );
 
     if (this._scanFunction.role) {
-      const stack = Stack.of(this);
-      const scan_assumed_role = `arn:${stack.partition}:sts::${stack.account}:assumed-role/${this._scanFunction.role.roleName}/${this._scanFunction.functionName}`;
-      const scan_assumed_principal = new ArnPrincipal(scan_assumed_role);
+      const scan_assumed_principal = this.scanAssumedPrincipal;
       this._s3Gw.addToPolicy(
         new PolicyStatement({
           effect: Effect.ALLOW,
@@ -548,24 +607,9 @@ export class ServerlessClamscan extends Construct {
         }),
       );
 
-      // Need the assumed role for the not Principal Action with Lambda
-      bucket.addToResourcePolicy(
-        new PolicyStatement({
-          effect: Effect.DENY,
-          actions: ['s3:GetObject'],
-          resources: [bucket.arnForObjects('*')],
-          notPrincipals: [this._scanFunction.role, scan_assumed_principal],
-          conditions: {
-            StringEquals: {
-              's3:ExistingObjectTag/scan-status': [
-                'IN PROGRESS',
-                'INFECTED',
-                'ERROR',
-              ],
-            },
-          },
-        }),
-      );
+      if (bucket instanceof Bucket) {
+        bucket.addToResourcePolicy(this.getPolicyStatementForBucket(bucket));
+      }
     }
   }
 }
