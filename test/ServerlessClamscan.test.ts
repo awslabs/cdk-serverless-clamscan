@@ -282,11 +282,11 @@ test('check bucket triggers and policies for source buckets ', () => {
   });
 });
 
-test('Check bucket triggers and policies for external bucket', () => {
+test('Check bucket triggers and policies for imported bucket', () => {
   const stack = new Stack();
-  const externalBucket = Bucket.fromBucketName(stack, 'ExternalBucket', 'external-bucket-name');
+  const importedBucket = Bucket.fromBucketName(stack, 'ImportedBucket', 'imported-bucket-name');
   new ServerlessClamscan(stack, 'default', {
-    buckets: [externalBucket],
+    buckets: [importedBucket],
     acceptResponsibilityForUsingImportedBucket: true,
   });
 
@@ -313,11 +313,30 @@ test('Check bucket triggers and policies for external bucket', () => {
           {
             Ref: 'AWS::Partition',
           },
-          ':s3:::external-bucket-name',
+          ':s3:::imported-bucket-name',
         ],
       ],
     },
   });
+});
+
+test('Check error is raised when imported bucket is used without accepting responsibility', () => {
+  const stack = new Stack();
+  const importedBucket = Bucket.fromBucketName(stack, 'ImportedBucket', 'imported-bucket-name');
+
+  const f = () => {
+    new ServerlessClamscan(stack, 'default', {
+      buckets: [importedBucket],
+    });
+  };
+
+  const g = () => {
+    const sc = new ServerlessClamscan(stack, 'default', {});
+    sc.addSourceBucket(importedBucket);
+  };
+
+  expect(f).toThrow(Error);
+  expect(g).toThrow(Error);
 });
 
 test('check Virus Definition buckets policy security and S3 Gateway endpoint policy', () => {
