@@ -90,7 +90,7 @@ export interface ServerlessClamscanProps {
   readonly defsBucketAccessLogsConfig?: ServerlessClamscanLoggingProps;
 
   /**
-   * Allow reusing existing buckets which are not created in the CDK project. When using external buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution.
+   * Allows the use of imported buckets. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution.
    */
   readonly acceptResponsibilityForUsingImportedBucket?: boolean;
 }
