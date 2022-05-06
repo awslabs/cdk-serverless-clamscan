@@ -171,7 +171,7 @@ export class ServerlessClamscan extends Construct {
   public readonly defsAccessLogsBucket?: IBucket;
 
   /**
-    Conditional: When true, the user accepted the responsibility for using external buckets
+    Conditional: When true, the user accepted the responsibility for using imported buckets
    */
   public readonly useImportedBuckets?: boolean;
 
