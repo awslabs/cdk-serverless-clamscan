@@ -40,8 +40,8 @@ import {
   EventBridgeDestination,
   SqsDestination,
 } from 'aws-cdk-lib/aws-lambda-destinations';
-import { S3EventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
 import { IBucket, Bucket, BucketEncryption, EventType } from 'aws-cdk-lib/aws-s3';
+import { LambdaDestination } from 'aws-cdk-lib/aws-s3-notifications';
 import { Queue, QueueEncryption } from 'aws-cdk-lib/aws-sqs';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
@@ -573,9 +573,11 @@ export class ServerlessClamscan extends Construct {
    * @param bucket The bucket to add the scanning bucket policy and s3:ObjectCreate* trigger to.
    */
   addSourceBucket(bucket: IBucket) {
-    this._scanFunction.addEventSource(
-      new S3EventSource(bucket as Bucket, { events: [EventType.OBJECT_CREATED] }),
+    bucket.addEventNotification(
+      EventType.OBJECT_CREATED,
+      new LambdaDestination(this._scanFunction),
     );
+
     bucket.grantRead(this._scanFunction);
     this._scanFunction.addToRolePolicy(
       new PolicyStatement({
