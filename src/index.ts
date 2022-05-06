@@ -573,7 +573,7 @@ export class ServerlessClamscan extends Construct {
    */
   addSourceBucket(bucket: IBucket) {
     if (!(bucket instanceof Bucket) && !this.useExternalBuckets) {
-      throw new Error('acceptResponsibilityForUsingExistingBucket must be set when adding an external bucket');
+      throw new Error("acceptResponsibilityForUsingImportedBucket must be set when adding an imported bucket. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution");
     }
 
     this._scanFunction.addEventSource(
