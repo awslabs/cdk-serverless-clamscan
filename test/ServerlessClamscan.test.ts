@@ -287,7 +287,7 @@ test('Check bucket triggers and policies for external bucket', () => {
   const externalBucket = Bucket.fromBucketName(stack, 'ExternalBucket', 'external-bucket-name');
   new ServerlessClamscan(stack, 'default', {
     buckets: [externalBucket],
-    acceptResponsibilityForUsingExistingBucket: true,
+    acceptResponsibilityForUsingImportedBucket: true,
   });
 
   // policy for the source bucket shouldn't be added

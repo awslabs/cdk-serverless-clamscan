@@ -25,6 +25,7 @@ import {
   ArnPrincipal,
   AnyPrincipal,
   AccountRootPrincipal,
+  AddToResourcePolicyResult,
 } from 'aws-cdk-lib/aws-iam';
 import {
   DockerImageCode,
@@ -190,7 +191,7 @@ export class ServerlessClamscan extends Construct {
   constructor(scope: Construct, id: string, props: ServerlessClamscanProps) {
     super(scope, id);
 
-    this.useExternalBuckets = props.acceptResponsibilityForUsingExistingBucket;
+    this.useImportedBuckets = props.acceptResponsibilityForUsingImportedBucket;
 
     if (!props.onResult) {
       this.resultBus = new EventBus(this, 'ScanResultBus');
@@ -572,10 +573,6 @@ export class ServerlessClamscan extends Construct {
    * @param bucket The bucket to add the scanning bucket policy and s3:ObjectCreate* trigger to.
    */
   addSourceBucket(bucket: IBucket) {
-    if (!(bucket instanceof Bucket) && !this.useExternalBuckets) {
-      throw new Error("acceptResponsibilityForUsingImportedBucket must be set when adding an imported bucket. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution");
-    }
-
     this._scanFunction.addEventSource(
       new S3EventSource(bucket as Bucket, { events: [EventType.OBJECT_CREATED] }),
     );
@@ -607,8 +604,12 @@ export class ServerlessClamscan extends Construct {
         }),
       );
 
-      if (bucket instanceof Bucket) {
-        bucket.addToResourcePolicy(this.getPolicyStatementForBucket(bucket));
+      const result : AddToResourcePolicyResult = bucket.addToResourcePolicy(
+        this.getPolicyStatementForBucket(bucket),
+      );
+
+      if (!result.statementAdded && !this.useImportedBuckets) {
+        throw new Error('acceptResponsibilityForUsingImportedBucket must be set when adding an imported bucket. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution');
       }
     }
   }
