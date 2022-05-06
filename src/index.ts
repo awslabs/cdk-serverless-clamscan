@@ -173,7 +173,7 @@ export class ServerlessClamscan extends Construct {
   /**
     Conditional: When true, the user accepted the responsibility for using external buckets
    */
-  public readonly useExternalBuckets?: boolean;
+  public readonly useImportedBuckets?: boolean;
 
   private _scanFunction: DockerImageFunction;
   private _s3Gw: GatewayVpcEndpoint;
