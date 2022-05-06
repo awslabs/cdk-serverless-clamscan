@@ -64,7 +64,7 @@ new ServerlessClamscan(scope: Construct, id: string, props: ServerlessClamscanPr
 * **scope** (<code>[Construct](#constructs-construct)</code>)  The parent creating construct (usually `this`).
 * **id** (<code>string</code>)  The construct's name.
 * **props** (<code>[ServerlessClamscanProps](#cdk-serverless-clamscan-serverlessclamscanprops)</code>)  A `ServerlessClamscanProps` interface.
-  * **acceptResponsibilityForUsingExistingBucket** (<code>boolean</code>)  Allow reusing existing buckets which are not created in the CDK project. __*Optional*__
+  * **acceptResponsibilityForUsingImportedBucket** (<code>boolean</code>)  Allows the use of imported buckets. __*Optional*__
   * **buckets** (<code>Array<[aws_s3.IBucket](#aws-cdk-lib-aws-s3-ibucket)></code>)  An optional list of S3 buckets to configure for ClamAV Virus Scanning; __*Optional*__
   * **defsBucketAccessLogsConfig** (<code>[ServerlessClamscanLoggingProps](#cdk-serverless-clamscan-serverlessclamscanloggingprops)</code>)  Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs ). __*Optional*__
   * **efsEncryption** (<code>boolean</code>)  Whether or not to enable encryption on EFS filesystem (Default: enabled). __*Optional*__
@@ -88,7 +88,7 @@ Name | Type | Description
 **errorQueue**? | <code>[aws_sqs.Queue](#aws-cdk-lib-aws-sqs-queue)</code> | Conditional: The SQS Queue for erred scans if a failure (onError) destination was not specified.<br/>__*Optional*__
 **infectedRule**? | <code>[aws_events.Rule](#aws-cdk-lib-aws-events-rule)</code> | Conditional: An Event Bridge Rule for files that are marked 'INFECTED' by ClamAV if a success destination was not specified.<br/>__*Optional*__
 **resultBus**? | <code>[aws_events.EventBus](#aws-cdk-lib-aws-events-eventbus)</code> | Conditional: The Event Bridge Bus for completed ClamAV scans if a success (onResult) destination was not specified.<br/>__*Optional*__
-**useExternalBuckets**? | <code>boolean</code> | Conditional: When true, the user accepted the responsibility for using external buckets.<br/>__*Optional*__
+**useImportedBuckets**? | <code>boolean</code> | Conditional: When true, the user accepted the responsibility for using imported buckets.<br/>__*Optional*__
 
 ### Methods
 
@@ -147,7 +147,7 @@ Interface for creating a ServerlessClamscan.
 
 Name | Type | Description 
 -----|------|-------------
-**acceptResponsibilityForUsingExistingBucket**? | <code>boolean</code> | Allow reusing existing buckets which are not created in the CDK project.<br/>__*Optional*__
+**acceptResponsibilityForUsingImportedBucket**? | <code>boolean</code> | Allows the use of imported buckets.<br/>__*Optional*__
 **buckets**? | <code>Array<[aws_s3.IBucket](#aws-cdk-lib-aws-s3-ibucket)></code> | An optional list of S3 buckets to configure for ClamAV Virus Scanning;<br/>__*Optional*__
 **defsBucketAccessLogsConfig**? | <code>[ServerlessClamscanLoggingProps](#cdk-serverless-clamscan-serverlessclamscanloggingprops)</code> | Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs ).<br/>__*Optional*__
 **efsEncryption**? | <code>boolean</code> | Whether or not to enable encryption on EFS filesystem (Default: enabled).<br/>__*Optional*__
