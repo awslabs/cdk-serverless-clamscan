@@ -324,6 +324,8 @@ test('Check error is raised when imported bucket is used without accepting respo
   const stack = new Stack();
   const importedBucket = Bucket.fromBucketName(stack, 'ImportedBucket', 'imported-bucket-name');
 
+  const errorMessage = 'acceptResponsibilityForUsingImportedBucket must be set when adding an imported bucket. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution';
+
   const f = () => {
     new ServerlessClamscan(stack, 'default', {
       buckets: [importedBucket],
@@ -331,12 +333,12 @@ test('Check error is raised when imported bucket is used without accepting respo
   };
 
   const g = () => {
-    const sc = new ServerlessClamscan(stack, 'default', {});
+    const sc = new ServerlessClamscan(stack, 'default_2', {});
     sc.addSourceBucket(importedBucket);
   };
 
-  expect(f).toThrow(Error);
-  expect(g).toThrow(Error);
+  expect(f).toThrow(errorMessage);
+  expect(g).toThrow(errorMessage);
 });
 
 test('check Virus Definition buckets policy security and S3 Gateway endpoint policy', () => {
