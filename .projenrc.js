@@ -25,6 +25,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '@aws-cdk/aws-lambda-destinations',
     '@aws-cdk/aws-lambda-event-sources',
     '@aws-cdk/aws-s3',
+    '@aws-cdk/aws-s3-notifications',
     '@aws-cdk/aws-sqs',
     '@aws-cdk/core',
   ],
