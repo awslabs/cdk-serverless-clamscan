@@ -139,6 +139,11 @@
       "type": "peer"
     },
     {
+      "name": "@aws-cdk/aws-s3-notifications",
+      "version": "^1.101.0",
+      "type": "peer"
+    },
+    {
       "name": "@aws-cdk/aws-s3",
       "version": "^1.101.0",
       "type": "peer"
@@ -200,6 +205,11 @@
     },
     {
       "name": "@aws-cdk/aws-lambda",
+      "version": "^1.101.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-s3-notifications",
       "version": "^1.101.0",
       "type": "runtime"
     },

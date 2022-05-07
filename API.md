@@ -64,7 +64,8 @@ new ServerlessClamscan(scope: Construct, id: string, props: ServerlessClamscanPr
 * **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  The parent creating construct (usually `this`).
 * **id** (<code>string</code>)  The construct's name.
 * **props** (<code>[ServerlessClamscanProps](#cdk-serverless-clamscan-serverlessclamscanprops)</code>)  A `ServerlessClamscanProps` interface.
-  * **buckets** (<code>Array<[Bucket](#aws-cdk-aws-s3-bucket)></code>)  An optional list of S3 buckets to configure for ClamAV Virus Scanning; __*Optional*__
+  * **acceptResponsibilityForUsingImportedBucket** (<code>boolean</code>)  Allows the use of imported buckets. __*Optional*__
+  * **buckets** (<code>Array<[IBucket](#aws-cdk-aws-s3-ibucket)></code>)  An optional list of S3 buckets to configure for ClamAV Virus Scanning; __*Optional*__
   * **defsBucketAccessLogsConfig** (<code>[ServerlessClamscanLoggingProps](#cdk-serverless-clamscan-serverlessclamscanloggingprops)</code>)  Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs ). __*Optional*__
   * **efsEncryption** (<code>boolean</code>)  Whether or not to enable encryption on EFS filesystem (Default: enabled). __*Optional*__
   * **onError** (<code>[IDestination](#aws-cdk-aws-lambda-idestination)</code>)  The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified). __*Optional*__
@@ -80,12 +81,14 @@ Name | Type | Description
 -----|------|-------------
 **errorDest** | <code>[IDestination](#aws-cdk-aws-lambda-idestination)</code> | The Lambda Destination for failed on erred scans [ERROR, IN PROGRESS (If error is due to Lambda timeout)].
 **resultDest** | <code>[IDestination](#aws-cdk-aws-lambda-idestination)</code> | The Lambda Destination for completed ClamAV scans [CLEAN, INFECTED].
+**scanAssumedPrincipal** | <code>[ArnPrincipal](#aws-cdk-aws-iam-arnprincipal)</code> | <span></span>
 **cleanRule**? | <code>[Rule](#aws-cdk-aws-events-rule)</code> | Conditional: An Event Bridge Rule for files that are marked 'CLEAN' by ClamAV if a success destination was not specified.<br/>__*Optional*__
 **defsAccessLogsBucket**? | <code>[IBucket](#aws-cdk-aws-s3-ibucket)</code> | Conditional: The Bucket for access logs for the virus definitions bucket if logging is enabled (defsBucketAccessLogsConfig).<br/>__*Optional*__
 **errorDeadLetterQueue**? | <code>[Queue](#aws-cdk-aws-sqs-queue)</code> | Conditional: The SQS Dead Letter Queue for the errorQueue if a failure (onError) destination was not specified.<br/>__*Optional*__
 **errorQueue**? | <code>[Queue](#aws-cdk-aws-sqs-queue)</code> | Conditional: The SQS Queue for erred scans if a failure (onError) destination was not specified.<br/>__*Optional*__
 **infectedRule**? | <code>[Rule](#aws-cdk-aws-events-rule)</code> | Conditional: An Event Bridge Rule for files that are marked 'INFECTED' by ClamAV if a success destination was not specified.<br/>__*Optional*__
 **resultBus**? | <code>[EventBus](#aws-cdk-aws-events-eventbus)</code> | Conditional: The Event Bridge Bus for completed ClamAV scans if a success (onResult) destination was not specified.<br/>__*Optional*__
+**useImportedBuckets**? | <code>boolean</code> | Conditional: When true, the user accepted the responsibility for using imported buckets.<br/>__*Optional*__
 
 ### Methods
 
@@ -98,13 +101,26 @@ Grants the ClamAV function permissions to get and tag objects.
 Adds a bucket policy to disallow GetObject operations on files that are tagged 'IN PROGRESS', 'INFECTED', or 'ERROR'.
 
 ```ts
-addSourceBucket(bucket: Bucket): void
+addSourceBucket(bucket: IBucket): void
 ```
 
-* **bucket** (<code>[Bucket](#aws-cdk-aws-s3-bucket)</code>)  The bucket to add the scanning bucket policy and s3:ObjectCreate* trigger to.
+* **bucket** (<code>[IBucket](#aws-cdk-aws-s3-ibucket)</code>)  The bucket to add the scanning bucket policy and s3:ObjectCreate* trigger to.
 
 
 
+
+#### getPolicyStatementForBucket(bucket) <a id="cdk-serverless-clamscan-serverlessclamscan-getpolicystatementforbucket"></a>
+
+Returns the statement that should be added to the bucket policy in order to prevent objects to be accessed when they are not clean or there have been scanning errors: this policy should be added manually if external buckets are passed to addSourceBucket().
+
+```ts
+getPolicyStatementForBucket(bucket: IBucket): PolicyStatement
+```
+
+* **bucket** (<code>[IBucket](#aws-cdk-aws-s3-ibucket)</code>)  The bucket which you need to protect with the policy.
+
+__Returns__:
+* <code>[PolicyStatement](#aws-cdk-aws-iam-policystatement)</code>
 
 
 
@@ -131,7 +147,8 @@ Interface for creating a ServerlessClamscan.
 
 Name | Type | Description 
 -----|------|-------------
-**buckets**? | <code>Array<[Bucket](#aws-cdk-aws-s3-bucket)></code> | An optional list of S3 buckets to configure for ClamAV Virus Scanning;<br/>__*Optional*__
+**acceptResponsibilityForUsingImportedBucket**? | <code>boolean</code> | Allows the use of imported buckets.<br/>__*Optional*__
+**buckets**? | <code>Array<[IBucket](#aws-cdk-aws-s3-ibucket)></code> | An optional list of S3 buckets to configure for ClamAV Virus Scanning;<br/>__*Optional*__
 **defsBucketAccessLogsConfig**? | <code>[ServerlessClamscanLoggingProps](#cdk-serverless-clamscan-serverlessclamscanloggingprops)</code> | Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs ).<br/>__*Optional*__
 **efsEncryption**? | <code>boolean</code> | Whether or not to enable encryption on EFS filesystem (Default: enabled).<br/>__*Optional*__
 **onError**? | <code>[IDestination](#aws-cdk-aws-lambda-idestination)</code> | The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified).<br/>__*Optional*__

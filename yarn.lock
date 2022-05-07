@@ -921,7 +921,7 @@
     "@aws-cdk/cx-api" "1.155.0"
     constructs "^3.3.69"
 
-"@aws-cdk/aws-s3-notifications@1.155.0":
+"@aws-cdk/aws-s3-notifications@1.155.0", "@aws-cdk/aws-s3-notifications@^1.101.0":
   version "1.155.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-s3-notifications/-/aws-s3-notifications-1.155.0.tgz#c61bf4f7acb22d36c263a67ae611ce585937873a"
   integrity sha512-mgJfCbkXU0k2HrJsUms8B28rY2djXPTFrTcoKR4XMv2YD93f09sejlv1Yk5Eh996f01P8CRE6/GOAOb9vwdz4Q==
