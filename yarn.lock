@@ -2615,9 +2615,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1.6.1:
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.13.1.tgz#889e1c64dcbec0e67a7eed3911f675c9c50f3bfa"
-  integrity sha512-itJHIhCGEci06ZJq6UXr+neqRKUdBRrnsh729VsMQndaVuruddH69DX9Z8M3dQGaumRSdW9NgAMYuuQLbDKj6Q==
+  version "1.13.2"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.13.2.tgz#ac8ac2214c069d6bc25a3787e6b4d503bb9b8916"
+  integrity sha512-/vdMZcaa6lXc3Uk8Pt4nkpDmTIkxvG0d8vNS0EUA7b0cyIe9XOI4K4fJzfV7PUVAQRDcnpZzlEQtA5vb6PKO0g==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2911,9 +2911,9 @@ console-control-strings@^1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.4.3.tgz#aef3f069d3f4ce29b6f2a5a4a3ef999e4081bde9"
-  integrity sha512-orUwgyIiyQWI1DsN493DeD+KI4s7NGJwwbOpc9ZIJ60cycGGpQEWj8djwXUCFbY1uPvbQUsFfC7nDJy52SwoDg==
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.4.4.tgz#3ef8b481a9f4bb4f0a08c21e035864945769d723"
+  integrity sha512-oXH9SUELM5CvckvZyfCeFdK7+xSUjqIanLz0+0o2DfXrcza4qzNM4FiB/hujRD1OqDOr60Wk0XEa8px6Vxm7wg==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
@@ -4185,9 +4185,9 @@ globals@^11.1.0:
   integrity sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
 
 globals@^13.6.0, globals@^13.9.0:
-  version "13.13.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-13.13.0.tgz#ac32261060d8070e2719dd6998406e27d2b5727b"
-  integrity sha512-EQ7Q18AJlPwp3vUDL4mKA0KXrXyNIQyWon6T6XQiBQF0XHvRsiCSrWmmeATpUzdJN2HhWZU6Pdl0a9zdep5p6A==
+  version "13.14.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-13.14.0.tgz#daf3ff9b4336527cf56e98330b6f64bea9aff9df"
+  integrity sha512-ERO68sOYwm5UuLvSJTY7w7NP2c8S4UcXs3X1GBX8cwOr+ShOcDBbCY5mH4zxz0jsYCdJ8ve8Mv9n2YGJMB1aeg==
   dependencies:
     type-fest "^0.20.2"
 
