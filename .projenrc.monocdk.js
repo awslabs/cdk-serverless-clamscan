@@ -31,5 +31,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'sqs',
   ],
 });
-
+project.package.addField('resolutions', {
+  '@types/prettier': '2.6.0',
+});
 project.synth();
