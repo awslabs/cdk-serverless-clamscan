@@ -72,5 +72,6 @@ project.package.addField('resolutions', {
   'set-value': '^4.0.1',
   'ansi-regex': '^5.0.1',
   'json-schema': '^0.4.0',
+  '@types/prettier': '2.6.0',
 });
 project.synth();
