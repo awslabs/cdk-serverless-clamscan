@@ -3,44 +3,33 @@
 
 import * as path from 'path';
 import {
-  Duration,
-  CustomResource,
-  RemovalPolicy,
+  CustomResource, Duration, RemovalPolicy,
   Stack,
 } from 'aws-cdk-lib';
 import {
-  Vpc,
-  SubnetType,
   GatewayVpcEndpoint,
   GatewayVpcEndpointAwsService,
   Port,
-  SecurityGroup,
+  SecurityGroup, SubnetType, Vpc,
 } from 'aws-cdk-lib/aws-ec2';
 import { FileSystem, LifecyclePolicy, PerformanceMode } from 'aws-cdk-lib/aws-efs';
 import { EventBus, Rule, Schedule } from 'aws-cdk-lib/aws-events';
 import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
 import {
-  Effect,
-  PolicyStatement,
-  ArnPrincipal,
-  AnyPrincipal,
   AccountRootPrincipal,
-  AddToResourcePolicyResult,
+  AddToResourcePolicyResult, AnyPrincipal, ArnPrincipal, Effect,
+  PolicyStatement,
 } from 'aws-cdk-lib/aws-iam';
 import {
-  DockerImageCode,
-  DockerImageFunction,
-  Function,
-  IDestination,
-  FileSystem as LambdaFileSystem,
-  Runtime,
-  Code,
+  Code, DockerImageCode,
+  DockerImageFunction, FileSystem as LambdaFileSystem, Function,
+  IDestination, Runtime,
 } from 'aws-cdk-lib/aws-lambda';
 import {
   EventBridgeDestination,
   SqsDestination,
 } from 'aws-cdk-lib/aws-lambda-destinations';
-import { IBucket, Bucket, BucketEncryption, EventType } from 'aws-cdk-lib/aws-s3';
+import { Bucket, BucketEncryption, EventType, IBucket } from 'aws-cdk-lib/aws-s3';
 import { LambdaDestination } from 'aws-cdk-lib/aws-s3-notifications';
 import { Queue, QueueEncryption } from 'aws-cdk-lib/aws-sqs';
 import { NagSuppressions } from 'cdk-nag';
@@ -492,7 +481,7 @@ export class ServerlessClamscan extends Construct {
     });
 
     const init_defs_cr = new Function(this, 'InitDefs', {
-      runtime: Runtime.PYTHON_3_8,
+      runtime: Runtime.PYTHON_3_9,
       code: Code.fromAsset(
         path.join(__dirname, '../assets/lambda/code/initialize_defs_cr'),
       ),
@@ -606,7 +595,7 @@ export class ServerlessClamscan extends Construct {
         }),
       );
 
-      const result : AddToResourcePolicyResult = bucket.addToResourcePolicy(
+      const result: AddToResourcePolicyResult = bucket.addToResourcePolicy(
         this.getPolicyStatementForBucket(bucket),
       );
 
