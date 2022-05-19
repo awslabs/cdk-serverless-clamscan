@@ -2522,7 +2522,7 @@ builtins@^5.0.0:
   dependencies:
     semver "^7.0.0"
 
-cacache@^16.0.0, cacache@^16.0.2:
+cacache@^16.0.0, cacache@^16.1.0:
   version "16.1.0"
   resolved "https://registry.yarnpkg.com/cacache/-/cacache-16.1.0.tgz#87a6bae558a511c9cb2a13768073e240ca76153a"
   integrity sha512-Pk4aQkwCW82A4jGKFvcGkQFqZcMspfP9YWq9Pr87/ldDvlWf718zeI6KWCdKt/jeihu6BytHRUicJPB1K2k8EQ==
@@ -2624,9 +2624,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1.6.1:
-  version "1.14.4"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.14.4.tgz#e70d07231f59600d010e6634c01a08baebb21e86"
-  integrity sha512-sDkRivAjW8d/4BObNCtLw0okn0uiotxirS02PzZBSttAoOExe6OL3jqKUNFt8OrNgb4gKlLS8VyLtnUhPwdG6w==
+  version "1.14.5"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.14.5.tgz#6a245ca5b8128364662a0f2a2ce658ac46c1e110"
+  integrity sha512-sL+wd8nB3vkwvoRppdRCJ+cYNytW8ULmCC8RwTiYhEugVYT73EWyfZXkbCMsTKw8TfR/SaxqLwn1A1ZpF9U5Pg==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2920,9 +2920,9 @@ console-control-strings@^1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.4.9"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.4.9.tgz#fa17fab34467aabb0745aac09e4fe40b04c0c30e"
-  integrity sha512-GzAAPEvTIQS9LhybpbodeeUUTMl/KEu309jb8Ed3BIwPLMu+wbLCZpoYKJQtb7rkcosj80Cr7EDvYQ8uQKF5qQ==
+  version "3.4.11"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.4.11.tgz#0e002a323e0f34bbaf54179105c189055788f127"
+  integrity sha512-zUaNNXsGij6mYsckSUvvWtrrdgFKwjFsTV6ixPyi2q1cVMSGoWNBB061eq900l4hjIb4HIwkB+3J/LIKjQl1vQ==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
@@ -5720,12 +5720,12 @@ make-error@1.x:
   integrity sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==
 
 make-fetch-happen@^10.0.3, make-fetch-happen@^10.0.6:
-  version "10.1.3"
-  resolved "https://registry.yarnpkg.com/make-fetch-happen/-/make-fetch-happen-10.1.3.tgz#d7ecd4a22563b2c05b74735eda46569da26a46f6"
-  integrity sha512-s/UjmGjUHn9m52cctFhN2ITObbT+axoUhgeir8xGrOlPbKDyJsdhQzb8PGncPQQ28uduHybFJ6Iumy2OZnreXw==
+  version "10.1.4"
+  resolved "https://registry.yarnpkg.com/make-fetch-happen/-/make-fetch-happen-10.1.4.tgz#b68a64367d2c402f24edc48308ff193d11fc2618"
+  integrity sha512-hU1w68PqfH7FdMgjbiziJoACY0edlbIZ0CyKnpcEruVdCjsUrN+qoenOCIayNqVBK7toSWwbDxvQlrhH0gjRdg==
   dependencies:
     agentkeepalive "^4.2.1"
-    cacache "^16.0.2"
+    cacache "^16.1.0"
     http-cache-semantics "^4.1.0"
     http-proxy-agent "^5.0.0"
     https-proxy-agent "^5.0.0"
