@@ -2625,9 +2625,9 @@ case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^1.6.1:
-  version "1.14.10"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.14.10.tgz#a8231690e2696fae94605b0266670e26f66dc79f"
-  integrity sha512-wtXclO5WkilsglzK5UGIPoJ38ksTgcBUZaJFGF6oGfGFQjiNZsE40KZFTtsTuWmm8qljUg1vsRgGNYBPXAZfFA==
+  version "1.14.12"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-1.14.12.tgz#891c0cbeae21f4724f12ca010c67fe862720f19a"
+  integrity sha512-xjbeDLZr+AqQZClPf2VYZ5c9sHNfHFJ1jQPAWAWLkHhCXVISnV7EN/fJs4qt5F+rgu9cywHegPOmoq3YLhy3Zw==
   dependencies:
     "@aws-cdk/aws-apigateway" "^1.123.0"
     "@aws-cdk/aws-apigatewayv2" "^1.123.0"
@@ -2921,9 +2921,9 @@ console-control-strings@^1.1.0:
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
 constructs@^3.3.69:
-  version "3.4.15"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.4.15.tgz#2905b36d013ee42e1fd1cb79ca379891be757fb4"
-  integrity sha512-wqGCpliPCBdLREKz/CEeRkpEUTMq75fTjX6MEhXOdDi454uK4WDwd8qcxOPCoiZv8ityf5T0of4NHKLdbgiigg==
+  version "3.4.17"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.4.17.tgz#6573a4b6820014b0d445b1a22e31b8c122cf3045"
+  integrity sha512-WmT4oorRgG5YfZo1dbbxwNjT7CeiNnYwAjeJrL0TTSNOVxuYMQskMYz4I1QTG0yHvssUrlzDc8YHxxhy9CDmIA==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
@@ -6060,9 +6060,9 @@ node-notifier@^8.0.0:
     which "^2.0.2"
 
 node-releases@^2.0.3:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.4.tgz#f38252370c43854dc48aa431c766c6c398f40476"
-  integrity sha512-gbMzqQtTtDz/00jQzZ21PQzdI9PyLYqUSvD0p3naOhX4odFji0ZxYdnVwPTxmSwkmxhcFImpozceidSG+AgoPQ==
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.5.tgz#280ed5bc3eba0d96ce44897d8aee478bfb3d9666"
+  integrity sha512-U9h1NLROZTq9uE1SNffn6WuPDg8icmi3ns4rEl/oTfIle4iLjTliCzgTsbaIFMq/Xn078/lfY/BL0GWZ+psK4Q==
 
 nopt@^5.0.0:
   version "5.0.0"
