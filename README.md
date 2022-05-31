@@ -1,15 +1,10 @@
 # cdk-serverless-clamscan
 
-| Language   | cdk-serverless-clamscan                                                                                   | monocdk-serverless-clamscan                                                                                       |
-| ---------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| Python     | [![PyPI version](https://badge.fury.io/py/cdk-serverless-clamscan.svg)](https://badge.fury.io/py/cdk-serverless-clamscan) | [![PyPI version](https://badge.fury.io/py/monocdk-serverless-clamscan.svg)](https://badge.fury.io/py/monocdk-serverless-clamscan) |
-| TypeScript | [![npm version](https://badge.fury.io/js/cdk-serverless-clamscan.svg)](https://badge.fury.io/js/cdk-serverless-clamscan)  | [![npm version](https://badge.fury.io/js/monocdk-serverless-clamscan.svg)](https://badge.fury.io/js/monocdk-serverless-clamscan)  |
+[![npm version](https://badge.fury.io/js/cdk-serverless-clamscan.svg)](https://badge.fury.io/js/cdk-serverless-clamscan) 
+[![PyPI version](https://badge.fury.io/py/cdk-serverless-clamscan.svg)](https://badge.fury.io/py/cdk-serverless-clamscan)
 
-- If your project uses cdk version **1.x.x** use `cdk-serverless-clamscan` **^1.0.0**
-- If your project uses cdk version **2.x.x** use `cdk-serverless-clamscan` **^2.0.0**
-- If your project uses monocdk use `monocdk-serverless-clamscan` **^1.0.0**
 
-An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](https://www.clamav.net/) to scan objects in Amazon S3 for viruses. The construct provides a flexible interface for a system to act based on the results of a ClamAV virus scan.
+An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](https://www.clamav.net/) to scan objects in Amazon S3 for viruses. The construct provides a flexible interface for a system to act based on the results of a ClamAV virus scan. Check out this [blogpost](https://aws.amazon.com/blogs/developer/virus-scan-s3-buckets-with-a-serverless-clamav-based-cdk-construct/) for a guided walkthrough.
 
 ![Overview](serverless-clamscan.png)
 
@@ -27,11 +22,12 @@ This project uses [projen](https://github.com/projen/projen) and thus all the co
 <p>
 
 ```typescript
-import { RuleTargetInput } from '@aws-cdk/aws-events';
-import { SnsTopic } from '@aws-cdk/aws-events-targets';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Topic } from '@aws-cdk/aws-sns';
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
+import { RuleTargetInput } from 'aws-cdk-lib/aws-events';
+import { SnsTopic } from 'aws-cdk-lib/aws-events-targets';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { Topic } from 'aws-cdk-lib/aws-sns';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { ServerlessClamscan } from 'cdk-serverless-clamscan';
 
 export class CdkTestStack extends Stack {
@@ -66,17 +62,18 @@ export class CdkTestStack extends Stack {
 
 ```python
 from aws_cdk import (
-  core as core,
+  Stack,
   aws_events as events,
   aws_events_targets as events_targets,
   aws_s3 as s3,
   aws_sns as sns
 )
 from cdk_serverless_clamscan import ServerlessClamscan
+from constructs import Construct
 
-class CdkTestStack(core.Stack):
+class CdkTestStack(Stack):
 
-  def __init__(self, scope: core.Construct, construct_id: str, **kwargs) -> None:
+  def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
     super().__init__(scope, construct_id, **kwargs)
 
     bucket_1 = s3.Bucket(self, "rBucket1")
@@ -109,10 +106,11 @@ class CdkTestStack(core.Stack):
 import {
   SqsDestination,
   EventBridgeDestination,
-} from '@aws-cdk/aws-lambda-destinations';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { Queue } from '@aws-cdk/aws-sqs';
-import { Construct, Stack, StackProps } from '@aws-cdk/core';
+} from 'aws-cdk-lib/aws-lambda-destinations';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { Queue } from 'aws-cdk-lib/aws-sqs';
+import { Stack, StackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { ServerlessClamscan } from 'cdk-serverless-clamscan';
 
 export class CdkTestStack extends Stack {
@@ -142,16 +140,17 @@ export class CdkTestStack extends Stack {
 
 ```python
 from aws_cdk import (
-  core as core,
+  Stack,
   aws_lambda_destinations as lambda_destinations,
   aws_s3 as s3,
   aws_sqs as sqs
 )
 from cdk_serverless_clamscan import ServerlessClamscan
+from constructs import Construct
 
-class CdkTestStack(core.Stack):
+class CdkTestStack(Stack):
 
-  def __init__(self, scope: core.Construct, construct_id: str, **kwargs) -> None:
+  def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
     super().__init__(scope, construct_id, **kwargs)
 
     bucket_1 = s3.Bucket(self, "rBucket1")
