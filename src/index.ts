@@ -75,6 +75,10 @@ export interface ServerlessClamscanProps {
    */
   readonly efsEncryption?: boolean;
   /**
+   * Set the performance mode of EFS filesystem (Default: GENERAL_PURPOSE).
+   */
+  readonly efsPerformanceMode?: PerformanceMode;
+  /**
    * Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs ).
    */
   readonly defsBucketAccessLogsConfig?: ServerlessClamscanLoggingProps;
@@ -265,7 +269,7 @@ export class ServerlessClamscan extends Construct {
       vpc: vpc,
       encrypted: props.efsEncryption === false ? false : true,
       lifecyclePolicy: LifecyclePolicy.AFTER_7_DAYS,
-      performanceMode: PerformanceMode.GENERAL_PURPOSE,
+      performanceMode: props.efsPerformanceMode ? props.efsPerformanceMode : PerformanceMode.GENERAL_PURPOSE,
       removalPolicy: RemovalPolicy.DESTROY,
       securityGroup: new SecurityGroup(this, 'ScanFileSystemSecurityGroup', {
         vpc: vpc,
