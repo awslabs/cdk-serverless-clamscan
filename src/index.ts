@@ -40,7 +40,7 @@ import { Construct } from 'constructs';
  */
 export interface ServerlessClamscanLoggingProps {
   /**
-   * Destination bucket for the server access logs (Default: Creates a new S3 Bucket for access logs ).
+   * Destination bucket for the server access logs (Default: Creates a new S3 Bucket for access logs).
    */
   readonly logsBucket?: boolean | IBucket;
   /**
@@ -79,7 +79,7 @@ export interface ServerlessClamscanProps {
    */
   readonly efsPerformanceMode?: PerformanceMode;
   /**
-   * Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs ).
+   * Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs).
    */
   readonly defsBucketAccessLogsConfig?: ServerlessClamscanLoggingProps;
 
@@ -165,7 +165,7 @@ export class ServerlessClamscan extends Construct {
   public readonly defsAccessLogsBucket?: IBucket;
 
   /**
-    Conditional: When true, the user accepted the responsibility for using imported buckets
+    Conditional: When true, the user accepted the responsibility for using imported buckets.
    */
   public readonly useImportedBuckets?: boolean;
 
