@@ -3,6 +3,7 @@
 
 import { ABSENT, anything, arrayWith, stringLike } from '@aws-cdk/assert';
 import { Stack } from 'aws-cdk-lib';
+import { PerformanceMode } from 'aws-cdk-lib/aws-efs';
 import { EventBus } from 'aws-cdk-lib/aws-events';
 import { SqsDestination, EventBridgeDestination } from 'aws-cdk-lib/aws-lambda-destinations';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
@@ -785,4 +786,27 @@ test('Check EFS existence and Lambda Configuration ', () => {
   });
 });
 
+test('expect EFS performance mode to default to General Purpose', () => {
+  const stack = new Stack();
+  new ServerlessClamscan(stack, 'default', {});
+  expect(stack).toCountResources('AWS::EFS::FileSystem', 1);
+  expect(stack).toHaveResourceLike('AWS::EFS::FileSystem', {
+    PerformanceMode: 'generalPurpose',
+  });
+});
 
+test('expect EFS performance mode to be set as configured', () => {
+  const stack1 = new Stack();
+  new ServerlessClamscan(stack1, 'rMaxIoEfs', { efsPerformanceMode: PerformanceMode.MAX_IO });
+  expect(stack1).toCountResources('AWS::EFS::FileSystem', 1);
+  expect(stack1).toHaveResourceLike('AWS::EFS::FileSystem', {
+    PerformanceMode: 'maxIO',
+  });
+
+  const stack2 = new Stack();
+  new ServerlessClamscan(stack2, 'rGeneralPurposeEfs', { efsPerformanceMode: PerformanceMode.GENERAL_PURPOSE });
+  expect(stack2).toCountResources('AWS::EFS::FileSystem', 1);
+  expect(stack2).toHaveResourceLike('AWS::EFS::FileSystem', {
+    PerformanceMode: 'generalPurpose',
+  });
+});

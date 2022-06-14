@@ -66,8 +66,9 @@ new ServerlessClamscan(scope: Construct, id: string, props: ServerlessClamscanPr
 * **props** (<code>[ServerlessClamscanProps](#cdk-serverless-clamscan-serverlessclamscanprops)</code>)  A `ServerlessClamscanProps` interface.
   * **acceptResponsibilityForUsingImportedBucket** (<code>boolean</code>)  Allows the use of imported buckets. __*Optional*__
   * **buckets** (<code>Array<[aws_s3.IBucket](#aws-cdk-lib-aws-s3-ibucket)></code>)  An optional list of S3 buckets to configure for ClamAV Virus Scanning; __*Optional*__
-  * **defsBucketAccessLogsConfig** (<code>[ServerlessClamscanLoggingProps](#cdk-serverless-clamscan-serverlessclamscanloggingprops)</code>)  Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs ). __*Optional*__
+  * **defsBucketAccessLogsConfig** (<code>[ServerlessClamscanLoggingProps](#cdk-serverless-clamscan-serverlessclamscanloggingprops)</code>)  Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs). __*Optional*__
   * **efsEncryption** (<code>boolean</code>)  Whether or not to enable encryption on EFS filesystem (Default: enabled). __*Optional*__
+  * **efsPerformanceMode** (<code>[aws_efs.PerformanceMode](#aws-cdk-lib-aws-efs-performancemode)</code>)  Set the performance mode of the EFS file system (Default: GENERAL_PURPOSE). __*Optional*__
   * **onError** (<code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code>)  The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified). __*Optional*__
   * **onResult** (<code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code>)  The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified). __*Optional*__
   * **reservedConcurrency** (<code>number</code>)  Optionally set a reserved concurrency for the virus scanning Lambda. __*Optional*__
@@ -133,7 +134,7 @@ Interface for ServerlessClamscan Virus Definitions S3 Bucket Logging.
 
 Name | Type | Description 
 -----|------|-------------
-**logsBucket**? | <code>boolean &#124; [aws_s3.IBucket](#aws-cdk-lib-aws-s3-ibucket)</code> | Destination bucket for the server access logs (Default: Creates a new S3 Bucket for access logs ).<br/>__*Optional*__
+**logsBucket**? | <code>boolean &#124; [aws_s3.IBucket](#aws-cdk-lib-aws-s3-ibucket)</code> | Destination bucket for the server access logs (Default: Creates a new S3 Bucket for access logs).<br/>__*Optional*__
 **logsPrefix**? | <code>string</code> | Optional log file prefix to use for the bucket's access logs, option is ignored if logs_bucket is set to false.<br/>__*Optional*__
 
 
@@ -149,8 +150,9 @@ Name | Type | Description
 -----|------|-------------
 **acceptResponsibilityForUsingImportedBucket**? | <code>boolean</code> | Allows the use of imported buckets.<br/>__*Optional*__
 **buckets**? | <code>Array<[aws_s3.IBucket](#aws-cdk-lib-aws-s3-ibucket)></code> | An optional list of S3 buckets to configure for ClamAV Virus Scanning;<br/>__*Optional*__
-**defsBucketAccessLogsConfig**? | <code>[ServerlessClamscanLoggingProps](#cdk-serverless-clamscan-serverlessclamscanloggingprops)</code> | Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs ).<br/>__*Optional*__
+**defsBucketAccessLogsConfig**? | <code>[ServerlessClamscanLoggingProps](#cdk-serverless-clamscan-serverlessclamscanloggingprops)</code> | Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs).<br/>__*Optional*__
 **efsEncryption**? | <code>boolean</code> | Whether or not to enable encryption on EFS filesystem (Default: enabled).<br/>__*Optional*__
+**efsPerformanceMode**? | <code>[aws_efs.PerformanceMode](#aws-cdk-lib-aws-efs-performancemode)</code> | Set the performance mode of the EFS file system (Default: GENERAL_PURPOSE).<br/>__*Optional*__
 **onError**? | <code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code> | The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified).<br/>__*Optional*__
 **onResult**? | <code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code> | The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified).<br/>__*Optional*__
 **reservedConcurrency**? | <code>number</code> | Optionally set a reserved concurrency for the virus scanning Lambda.<br/>__*Optional*__
