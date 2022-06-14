@@ -75,7 +75,7 @@ export interface ServerlessClamscanProps {
    */
   readonly efsEncryption?: boolean;
   /**
-   * Set the performance mode of EFS filesystem (Default: GENERAL_PURPOSE).
+   * Set the performance mode of the EFS file system (Default: GENERAL_PURPOSE).
    */
   readonly efsPerformanceMode?: PerformanceMode;
   /**
