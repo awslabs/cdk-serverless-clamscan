@@ -10,7 +10,7 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@aws-cdk/assert@^2.1":
+"@aws-cdk/assert@^2.18":
   version "2.33.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/assert/-/assert-2.33.0.tgz#d24f9a372f53de6257b1f64b6acad209ac3622de"
   integrity sha512-iBqIvVbAnnaI9MXgwLA0J6BBmRiljivhgFHPoHAhRVD/xh3qDeOXr0gbM46uooo2ComPxRbEL8o+WL1K4Tx8sg==
@@ -1229,17 +1229,17 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-aws-cdk-lib@2.11.0:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.11.0.tgz#a837f856d337db7dbc727bd718da8113e4596652"
-  integrity sha512-zN0K65oOAi5vedvRL9vXTQrYrpYO8rLCyajBpEKwi8z2D/rGUM9jnH1NHseUCJwQuP+I78FcUQgeFNPO80PUeg==
+aws-cdk-lib@2.18.0:
+  version "2.18.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.18.0.tgz#a130edf9d90ec166d5c0f14d275ab49cbbe75261"
+  integrity sha512-4XpEqRgKSzDmcpeNGRqRlnWEltnt5+NoHWKpQDHUsAmyJ2QNQ5dYxVLIReaGiE9H8zS0rlpp3exuDEy0UgKj2Q==
   dependencies:
     "@balena/dockerignore" "^1.0.2"
     case "1.6.3"
     fs-extra "^9.1.0"
     ignore "^5.2.0"
     jsonschema "^1.4.0"
-    minimatch "^3.0.4"
+    minimatch "^3.1.2"
     punycode "^2.1.1"
     semver "^7.3.5"
     yaml "1.10.2"
@@ -1476,10 +1476,10 @@ case@1.6.3, case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdk-nag@^2.6.1:
-  version "2.15.17"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.15.17.tgz#1beafa53053570cdc1fe88de86926dd8cfc99094"
-  integrity sha512-quvbv4lU577F89mcgoiy5oBjvBBFBq1F7Novb+v8y6Ld1AtHyaw7CmkXxZZsdLYaiyAdjafJulJFT5495o4GKw==
+cdk-nag@^2.15.18:
+  version "2.15.18"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.15.18.tgz#f09e742d2c713a175d408fc7c71d56e38dc7f3df"
+  integrity sha512-0JAgSv2pQRro0NEllXoKqvNQEU5kWzlgryj91C+MKrsJQ2sX+8/XTfpFU6wHFCt5mUYTNibhOtqwk2CVuhEq2A==
 
 chalk@^2.0.0, chalk@^2.4.2:
   version "2.4.2"
