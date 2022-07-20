@@ -10,7 +10,7 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@aws-cdk/assert@^2.18":
+"@aws-cdk/assert@^2.11":
   version "2.33.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/assert/-/assert-2.33.0.tgz#d24f9a372f53de6257b1f64b6acad209ac3622de"
   integrity sha512-iBqIvVbAnnaI9MXgwLA0J6BBmRiljivhgFHPoHAhRVD/xh3qDeOXr0gbM46uooo2ComPxRbEL8o+WL1K4Tx8sg==

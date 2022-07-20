@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-import { ABSENT, anything, arrayWith, stringLike } from '@aws-cdk/assert';
+import { ABSENT, anything, arrayWith, objectLike, stringLike } from '@aws-cdk/assert';
 import { Stack } from 'aws-cdk-lib';
 import { PerformanceMode } from 'aws-cdk-lib/aws-efs';
 import { EventBus } from 'aws-cdk-lib/aws-events';
@@ -760,28 +760,13 @@ test('Check definition downloading event and custom resource permissions ', () =
         {
           Action: 'lambda:InvokeFunction',
           Effect: 'Allow',
-          Resource: [{
+          Resource: objectLike({
             'Fn::GetAtt': [
               stringLike('*DownloadDefs*'),
               'Arn',
             ],
-          },
-          {
-            'Fn::Join': [
-              '',
-              [
-                {
-                  'Fn::GetAtt': [
-                    stringLike('*DownloadDefs*'),
-                    'Arn',
-                  ],
-                },
-                ':*',
-              ],
-            ],
-          }],
+          }),
         },
-
       ],
     },
     Roles: [{ Ref: stringLike('*InitDefsServiceRole*') }],
