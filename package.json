@@ -40,12 +40,13 @@
     "organization": false
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^2.1",
-    "@types/jest": "^26.0.24",
+    "@aws-cdk/assert": "^2.11",
+    "@types/jest": "^27",
     "@types/node": "^14",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
     "aws-cdk-lib": "2.11.0",
+    "cdk-nag": "^2.15.18",
     "constructs": "10.0.5",
     "eslint": "^8",
     "eslint-import-resolver-node": "^0.3.6",
@@ -53,13 +54,13 @@
     "eslint-plugin-import": "^2.26.0",
     "jest": "^27",
     "jest-junit": "^13",
-    "jsii": "^1.60.1",
-    "jsii-diff": "^1.60.1",
+    "jsii": "^1.62.0",
+    "jsii-diff": "^1.62.0",
     "jsii-docgen": "^1.8.110",
-    "jsii-pacmak": "^1.60.1",
+    "jsii-pacmak": "^1.62.0",
     "json-schema": "^0.4.0",
-    "npm-check-updates": "^12",
-    "projen": "^0.58.14",
+    "npm-check-updates": "^15",
+    "projen": "^0.59.3",
     "standard-version": "^9",
     "ts-jest": "^27",
     "typescript": "^3.9.10"
@@ -67,9 +68,6 @@
   "peerDependencies": {
     "aws-cdk-lib": "^2.11.0",
     "constructs": "^10.0.5"
-  },
-  "dependencies": {
-    "cdk-nag": "^2.6.1"
   },
   "keywords": [
     "aws",
@@ -90,7 +88,7 @@
   "jest": {
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.ts?(x)",
-      "<rootDir>/(test|src)/**/?(*.)+(spec|test).ts?(x)"
+      "<rootDir>/(test|src)/**/*(*.)@(spec|test).ts?(x)"
     ],
     "clearMocks": true,
     "collectCoverage": true,
