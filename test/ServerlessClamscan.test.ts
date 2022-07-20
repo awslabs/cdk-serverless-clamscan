@@ -760,13 +760,28 @@ test('Check definition downloading event and custom resource permissions ', () =
         {
           Action: 'lambda:InvokeFunction',
           Effect: 'Allow',
-          Resource: {
+          Resource: [{
             'Fn::GetAtt': [
               stringLike('*DownloadDefs*'),
               'Arn',
             ],
           },
+          {
+            'Fn::Join': [
+              '',
+              [
+                {
+                  'Fn::GetAtt': [
+                    stringLike('*DownloadDefs*'),
+                    'Arn',
+                  ],
+                },
+                ':*',
+              ],
+            ],
+          }],
         },
+
       ],
     },
     Roles: [{ Ref: stringLike('*InitDefsServiceRole*') }],
