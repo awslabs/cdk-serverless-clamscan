@@ -72,6 +72,7 @@ new ServerlessClamscan(scope: Construct, id: string, props: ServerlessClamscanPr
   * **onError** (<code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code>)  The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified). __*Optional*__
   * **onResult** (<code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code>)  The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified). __*Optional*__
   * **reservedConcurrency** (<code>number</code>)  Optionally set a reserved concurrency for the virus scanning Lambda. __*Optional*__
+  * **scanFunctionMemorySize** (<code>number</code>)  Optionally set the memory allocation for the scan function. __*Optional*__
 
 
 
@@ -156,6 +157,7 @@ Name | Type | Description
 **onError**? | <code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code> | The Lambda Destination for files that fail to scan and are marked 'ERROR' or stuck 'IN PROGRESS' due to a Lambda timeout (Default: Creates and publishes to a new SQS queue if unspecified).<br/>__*Optional*__
 **onResult**? | <code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code> | The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified).<br/>__*Optional*__
 **reservedConcurrency**? | <code>number</code> | Optionally set a reserved concurrency for the virus scanning Lambda.<br/>__*Optional*__
+**scanFunctionMemorySize**? | <code>number</code> | Optionally set the memory allocation for the scan function.<br/>__*Optional*__
 
 
 

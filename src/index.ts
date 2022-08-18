@@ -62,6 +62,11 @@ export interface ServerlessClamscanProps {
    */
   readonly reservedConcurrency?: number;
   /**
+   * Optionally set the memory allocation for the scan function. Note that low memory allocations may cause errors. (Default: 10240).
+   * @see https://docs.aws.amazon.com/lambda/latest/operatorguide/computing-power.html
+   */
+  readonly scanFunctionMemorySize?: number;
+  /**
    * The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified).
    */
   readonly onResult?: IDestination;
@@ -81,7 +86,6 @@ export interface ServerlessClamscanProps {
    * Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs).
    */
   readonly defsBucketAccessLogsConfig?: ServerlessClamscanLoggingProps;
-
   /**
    * Allows the use of imported buckets. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution.
    */
@@ -403,7 +407,7 @@ export class ServerlessClamscan extends Construct {
       vpcSubnets: { subnets: vpc.isolatedSubnets },
       allowAllOutbound: false,
       timeout: Duration.minutes(15),
-      memorySize: 10240,
+      memorySize: props.scanFunctionMemorySize ?? 10240,
       reservedConcurrentExecutions: props.reservedConcurrency,
       environment: {
         EFS_MOUNT_PATH: this._efsMountPath,
