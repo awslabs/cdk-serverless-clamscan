@@ -63,7 +63,7 @@ export interface ServerlessClamscanProps {
   readonly reservedConcurrency?: number;
   /**
    * Optionally set the memory allocation for the scan function. Note that low memory allocations may cause errors. (Default: 10240).
-   * @see https://docs.aws.amazon.com/lambda/latest/operatorguide/reserved-concurrency.html
+   * @see https://docs.aws.amazon.com/lambda/latest/operatorguide/computing-power.html
    */
   readonly scanFunctionMemorySize?: number;
   /**
