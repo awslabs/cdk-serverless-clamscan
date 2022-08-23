@@ -90,6 +90,10 @@ export interface ServerlessClamscanProps {
    * Allows the use of imported buckets. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution.
    */
   readonly acceptResponsibilityForUsingImportedBucket?: boolean;
+  /**
+   * When enabled the bucket policy to block access to the file before until scanning completes is not applied. WARNING: This means the files are accessible when potentially infected (Default: false)
+   */
+  readonly dontPreventAccessBeforeScan?: boolean;
 }
 
 /**
@@ -184,7 +188,7 @@ export class ServerlessClamscan extends Construct {
    * @param id The construct's name.
    * @param props A `ServerlessClamscanProps` interface.
    */
-  constructor(scope: Construct, id: string, props: ServerlessClamscanProps) {
+  constructor(scope: Construct, id: string, public props: ServerlessClamscanProps) {
     super(scope, id);
 
     this.useImportedBuckets = props.acceptResponsibilityForUsingImportedBucket;
@@ -572,12 +576,15 @@ export class ServerlessClamscan extends Construct {
         }),
       );
 
-      const result: AddToResourcePolicyResult = bucket.addToResourcePolicy(
-        this.getPolicyStatementForBucket(bucket),
-      );
+      // Add the policy to prevent access before scan unless disabled
+      if (!this.props.dontPreventAccessBeforeScan) {
+        const result: AddToResourcePolicyResult = bucket.addToResourcePolicy(
+          this.getPolicyStatementForBucket(bucket),
+        );
 
-      if (!result.statementAdded && !this.useImportedBuckets) {
-        throw new Error('acceptResponsibilityForUsingImportedBucket must be set when adding an imported bucket. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution');
+        if (!result.statementAdded && !this.useImportedBuckets) {
+          throw new Error('acceptResponsibilityForUsingImportedBucket must be set when adding an imported bucket. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution');
+        }
       }
     }
   }
