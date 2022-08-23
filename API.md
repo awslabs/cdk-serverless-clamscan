@@ -66,6 +66,7 @@ new ServerlessClamscan(scope: Construct, id: string, props: ServerlessClamscanPr
 * **props** (<code>[ServerlessClamscanProps](#cdk-serverless-clamscan-serverlessclamscanprops)</code>)  A `ServerlessClamscanProps` interface.
   * **acceptResponsibilityForUsingImportedBucket** (<code>boolean</code>)  Allows the use of imported buckets. __*Optional*__
   * **buckets** (<code>Array<[aws_s3.IBucket](#aws-cdk-lib-aws-s3-ibucket)></code>)  An optional list of S3 buckets to configure for ClamAV Virus Scanning; __*Optional*__
+  * **bucketScanningScopeFilters** (<code>Array<[aws_s3.NotificationKeyFilter](#aws-cdk-lib-aws-s3-notificationkeyfilter)></code>)  Allows reduction of the scope of the files that are scanned in the bucket. __*Optional*__
   * **defsBucketAccessLogsConfig** (<code>[ServerlessClamscanLoggingProps](#cdk-serverless-clamscan-serverlessclamscanloggingprops)</code>)  Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs). __*Optional*__
   * **efsEncryption** (<code>boolean</code>)  Whether or not to enable encryption on EFS filesystem (Default: enabled). __*Optional*__
   * **efsPerformanceMode** (<code>[aws_efs.PerformanceMode](#aws-cdk-lib-aws-efs-performancemode)</code>)  Set the performance mode of the EFS file system (Default: GENERAL_PURPOSE). __*Optional*__
@@ -82,6 +83,7 @@ new ServerlessClamscan(scope: Construct, id: string, props: ServerlessClamscanPr
 Name | Type | Description 
 -----|------|-------------
 **errorDest** | <code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code> | The Lambda Destination for failed on erred scans [ERROR, IN PROGRESS (If error is due to Lambda timeout)].
+**props** | <code>[ServerlessClamscanProps](#cdk-serverless-clamscan-serverlessclamscanprops)</code> | A `ServerlessClamscanProps` interface.
 **resultDest** | <code>[aws_lambda.IDestination](#aws-cdk-lib-aws-lambda-idestination)</code> | The Lambda Destination for completed ClamAV scans [CLEAN, INFECTED].
 **scanAssumedPrincipal** | <code>[aws_iam.ArnPrincipal](#aws-cdk-lib-aws-iam-arnprincipal)</code> | <span></span>
 **cleanRule**? | <code>[aws_events.Rule](#aws-cdk-lib-aws-events-rule)</code> | Conditional: An Event Bridge Rule for files that are marked 'CLEAN' by ClamAV if a success destination was not specified.<br/>__*Optional*__
@@ -150,6 +152,7 @@ Interface for creating a ServerlessClamscan.
 Name | Type | Description 
 -----|------|-------------
 **acceptResponsibilityForUsingImportedBucket**? | <code>boolean</code> | Allows the use of imported buckets.<br/>__*Optional*__
+**bucketScanningScopeFilters**? | <code>Array<[aws_s3.NotificationKeyFilter](#aws-cdk-lib-aws-s3-notificationkeyfilter)></code> | Allows reduction of the scope of the files that are scanned in the bucket.<br/>__*Optional*__
 **buckets**? | <code>Array<[aws_s3.IBucket](#aws-cdk-lib-aws-s3-ibucket)></code> | An optional list of S3 buckets to configure for ClamAV Virus Scanning;<br/>__*Optional*__
 **defsBucketAccessLogsConfig**? | <code>[ServerlessClamscanLoggingProps](#cdk-serverless-clamscan-serverlessclamscanloggingprops)</code> | Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs).<br/>__*Optional*__
 **efsEncryption**? | <code>boolean</code> | Whether or not to enable encryption on EFS filesystem (Default: enabled).<br/>__*Optional*__

@@ -29,7 +29,7 @@ import {
   EventBridgeDestination,
   SqsDestination,
 } from 'aws-cdk-lib/aws-lambda-destinations';
-import { Bucket, BucketEncryption, EventType, IBucket } from 'aws-cdk-lib/aws-s3';
+import { Bucket, BucketEncryption, EventType, IBucket, NotificationKeyFilter } from 'aws-cdk-lib/aws-s3';
 import { LambdaDestination } from 'aws-cdk-lib/aws-s3-notifications';
 import { Queue, QueueEncryption } from 'aws-cdk-lib/aws-sqs';
 import { Construct } from 'constructs';
@@ -90,6 +90,10 @@ export interface ServerlessClamscanProps {
    * Allows the use of imported buckets. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution.
    */
   readonly acceptResponsibilityForUsingImportedBucket?: boolean;
+  /**
+   * Allows reduction of the scope of the files that are scanned in the bucket. This is passed as filters to the notification rule that triggers the Lambda function.
+   */
+  readonly bucketScanningScopeFilters?: NotificationKeyFilter[];
 }
 
 /**
@@ -184,7 +188,7 @@ export class ServerlessClamscan extends Construct {
    * @param id The construct's name.
    * @param props A `ServerlessClamscanProps` interface.
    */
-  constructor(scope: Construct, id: string, props: ServerlessClamscanProps) {
+  constructor(scope: Construct, id: string, public props: ServerlessClamscanProps) {
     super(scope, id);
 
     this.useImportedBuckets = props.acceptResponsibilityForUsingImportedBucket;
@@ -542,6 +546,8 @@ export class ServerlessClamscan extends Construct {
     bucket.addEventNotification(
       EventType.OBJECT_CREATED,
       new LambdaDestination(this._scanFunction),
+      // Use filters to reduce scope if supplied
+      ...(this.props.bucketScanningScopeFilters ?? []),
     );
 
     bucket.grantRead(this._scanFunction);
