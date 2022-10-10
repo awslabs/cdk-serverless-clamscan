@@ -4,7 +4,7 @@
 [![PyPI version](https://badge.fury.io/py/cdk-serverless-clamscan.svg)](https://badge.fury.io/py/cdk-serverless-clamscan)
 
 
-An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](https://www.clamav.net/) to scan objects in Amazon S3 for viruses. The construct provides a flexible interface for a system to act based on the results of a ClamAV virus scan. Check out this [blogpost](https://aws.amazon.com/blogs/developer/virus-scan-s3-buckets-with-a-serverless-clamav-based-cdk-construct/) for a guided walkthrough.
+An [aws-cdk](https://github.com/aws/aws-cdk) construct that uses [ClamAV®](https://www.clamav.net/) to scan newly uploaded objects to Amazon S3 for viruses. The construct provides a flexible interface for a system to act based on the results of a ClamAV virus scan. Check out this [blogpost](https://aws.amazon.com/blogs/developer/virus-scan-s3-buckets-with-a-serverless-clamav-based-cdk-construct/) for a guided walkthrough.
 
 ![Overview](serverless-clamscan.png)
 
