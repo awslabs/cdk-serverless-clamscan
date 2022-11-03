@@ -248,18 +248,23 @@ test('check bucket triggers and policies for source buckets ', () => {
                   'ERROR',
                 ],
               },
-            },
-            Effect: 'Deny',
-            NotPrincipal: {
-              AWS: [{
-                'Fn::GetAtt': [
-                  stringLike('*ServerlessClamscan*'),
-                  'Arn',
+              ArnNotEquals: {
+                'aws:PrincipalArn': [
+                  {
+                    'Fn::GetAtt': [
+                      stringLike('*ServerlessClamscan*'),
+                      'Arn',
+                    ],
+                  },
+                  {
+                    'Fn::Join': ['', arrayWith(stringLike('*sts*'), stringLike('*assumed-role*'), { Ref: stringLike('*ServerlessClamscan*') })],
+                  },
                 ],
               },
-              {
-                'Fn::Join': ['', arrayWith(stringLike('*sts*'), stringLike('*assumed-role*'), { Ref: stringLike('*ServerlessClamscan*') })],
-              }],
+            },
+            Effect: 'Deny',
+            Principal: {
+              AWS: '*',
             },
             Resource: {
               'Fn::Join': [
