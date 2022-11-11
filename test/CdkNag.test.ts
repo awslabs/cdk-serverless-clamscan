@@ -39,6 +39,12 @@ test('expect default configuration to pass cdk-nag AwsSolutions checks', () => {
   true,
   );
 
+  NagSuppressions.addResourceSuppressionsByPath(stack, '/Default/default/VirusDefsAccessLogsBucket/Resource', [
+    { id: 'AwsSolutions-S1', reason: 'The bucket is used as an access log destination. Enabling access logs would cause an infinite loop.' },
+  ],
+  true,
+  );
+
   const messages = SynthUtils.synthesize(stack).messages;
   expect(messages).not.toContainEqual(
     expect.objectContaining({
