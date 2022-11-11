@@ -299,7 +299,6 @@ export class ServerlessClamscan extends Construct {
         {
           encryption: BucketEncryption.S3_MANAGED,
           removalPolicy: RemovalPolicy.RETAIN,
-          serverAccessLogsPrefix: 'access-logs-bucket-logs',
           blockPublicAccess: {
             blockPublicAcls: true,
             blockPublicPolicy: true,
