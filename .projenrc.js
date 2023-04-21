@@ -68,5 +68,6 @@ project.package.addField('resolutions', {
   'ansi-regex': '^5.0.1',
   'json-schema': '^0.4.0',
   '@types/prettier': '2.6.0',
+  '@types/babel__traverse': '7.18.2',
 });
 project.synth();
