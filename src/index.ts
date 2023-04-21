@@ -4,7 +4,7 @@
 import * as path from 'path';
 import {
   CustomResource, Duration, RemovalPolicy,
-  Stack,
+  Stack, Size
 } from 'aws-cdk-lib';
 import {
   GatewayVpcEndpoint,
@@ -12,7 +12,7 @@ import {
   Port,
   SecurityGroup, SubnetType, Vpc,
 } from 'aws-cdk-lib/aws-ec2';
-import { FileSystem, LifecyclePolicy, PerformanceMode, ThroughputMode, Size } from 'aws-cdk-lib/aws-efs';
+import { FileSystem, LifecyclePolicy, PerformanceMode, ThroughputMode } from 'aws-cdk-lib/aws-efs';
 import { EventBus, Rule, Schedule } from 'aws-cdk-lib/aws-events';
 import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
 import {
