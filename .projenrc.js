@@ -58,12 +58,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     workflowOptions: {
       labels: ['auto-approve'],
       secret: AUTOMATION_TOKEN,
-      container: {
-        image: 'jsii/superchain:1-buster-slim-node14',
-      },
     },
   },
-  workflowContainerImage: 'jsii/superchain:1-buster-slim-node14',
   buildWorkflow: true,
   release: true,
 });
@@ -72,5 +68,6 @@ project.package.addField('resolutions', {
   'ansi-regex': '^5.0.1',
   'json-schema': '^0.4.0',
   '@types/prettier': '2.6.0',
+  '@types/babel__traverse': '7.18.2',
 });
 project.synth();
