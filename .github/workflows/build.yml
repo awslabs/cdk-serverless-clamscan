@@ -108,6 +108,8 @@ jobs:
         run: cd .repo && npx projen package:js
       - name: Collect js Artifact
         run: mv .repo/dist dist
+    container:
+      image: jsii/superchain:1-buster-slim-node14
   package-python:
     needs: build
     runs-on: ubuntu-latest
@@ -136,3 +138,5 @@ jobs:
         run: cd .repo && npx projen package:python
       - name: Collect python Artifact
         run: mv .repo/dist dist
+    container:
+      image: jsii/superchain:1-buster-slim-node14
