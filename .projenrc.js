@@ -58,12 +58,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     workflowOptions: {
       labels: ['auto-approve'],
       secret: AUTOMATION_TOKEN,
-      container: {
-        image: 'jsii/superchain:1-buster-slim-node14',
-      },
     },
   },
-  workflowContainerImage: 'jsii/superchain:1-buster-slim-node14',
   buildWorkflow: true,
   release: true,
 });

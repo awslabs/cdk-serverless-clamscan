@@ -45,8 +45,6 @@ jobs:
         with:
           name: build-artifact
           path: dist
-    container:
-      image: jsii/superchain:1-buster-slim-node14
   release_github:
     name: Publish to GitHub Releases
     needs: release
@@ -76,8 +74,6 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF: ${{ github.ref }}
         run: errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q "Release.tag_name already exists" $errout; then cat $errout; exit $exitcode; fi
-    container:
-      image: jsii/superchain:1-buster-slim-node14
   release_npm:
     name: Publish to npm
     needs: release
@@ -111,8 +107,6 @@ jobs:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx -p publib@latest publib-npm
-    container:
-      image: jsii/superchain:1-buster-slim-node14
   release_pypi:
     name: Publish to PyPI
     needs: release
@@ -148,5 +142,3 @@ jobs:
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
         run: npx -p publib@latest publib-pypi
-    container:
-      image: jsii/superchain:1-buster-slim-node14
