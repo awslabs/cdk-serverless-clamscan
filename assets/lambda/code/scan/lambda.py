@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from posixpath import join
+import time
 import boto3
 import botocore
 import glob
@@ -192,38 +193,44 @@ def expand_if_large_archive(input_bucket, input_key, download_path, byte_size):
     else:
         return
 
+last_update_time = 0
 
 def freshclam_update(input_bucket, input_key, download_path, definitions_path):
-    """Points freshclam to the local database files and the S3 Definitions bucket.
-    Creates the database path on EFS if it does not already exist"""
-    conf = "/tmp/freshclam.conf"
-    # will already exist when Lambdas are running in same execution context
-    if not os.path.exists(conf):
-        with open(conf, "a") as f:
-            f.write(f"\nPrivateMirror {os.environ['DEFS_URL']}")
-    try:
-        command = [
-            "freshclam",
-            f"--config-file={conf}",
-            "--stdout",
-            "-u",
-            f"{pwd.getpwuid(os.getuid()).pw_name}",
-            f"--datadir={definitions_path}",
-        ]
-        update_summary = subprocess.run(
-            command,
-            stderr=subprocess.STDOUT,
-            stdout=subprocess.PIPE,
-        )
-        if update_summary.returncode != 0:
-            raise ClamAVException(
-                f"FreshClam exited with unexpected code: {update_summary.returncode}"
-                f"\nOutput: {update_summary.stdout.decode('utf-8')}"
+    global last_update_time
+    current_time = time.time()
+    elapsed_time = current_time - last_update_time
+    if elapsed_time >= 3600: # Update definitions only once per hour to improve performance
+        """Points freshclam to the local database files and the S3 Definitions bucket.
+        Creates the database path on EFS if it does not already exist"""
+        conf = "/tmp/freshclam.conf"
+        # will already exist when Lambdas are running in same execution context
+        if not os.path.exists(conf):
+            with open(conf, "a") as f:
+                f.write(f"\nPrivateMirror {os.environ['DEFS_URL']}")
+        try:
+            command = [
+                "freshclam",
+                f"--config-file={conf}",
+                "--stdout",
+                "-u",
+                f"{pwd.getpwuid(os.getuid()).pw_name}",
+                f"--datadir={definitions_path}",
+            ]
+            update_summary = subprocess.run(
+                command,
+                stderr=subprocess.STDOUT,
+                stdout=subprocess.PIPE,
             )
-    except subprocess.CalledProcessError as e:
-        report_failure(input_bucket, input_key, download_path, str(e.stderr))
-    except ClamAVException as e:
-        report_failure(input_bucket, input_key, download_path, e.message)
+            if update_summary.returncode != 0:
+                raise ClamAVException(
+                    f"FreshClam exited with unexpected code: {update_summary.returncode}"
+                    f"\nOutput: {update_summary.stdout.decode('utf-8')}"
+                )
+            last_update_time = current_time
+        except subprocess.CalledProcessError as e:
+            report_failure(input_bucket, input_key, download_path, str(e.stderr))
+        except ClamAVException as e:
+            report_failure(input_bucket, input_key, download_path, e.message)
     return
 
 
