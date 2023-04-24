@@ -279,7 +279,7 @@ export class ServerlessClamscan extends Construct {
       lifecyclePolicy: LifecyclePolicy.AFTER_7_DAYS,
       performanceMode: props.efsPerformanceMode ?? PerformanceMode.GENERAL_PURPOSE,
       throughputMode: props.efsThroughputMode,
-      provisionedThroughputInMibps: props.efsProvisionedThroughputPerSecond?.toMebibytes(),
+      provisionedThroughputInMibps: props.efsProvisionedThroughputInMibps?.toMebibytes(),
       removalPolicy: RemovalPolicy.DESTROY,
       securityGroup: new SecurityGroup(this, 'ScanFileSystemSecurityGroup', {
         vpc: vpc,
