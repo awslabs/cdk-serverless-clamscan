@@ -22,14 +22,17 @@ import {
 } from 'aws-cdk-lib/aws-iam';
 import {
   Code, DockerImageCode,
-  DockerImageFunction, FileSystem as LambdaFileSystem, Function,
-  IDestination, Runtime,
+  DockerImageFunction,
+  Function,
+  IDestination,
+  FileSystem as LambdaFileSystem,
+  Runtime,
 } from 'aws-cdk-lib/aws-lambda';
 import {
   EventBridgeDestination,
   SqsDestination,
 } from 'aws-cdk-lib/aws-lambda-destinations';
-import { Bucket, BucketEncryption, EventType, IBucket } from 'aws-cdk-lib/aws-s3';
+import { Bucket, BucketEncryption, EventType, IBucket, ObjectOwnership } from 'aws-cdk-lib/aws-s3';
 import { LambdaDestination } from 'aws-cdk-lib/aws-s3-notifications';
 import { Queue, QueueEncryption } from 'aws-cdk-lib/aws-sqs';
 import { Construct } from 'constructs';
@@ -305,6 +308,7 @@ export class ServerlessClamscan extends Construct {
             ignorePublicAcls: true,
             restrictPublicBuckets: true,
           },
+          objectOwnership: ObjectOwnership.OBJECT_WRITER,
         },
       );
       this.defsAccessLogsBucket.addToResourcePolicy(
