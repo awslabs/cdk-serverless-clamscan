@@ -10,6 +10,7 @@ import {
   GatewayVpcEndpoint,
   GatewayVpcEndpointAwsService,
   Port,
+  ISubnet,
   SecurityGroup, SubnetType, Vpc,
 } from 'aws-cdk-lib/aws-ec2';
 import { FileSystem, LifecyclePolicy, PerformanceMode } from 'aws-cdk-lib/aws-efs';
@@ -93,6 +94,10 @@ export interface ServerlessClamscanProps {
    * Allows the use of imported buckets. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution.
    */
   readonly acceptResponsibilityForUsingImportedBucket?: boolean;
+  /**
+   * Allows the user the option of using a pre-defined VPC and subnets
+   */
+  readonly clamscanVpcOptions?: { vpc: Vpc; flowLogsAlreadyEnabled: boolean; subnets: ISubnet[] };
 }
 
 /**
@@ -253,16 +258,26 @@ export class ServerlessClamscan extends Construct {
       this.errorDest = props.onError;
     }
 
-    const vpc = new Vpc(this, 'ScanVPC', {
-      subnetConfiguration: [
-        {
-          subnetType: SubnetType.PRIVATE_ISOLATED,
-          name: 'Isolated',
-        },
-      ],
-    });
-
-    vpc.addFlowLog('FlowLogs');
+    let vpc: Vpc;
+    let vpcSubnets: { subnets: ISubnet[] };
+    if (props.clamscanVpcOptions) {
+      vpc = props.clamscanVpcOptions.vpc;
+      vpcSubnets = { subnets: props.clamscanVpcOptions.subnets };
+      if (!props.clamscanVpcOptions?.flowLogsAlreadyEnabled) {
+        vpc.addFlowLog('FlowLogs');
+      }
+    } else {
+      vpc = new Vpc(this, 'ScanVPC', {
+        subnetConfiguration: [
+          {
+            subnetType: SubnetType.PRIVATE_ISOLATED,
+            name: 'Isolated',
+          },
+        ],
+      });
+      vpcSubnets = { subnets: vpc.isolatedSubnets };
+      vpc.addFlowLog('FlowLogs');
+    }
 
     this._s3Gw = vpc.addGatewayEndpoint('S3Endpoint', {
       service: GatewayVpcEndpointAwsService.S3,
@@ -407,7 +422,7 @@ export class ServerlessClamscan extends Construct {
         this._efsMountPath,
       ),
       vpc: vpc,
-      vpcSubnets: { subnets: vpc.isolatedSubnets },
+      vpcSubnets,
       allowAllOutbound: false,
       timeout: Duration.minutes(15),
       memorySize: props.scanFunctionMemorySize ?? 10240,
