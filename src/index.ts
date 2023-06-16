@@ -87,9 +87,10 @@ export interface ServerlessClamscanProps {
    */
   readonly efsThroughputMode?: ThroughputMode;
   /**
-   * Set the Size for the throughputmode PROVISIONED, ignored otherwise
+   * Provisioned throughput for the file system.
+   * This is a required property if the efsThroughputMode mode is set to PROVISIONED. Must be at least 1MiB/s.
    */
-  readonly efsProvisionedThroughputInMibps?: Size;
+  readonly efsProvisionedThroughputPerSecond: Size;
   /**
    * Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs).
    */
