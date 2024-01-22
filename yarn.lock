@@ -801,9 +801,9 @@
     undici-types "~5.26.4"
 
 "@types/node@^16":
-  version "16.18.73"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.73.tgz#cbbbff4c3e85020e042e65a2a836e1d1d5bfad06"
-  integrity sha512-GaTgwUNzESSlX9uhTX2RQcwj2KBf/Wda+52TTtuMpgzR2Rvw7NNypQ8BJdc5Wk6osxZHcUZAKip5PtqWsUl31Q==
+  version "16.18.74"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.74.tgz#af518a0abafe8ab453f04c12ee62cfad75a8ca8d"
+  integrity sha512-eEn8RkzZFcT0gb8qyi0CcfSOQnLE+NbGLIIaxGGmjn/N35v/C3M8ohxcpSlNlCv+H8vPpMGmrGDdCkzr8xu2tQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.4"
@@ -1341,9 +1341,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.28.15"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.15.tgz#05c697ddc594eac0e429aadd4645239e3025b74d"
-  integrity sha512-UQfwbXRk9S1heLdMUNgH9ekyblx+cdbhaI3ecYg+Rdz08yhX3XVRmc3iFUGNX/OIdC6G6KA6Uw7n33QFtA8idQ==
+  version "2.28.16"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.16.tgz#c72961d7c69400a7d5a01e6ed3b42a8062d4932b"
+  integrity sha512-LwfrcYSFZOFtggF2Z7ix5KMmNGxN20FUosFzqUgH8efwOXVAr7KbEzbDxpR1G+rY6Gl1KAbBvOL7bnJK18/LjA==
 
 chalk@^2.4.2:
   version "2.4.2"
