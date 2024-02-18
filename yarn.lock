@@ -1333,9 +1333,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.28.37"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.37.tgz#fb8b4793076cc0cf88c22f7a386e4e91fdb800d2"
-  integrity sha512-jepXN92W+nafvIprULnocJVI++zyYw+G/v/9kn/dyUQ4n9fV34p4jEiKfd9UAhcimR4qwONQDm3lUSTDMp4NCA==
+  version "2.28.38"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.38.tgz#d025e25c6e2c68372417d53c052d764bba24198e"
+  integrity sha512-T0OcPF1qge30WmVixkE99tFKFKBXGDTqIbGqSil7rwQnAxvfNVXMqK07GGFI3O13JqjMfbRFQghTHyHOmHdZoA==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -4226,10 +4226,10 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-projen@^0.79.23:
-  version "0.79.23"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.79.23.tgz#ae6c22777110f77fd1fb4179d9fcc906df8d4dd0"
-  integrity sha512-qGonzpqoO81W1TVio5zCAlfSIOLveg9UNZpUgnHfv7cYdV6tiZka2bTeboqrnTivok3vEooOV0I98VMJS+QeYQ==
+projen@^0.79.24:
+  version "0.79.24"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.79.24.tgz#c540d7e5af1d8f35ab5e42a9d8508166b4b916de"
+  integrity sha512-feRBel2kl/dRsXTUFwYDnhZjQ7ZEdTAgxsAXIgJX4tEZllw4VzsbFX6P6/qxIUg+swPxYcJOU48bPA2IpuJWuQ==
   dependencies:
     "@iarna/toml" "^2.2.5"
     case "^1.6.3"
