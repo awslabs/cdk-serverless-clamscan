@@ -598,9 +598,9 @@
   integrity sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==
 
 "@jridgewell/trace-mapping@^0.3.17", "@jridgewell/trace-mapping@^0.3.24":
-  version "0.3.24"
-  resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.24.tgz#e5640be1cab4085e4012a94c132ae86138f90f48"
-  integrity sha512-+VaWXDa6+l6MhflBvVXjIEAzb59nQ2JUK3bwRp2zRpPtU+8TFRy9Gg/5oIcNlkEL5PGlBFGfemUVvIgLnTzq7Q==
+  version "0.3.25"
+  resolved "https://registry.yarnpkg.com/@jridgewell/trace-mapping/-/trace-mapping-0.3.25.tgz#15f190e98895f3fc23276ee14bc76b675c2e50f0"
+  integrity sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==
   dependencies:
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
@@ -1335,9 +1335,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.28.51"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.51.tgz#966c2ecfe2391d1faf8a7ed56fcaccfd71a9e24f"
-  integrity sha512-i6Mavh5HiHsCE0xI6oJynXzfNuySpHMOLOJAmF8qAwqjGD/S65BFXuCM/H5QFrGH40Lg/JpmdOq6d9D/oEnkrg==
+  version "2.28.52"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.52.tgz#8c395ee6f0712b1c7b3033ee7fc70db0f06af260"
+  integrity sha512-jZEEn8ljHGfP8kr9BuoJOHDRov/4fjR0NAEk1l+M+rgjXPRsU8abzpL4JLUjru4rrgvD4hN1DCKtGQ9aFf+E3g==
 
 chalk@^2.4.2:
   version "2.4.2"
