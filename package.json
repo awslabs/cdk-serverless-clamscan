@@ -3,7 +3,7 @@
   "description": "Serverless architecture to virus scan objects in Amazon S3.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/awslabs/cdk-serverless-clamscan"
+    "url": "https://github.com/sathishudayagiri/cdk-serverless-clamscan.git"
   },
   "bin": {
     "0": "./assets"
