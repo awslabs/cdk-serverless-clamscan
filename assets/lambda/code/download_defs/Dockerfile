@@ -1,14 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-FROM --platform=linux/amd64 public.ecr.aws/lambda/python:3.11.2023.11.18.02
+FROM --platform=linux/amd64 public.ecr.aws/lambda/python:3.12
 LABEL name=lambda/python/clamav
 LABEL version=1.0
 
 ARG CACHE_DATE=1
-RUN yum update -y \
-    && yum -y install clamav clamd \
-    && yum clean all \
+RUN dnf update -y \
+    && dnf -y install clamav clamav-update clamd \
+    && dnf clean all \
     && pip3 install --no-cache-dir cffi awslambdaric boto3 requests aws-lambda-powertools \
     && ln -s /etc/freshclam.conf /tmp/freshclam.conf
 
