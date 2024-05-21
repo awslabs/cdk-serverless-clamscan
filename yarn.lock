@@ -1322,9 +1322,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.28.118"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.118.tgz#120d8443053a8b13a15ae265491335ea3e476fbc"
-  integrity sha512-4Td+CjRKqAeuRCTYnvOOB8fQB0CsTb7YwXCRgBrC0PnR8FibhQW+Nmstf1RbcqBdEhbQuuocp2bIBRRKmBLEqw==
+  version "2.28.119"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.119.tgz#76293a7f2b096e540226e6c527d1bdb3c6a3d951"
+  integrity sha512-KXZ9Fo6BTbccNv6Dm4Afxx5WjfbysboF1iT+2EcYW5jl5vML6jEtA2iLL7TFnZbTYJjXb4k+xyMeejGJgTZKfg==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -1899,9 +1899,9 @@ dotgitignore@^2.1.0:
     minimatch "^3.0.4"
 
 electron-to-chromium@^1.4.668:
-  version "1.4.774"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.774.tgz#1017d1758aaeeefe5423aa9d67b4b1e5d1d0a856"
-  integrity sha512-132O1XCd7zcTkzS3FgkAzKmnBuNJjK8WjcTtNuoylj7MYbqw5eXehjQ5OK91g0zm7OTKIPeaAG4CPoRfD9M1Mg==
+  version "1.4.775"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.775.tgz#176e9cc439b76a4c768f44c821eaedd32d055503"
+  integrity sha512-JpOfl1aNAiZ88wFzjPczTLwYIoPIsij8S9/XQH9lqMpiJOf23kxea68B8wje4f68t4rOIq4Bh+vP4I65njiJBw==
 
 emittery@^0.8.1:
   version "0.8.1"
