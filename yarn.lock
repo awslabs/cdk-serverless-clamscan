@@ -970,9 +970,9 @@ ajv@^6.12.4:
     uri-js "^4.2.2"
 
 ajv@^8.0.1, ajv@^8.12.0:
-  version "8.13.0"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.13.0.tgz#a3939eaec9fb80d217ddf0c3376948c023f28c91"
-  integrity sha512-PRA911Blj99jR5RMeTunVbNXMF6Lp4vZXnk5GQjcnUWUTsrXtekg/pnmFFI2u/I36Y/2bITGS30GZCXei6uNkA==
+  version "8.14.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.14.0.tgz#f514ddfd4756abb200e1704414963620a625ebbb"
+  integrity sha512-oYs1UUtO97ZO2lJ4bwnWeQW8/zvOIQLGKcvPTsWmvc2SYgBb+upuNS5NxoLaMU4h8Ju3Nbj6Cq8mD2LQoqVKFA==
   dependencies:
     fast-deep-equal "^3.1.3"
     json-schema-traverse "^1.0.0"
@@ -1321,9 +1321,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.28.123"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.123.tgz#81417c8d2612c4db7367f855fc81dbee71b97330"
-  integrity sha512-xbHmMM5PSSYy/eqn069rvLWtkeR1HEhzZP8XVHpql1Y5PjOGLZ/iM5sx8bUNtjHmFEX3boKuqljZB0is/XSt6Q==
+  version "2.28.124"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.124.tgz#589c0d0d9d3da3f495948007263e3d8d847e3626"
+  integrity sha512-vpuMKsKp9gG2P1M8c51lsTeLsJc1WAK35qQujiOiy14ehjyLbvsvaW0oPYG4Yl7kXnTasNw5O99BOOWwp5c10g==
 
 chalk@^2.4.2:
   version "2.4.2"
