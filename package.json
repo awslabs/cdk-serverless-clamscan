@@ -5,9 +5,6 @@
     "type": "git",
     "url": "https://github.com/awslabs/cdk-serverless-clamscan"
   },
-  "bin": {
-    "0": "./assets"
-  },
   "scripts": {
     "build": "npx projen build",
     "bump": "npx projen bump",
