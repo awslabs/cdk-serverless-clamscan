@@ -1310,9 +1310,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.28.138"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.138.tgz#87af16480d205d07b3d0ff7405a2646924fc1a7a"
-  integrity sha512-lEl4CR5/T5vHN6DJz18D9LMx3anAac2dksPNUFAJ4nB4UFy0PaND1iFtLaqK1KKresxm7FPBWseAACnxsLcUzA==
+  version "2.28.139"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.139.tgz#0b7d199fec2e0ecbec27681c166414261496b7b7"
+  integrity sha512-0pm3DOfGwIU78/XvBLbF05NNyjTv152S6ieqygjF7dQ63HXnpzJ/KFYqivQyenTjJMxa/ogup5CpL/K3Q0g8og==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -4248,10 +4248,10 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-projen@^0.82.5:
-  version "0.82.5"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.82.5.tgz#9ba5119c107a71b777a0365ccc4fd6111608d61f"
-  integrity sha512-AQVtVHPrJVLG+/1y6u+Bi044P7m9JzFoIV4/Q5YQnPWdBaLKmscqNKPNSauOvLyNOaAwppc8WkDgNGdnwirNTw==
+projen@^0.82.6:
+  version "0.82.6"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.82.6.tgz#d6f672b5041befae1c395860b28c7d1878d9727e"
+  integrity sha512-odAYFpNvR57BAYF5gLWq4d53edcsdvyJ8YjbX/0MDLLuS99gnHvQzGIj0ZeB13ahkrFv5dW+EanpcUKg5LA/Aw==
   dependencies:
     "@iarna/toml" "^2.2.5"
     case "^1.6.3"
@@ -5130,9 +5130,9 @@ typescript@~3.9.10:
   integrity sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==
 
 uglify-js@^3.1.4:
-  version "3.17.4"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.17.4.tgz#61678cf5fa3f5b7eb789bb345df29afb8257c22c"
-  integrity sha512-T9q82TJI9e/C1TAxYvfb16xO120tMVFZrGA3f9/P4424DNu6ypK103y0GPFVa17yotwSyZW5iYXgjYHkGrJW/g==
+  version "3.18.0"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.18.0.tgz#73b576a7e8fda63d2831e293aeead73e0a270deb"
+  integrity sha512-SyVVbcNBCk0dzr9XL/R/ySrmYf0s372K6/hFklzgcp2lBFyXtw4I7BOdDjlLhE1aVqaI/SHWXWmYdlZxuyF38A==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"
