@@ -4,7 +4,7 @@
 import * as path from 'path';
 import {
   CustomResource, Duration, RemovalPolicy,
-  Stack,
+  Stack, Size
 } from 'aws-cdk-lib';
 import {
   GatewayVpcEndpoint,
@@ -12,7 +12,7 @@ import {
   Port,
   SecurityGroup, SubnetType, Vpc,
 } from 'aws-cdk-lib/aws-ec2';
-import { FileSystem, LifecyclePolicy, PerformanceMode } from 'aws-cdk-lib/aws-efs';
+import { FileSystem, LifecyclePolicy, PerformanceMode, ThroughputMode } from 'aws-cdk-lib/aws-efs';
 import { EventBus, Rule, Schedule } from 'aws-cdk-lib/aws-events';
 import { LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
 import {
@@ -85,6 +85,15 @@ export interface ServerlessClamscanProps {
    * Set the performance mode of the EFS file system (Default: GENERAL_PURPOSE).
    */
   readonly efsPerformanceMode?: PerformanceMode;
+  /**
+   * Set the throughput mode of the EFS file system (Default: BURSTING), possible values: BURSTING, ELASTIC, PROVISIONED.
+   */
+  readonly efsThroughputMode?: ThroughputMode;
+  /**
+   * Provisioned throughput for the file system.
+   * This is a required property if the efsThroughputMode mode is set to PROVISIONED. Must be at least 1MiB/s.
+   */
+  readonly efsProvisionedThroughputPerSecond: Size;
   /**
    * Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs).
    */
@@ -273,6 +282,8 @@ export class ServerlessClamscan extends Construct {
       encrypted: props.efsEncryption === false ? false : true,
       lifecyclePolicy: LifecyclePolicy.AFTER_7_DAYS,
       performanceMode: props.efsPerformanceMode ?? PerformanceMode.GENERAL_PURPOSE,
+      throughputMode: props.efsThroughputMode,
+      provisionedThroughputInMibps: props.efsProvisionedThroughputInMibps?.toMebibytes(),
       removalPolicy: RemovalPolicy.DESTROY,
       securityGroup: new SecurityGroup(this, 'ScanFileSystemSecurityGroup', {
         vpc: vpc,
