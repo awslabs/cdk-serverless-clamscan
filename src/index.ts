@@ -410,7 +410,7 @@ export class ServerlessClamscan extends Construct {
       vpcSubnets: { subnets: vpc.isolatedSubnets },
       allowAllOutbound: false,
       timeout: Duration.minutes(15),
-      memorySize: props.scanFunctionMemorySize ?? 10240,
+      memorySize: props.scanFunctionMemorySize ?? 3006,
       reservedConcurrentExecutions: props.reservedConcurrency,
       environment: {
         EFS_MOUNT_PATH: this._efsMountPath,
