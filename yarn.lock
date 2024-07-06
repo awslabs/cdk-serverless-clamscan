@@ -766,9 +766,9 @@
   integrity sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==
 
 "@types/node@*":
-  version "20.14.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.9.tgz#12e8e765ab27f8c421a1820c99f5f313a933b420"
-  integrity sha512-06OCtnTXtWOZBJlRApleWndH4JsRVs1pDCc8dLSQp+7PpUpX3ePdHyeNSFTeSe7FtKyQkrlPvHwJOW3SLd8Oyg==
+  version "20.14.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.10.tgz#a1a218290f1b6428682e3af044785e5874db469a"
+  integrity sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==
   dependencies:
     undici-types "~5.26.4"
 
@@ -1310,9 +1310,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.28.156"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.156.tgz#08a3158e2c049a0d5ff29a1fef47004b6b0937ba"
-  integrity sha512-3HSHNv4ma3B3c/PQw+VjtI0fA6Z5pu1x1S1+oUkvmxgwmpyBHuR9rw+2LaQmhRAe2q7ZrEc/IbjuKAXUdLHtXg==
+  version "2.28.157"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.28.157.tgz#b6b6f00a20f23d20bbcb3c3c53c4d2e3fe439b09"
+  integrity sha512-5nwOEq5bXMl1Hfe4ig1JNtECVM2jt6ISO8kZq5eq6YflLp2YLrhkAoDWSdyEDDo0l30uDLGSl9sxxkdR39l5gQ==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -1887,9 +1887,9 @@ dotgitignore@^2.1.0:
     minimatch "^3.0.4"
 
 electron-to-chromium@^1.4.796:
-  version "1.4.816"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.816.tgz#3624649d1e7fde5cdbadf59d31a524245d8ee85f"
-  integrity sha512-EKH5X5oqC6hLmiS7/vYtZHZFTNdhsYG5NVPRN6Yn0kQHNBlT59+xSM8HBy66P5fxWpKgZbPqb+diC64ng295Jw==
+  version "1.4.817"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.817.tgz#da9808e35212408cf4052b51679786fcb54fec39"
+  integrity sha512-3znu+lZMIbTe8ZOs360OMJvVroVF2NpNI8T5jfLnDetVvj0uNmIucZzQVYMSJfsu9f47Ssox1Gt46PR+R+1JUg==
 
 emittery@^0.8.1:
   version "0.8.1"
