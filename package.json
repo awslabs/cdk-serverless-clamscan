@@ -41,7 +41,7 @@
     "@types/node": "^16 <= 16.18.78",
     "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^7",
-    "aws-cdk-lib": "2.11.0",
+    "aws-cdk-lib": "2.54.0",
     "cdk-nag": "^2.15.18",
     "constructs": "10.0.5",
     "eslint": "^8",
@@ -60,7 +60,7 @@
     "typescript": "^4.9.5"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.11.0",
+    "aws-cdk-lib": "^2.54.0",
     "constructs": "^10.0.5"
   },
   "resolutions": {

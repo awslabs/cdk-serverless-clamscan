@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ABSENT, anything, arrayWith, objectLike, stringLike } from '@aws-cdk/assert';
-import { Stack } from 'aws-cdk-lib';
-import { PerformanceMode } from 'aws-cdk-lib/aws-efs';
+import { Size, Stack } from 'aws-cdk-lib';
+import { PerformanceMode, ThroughputMode } from 'aws-cdk-lib/aws-efs';
 import { EventBus } from 'aws-cdk-lib/aws-events';
 import { SqsDestination, EventBridgeDestination } from 'aws-cdk-lib/aws-lambda-destinations';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
@@ -765,12 +765,28 @@ test('Check definition downloading event and custom resource permissions ', () =
         {
           Action: 'lambda:InvokeFunction',
           Effect: 'Allow',
-          Resource: objectLike({
-            'Fn::GetAtt': [
-              stringLike('*DownloadDefs*'),
-              'Arn',
-            ],
-          }),
+          Resource: [
+            objectLike({
+              'Fn::GetAtt': [
+                stringLike('*DownloadDefs*'),
+                'Arn',
+              ],
+            }),
+            objectLike({
+              'Fn::Join': [
+                '',
+                [
+                  {
+                    'Fn::GetAtt': [
+                      stringLike('*DownloadDefs*'),
+                      'Arn',
+                    ],
+                  },
+                  ':*',
+                ],
+              ],
+            }),
+          ],
         },
       ],
     },
@@ -813,5 +829,40 @@ test('expect EFS performance mode to be set as configured', () => {
   expect(stack2).toCountResources('AWS::EFS::FileSystem', 1);
   expect(stack2).toHaveResourceLike('AWS::EFS::FileSystem', {
     PerformanceMode: 'generalPurpose',
+  });
+});
+
+test('expect EFS throughput mode to default to General Purpose', () => {
+  const stack = new Stack();
+  new ServerlessClamscan(stack, 'default', {});
+  expect(stack).toCountResources('AWS::EFS::FileSystem', 1);
+  expect(stack).toHaveResourceLike('AWS::EFS::FileSystem', {
+    ThroughputMode: 'bursting',
+  });
+});
+
+test('expect EFS throughput mode to be set as configured', () => {
+  const stack1 = new Stack();
+  new ServerlessClamscan(stack1, 'rBurstingEfs', { efsThroughputMode: ThroughputMode.BURSTING });
+  expect(stack1).toCountResources('AWS::EFS::FileSystem', 1);
+  expect(stack1).toHaveResourceLike('AWS::EFS::FileSystem', {
+    ThroughputMode: 'bursting',
+  });
+
+  const stack2 = new Stack();
+  new ServerlessClamscan(stack2, 'rElasticEfs', { efsThroughputMode: ThroughputMode.ELASTIC });
+  expect(stack2).toCountResources('AWS::EFS::FileSystem', 1);
+  expect(stack2).toHaveResourceLike('AWS::EFS::FileSystem', {
+    ThroughputMode: 'elastic',
+  });
+
+  const stack3 = new Stack();
+  new ServerlessClamscan(stack3, 'rProvisionedEfs', {
+    efsThroughputMode: ThroughputMode.PROVISIONED,
+    efsProvisionedThroughputPerSecond: Size.mebibytes(100),
+  });
+  expect(stack3).toCountResources('AWS::EFS::FileSystem', 1);
+  expect(stack3).toHaveResourceLike('AWS::EFS::FileSystem', {
+    ThroughputMode: 'provisioned',
   });
 });
