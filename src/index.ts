@@ -91,7 +91,7 @@ export interface ServerlessClamscanProps {
    */
   readonly efsThroughputMode?: ThroughputMode;
   /**
-   * Set the provisioned throughput of the EFS file system (Default: null).
+   * Provisioned throughput for the EFS file system. This is a required property if the throughput mode is set to PROVISIONED. Must be at least 1MiB/s (Default: none).
    */
   readonly efsProvisionedThroughputPerSecond?: Size;
   /**
