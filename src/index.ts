@@ -102,6 +102,12 @@ export interface ServerlessClamscanProps {
    * Allows the use of imported buckets. When using imported buckets the user is responsible for adding the required policy statement to the bucket policy: `getPolicyStatementForBucket()` can be used to retrieve the policy statement required by the solution.
    */
   readonly acceptResponsibilityForUsingImportedBucket?: boolean;
+  /**
+   * Allow for non-root users to modify/delete the bucket policy on the Virus Definitions bucket.
+   * Warning: changing this flag from 'false' to 'true' on existing deployments will cause updates to fail.
+   * @default false
+   */
+  readonly defsBucketAllowPolicyMutation?: boolean;
 }
 
 /**
@@ -383,14 +389,16 @@ export class ServerlessClamscan extends Construct {
         },
       }),
     );
-    defs_bucket.addToResourcePolicy(
-      new PolicyStatement({
-        effect: Effect.DENY,
-        actions: ['s3:PutBucketPolicy', 's3:DeleteBucketPolicy'],
-        resources: [defs_bucket.bucketArn],
-        notPrincipals: [new AccountRootPrincipal()],
-      }),
-    );
+    if (props.defsBucketAllowPolicyMutation !== true) {
+      defs_bucket.addToResourcePolicy(
+        new PolicyStatement({
+          effect: Effect.DENY,
+          actions: ['s3:PutBucketPolicy', 's3:DeleteBucketPolicy'],
+          resources: [defs_bucket.bucketArn],
+          notPrincipals: [new AccountRootPrincipal()],
+        }),
+      );
+    }
     this._s3Gw.addToPolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
