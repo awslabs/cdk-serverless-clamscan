@@ -751,6 +751,99 @@ test('check Virus Definition buckets policy security and S3 Gateway endpoint pol
 
 });
 
+test('check Virus Definition buckets policy can be opted out of no policy mutation', () => {
+  const stack = new Stack();
+  const stack2 = new Stack();
+
+  new ServerlessClamscan(stack, 'default', { defsBucketAllowPolicyMutation: true });
+  const virusDefs = '*VirusDefs*';
+  expect(stack).not.toHaveResource('AWS::S3::BucketPolicy', {
+    Bucket: {
+      Ref: stringLike(virusDefs),
+    },
+    PolicyDocument: {
+      Statement: arrayWith(
+        {
+          Action: [
+            's3:PutBucketPolicy',
+            's3:DeleteBucketPolicy',
+          ],
+          Effect: 'Deny',
+          NotPrincipal: {
+            AWS: {
+              'Fn::Join': [
+                '',
+                [
+                  'arn:',
+                  {
+                    Ref: 'AWS::Partition',
+                  },
+                  ':iam::',
+                  {
+                    Ref: 'AWS::AccountId',
+                  },
+                  ':root',
+                ],
+              ],
+            },
+          },
+          Resource: {
+            'Fn::GetAtt': [
+              stringLike(virusDefs),
+              'Arn',
+            ],
+          },
+        },
+      ),
+      Version: '2012-10-17',
+    },
+  });
+
+  new ServerlessClamscan(stack2, 'default', { });
+  expect(stack2).toHaveResource('AWS::S3::BucketPolicy', {
+    Bucket: {
+      Ref: stringLike(virusDefs),
+    },
+    PolicyDocument: {
+      Statement: arrayWith(
+        {
+          Action: [
+            's3:PutBucketPolicy',
+            's3:DeleteBucketPolicy',
+          ],
+          Effect: 'Deny',
+          NotPrincipal: {
+            AWS: {
+              'Fn::Join': [
+                '',
+                [
+                  'arn:',
+                  {
+                    Ref: 'AWS::Partition',
+                  },
+                  ':iam::',
+                  {
+                    Ref: 'AWS::AccountId',
+                  },
+                  ':root',
+                ],
+              ],
+            },
+          },
+          Resource: {
+            'Fn::GetAtt': [
+              stringLike(virusDefs),
+              'Arn',
+            ],
+          },
+        },
+      ),
+      Version: '2012-10-17',
+    },
+  });
+
+});
+
 test('Check definition downloading event and custom resource permissions ', () => {
   const stack = new Stack();
   new ServerlessClamscan(stack, 'default', {});

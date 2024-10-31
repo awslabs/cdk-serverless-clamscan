@@ -369,6 +369,7 @@ const serverlessClamscanProps: ServerlessClamscanProps = { ... }
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.acceptResponsibilityForUsingImportedBucket">acceptResponsibilityForUsingImportedBucket</a></code> | <code>boolean</code> | Allows the use of imported buckets. |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.buckets">buckets</a></code> | <code>aws-cdk-lib.aws_s3.IBucket[]</code> | An optional list of S3 buckets to configure for ClamAV Virus Scanning; |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.defsBucketAccessLogsConfig">defsBucketAccessLogsConfig</a></code> | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanLoggingProps">ServerlessClamscanLoggingProps</a></code> | Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs). |
+| <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.defsBucketAllowPolicyMutation">defsBucketAllowPolicyMutation</a></code> | <code>boolean</code> | Allow for non-root users to modify/delete the bucket policy on the Virus Definitions bucket. |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.efsEncryption">efsEncryption</a></code> | <code>boolean</code> | Whether or not to enable encryption on EFS filesystem (Default: enabled). |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.efsPerformanceMode">efsPerformanceMode</a></code> | <code>aws-cdk-lib.aws_efs.PerformanceMode</code> | Set the performance mode of the EFS file system (Default: GENERAL_PURPOSE). |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.efsProvisionedThroughputPerSecond">efsProvisionedThroughputPerSecond</a></code> | <code>aws-cdk-lib.Size</code> | Provisioned throughput for the EFS file system. |
@@ -417,6 +418,21 @@ public readonly defsBucketAccessLogsConfig: ServerlessClamscanLoggingProps;
 - *Type:* <a href="#cdk-serverless-clamscan.ServerlessClamscanLoggingProps">ServerlessClamscanLoggingProps</a>
 
 Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs).
+
+---
+
+##### `defsBucketAllowPolicyMutation`<sup>Optional</sup> <a name="defsBucketAllowPolicyMutation" id="cdk-serverless-clamscan.ServerlessClamscanProps.property.defsBucketAllowPolicyMutation"></a>
+
+```typescript
+public readonly defsBucketAllowPolicyMutation: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Allow for non-root users to modify/delete the bucket policy on the Virus Definitions bucket.
+
+Warning: changing this flag from 'false' to 'true' on existing deployments will cause updates to fail.
 
 ---
 
