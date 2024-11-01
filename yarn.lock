@@ -758,9 +758,9 @@
   integrity sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==
 
 "@types/node@*":
-  version "22.8.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.8.5.tgz#a978fb6755dbb32889b0bc3e37554dbc04f261a6"
-  integrity sha512-5iYk6AMPtsMbkZqCO1UGF9W5L38twq11S2pYWkybGHH2ogPUvXWNlQqJBzuEZWKj/WRH+QTeiv6ySWqJtvIEgA==
+  version "22.8.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.8.6.tgz#e8a0c0871623283d8b3ef7d7b9b1bfdfd3028e22"
+  integrity sha512-tosuJYKrIqjQIlVCM4PEGxOmyg3FCPa/fViuJChnGeEIhjA46oy8FMVoF9su1/v8PNs2a8Q0iFNyOx0uOF91nw==
   dependencies:
     undici-types "~6.19.8"
 
@@ -1315,9 +1315,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.30.2"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.30.2.tgz#2cc4b8493667e5866c0f6e7c9554c22278ed1eb5"
-  integrity sha512-QDp6cGW9X2ORfwqB1XcsAhZz1IOPEmJotKdw39G4YKKstNfCLkJKkaytGFjzjvN/0IspbetfJpjh2qvF2o5mGA==
+  version "2.30.3"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.30.3.tgz#3c800c3087e0132c38f4ad05111c128fc825b7e9"
+  integrity sha512-mJqQnJPNGiD1LVfSwN0olAtRg2DfGqEM3lG3uqBf3wTsHYb1IQFYYxxHEXaMQGNv0D0U31dPGPDnWjP1764MXA==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -1904,9 +1904,9 @@ dotgitignore@^2.1.0:
     minimatch "^3.0.4"
 
 electron-to-chromium@^1.5.41:
-  version "1.5.49"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.49.tgz#9358f514ab6eeed809a8689f4b39ea5114ae729c"
-  integrity sha512-ZXfs1Of8fDb6z7WEYZjXpgIRF6MEu8JdeGA0A40aZq6OQbS+eJpnnV49epZRna2DU/YsEjSQuGtQPPtvt6J65A==
+  version "1.5.50"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.50.tgz#d9ba818da7b2b5ef1f3dd32bce7046feb7e93234"
+  integrity sha512-eMVObiUQ2LdgeO1F/ySTXsvqvxb6ZH2zPGaMYsWzRDdOddUa77tdmI0ltg+L16UpbWdhPmuF3wIQYyQq65WfZw==
 
 emittery@^0.8.1:
   version "0.8.1"
