@@ -1361,9 +1361,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.34.12"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.34.12.tgz#5b9c7fe96267504a058ff2d227f459e0a1e89a85"
-  integrity sha512-81Be6u+MXA0vbR0TfSCkw5OSoYSZK/7WMZUjF/0nRqc7q1fLLpwetEaNUU7xsx1j97aIIN0ehH5NOXtbA0k7tQ==
+  version "2.34.13"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.34.13.tgz#a0a5912db122be7af95d12c69ab64f4b4b76d244"
+  integrity sha512-V48tlMikhpRrSyBeQ0mpBQ/4McydelkTcp0lJHPmb9YNw0b/qqR8CL4EazF8Bxbi2kDvFbXCvOVQXYzMzKMwiA==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -2673,9 +2673,11 @@ has-property-descriptors@^1.0.0, has-property-descriptors@^1.0.2:
     es-define-property "^1.0.0"
 
 has-proto@^1.0.1, has-proto@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/has-proto/-/has-proto-1.0.3.tgz#b31ddfe9b0e6e9914536a6ab286426d0214f77fd"
-  integrity sha512-SJ1amZAJUiZS+PhsVLf5tGydlaVB8EdFpaSO4gmiUKUOxk8qzn5AIy4ZeJUmh22znIdk/uMAUT2pl3FxzVUH+Q==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/has-proto/-/has-proto-1.1.0.tgz#deb10494cbbe8809bce168a3b961f42969f5ed43"
+  integrity sha512-QLdzI9IIO1Jg7f9GT1gXpPpXArAn6cS31R1eEZqz08Gc+uQ8/XiqHWt17Fiw+2p6oTTIq5GXEpQkAlA88YRl/Q==
+  dependencies:
+    call-bind "^1.0.7"
 
 has-symbols@^1.0.2, has-symbols@^1.0.3:
   version "1.0.3"
