@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ABSENT, anything, arrayWith, objectLike, stringLike } from '@aws-cdk/assert';
-import { Size, Stack } from 'aws-cdk-lib';
+import { Duration, Size, Stack } from 'aws-cdk-lib';
 import { PerformanceMode, ThroughputMode } from 'aws-cdk-lib/aws-efs';
 import { EventBus } from 'aws-cdk-lib/aws-events';
 import { SqsDestination, EventBridgeDestination } from 'aws-cdk-lib/aws-lambda-destinations';
@@ -959,3 +959,20 @@ test('expect EFS throughput mode to be set as configured', () => {
     ThroughputMode: 'provisioned',
   });
 });
+
+test('expect scan function timeout default to be 15 minutes', () => {
+  const stack = new Stack();
+  new ServerlessClamscan(stack, 'default', {});
+  expect(stack).toHaveResourceLike('AWS::Lambda::Function', {
+    Timeout: 900,
+  });
+});
+
+test('expect scan function timeout to be set as configured', () => {
+  const stack = new Stack();
+  new ServerlessClamscan(stack, 'default', { scanFunctionTimeout: Duration.minutes(5) });
+  expect(stack).toHaveResourceLike('AWS::Lambda::Function', {
+    Timeout: 300,
+  });
+});
+
