@@ -71,6 +71,10 @@ export interface ServerlessClamscanProps {
    */
   readonly scanFunctionMemorySize?: number;
   /**
+   * Optionally set the timeout for the scan function. (Default: 15 minutes).
+   */
+  readonly scanFunctionTimeout?: Duration;
+  /**
    * The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified).
    */
   readonly onResult?: IDestination;
@@ -428,7 +432,7 @@ export class ServerlessClamscan extends Construct {
       vpc: vpc,
       vpcSubnets: { subnets: vpc.isolatedSubnets },
       allowAllOutbound: false,
-      timeout: Duration.minutes(15),
+      timeout: props.scanFunctionTimeout ?? Duration.minutes(15),
       memorySize: props.scanFunctionMemorySize ?? 10240,
       reservedConcurrentExecutions: props.reservedConcurrency,
       environment: {

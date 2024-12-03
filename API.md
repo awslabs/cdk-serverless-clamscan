@@ -378,6 +378,7 @@ const serverlessClamscanProps: ServerlessClamscanProps = { ... }
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.onResult">onResult</a></code> | <code>aws-cdk-lib.aws_lambda.IDestination</code> | The Lambda Destination for files marked 'CLEAN' or 'INFECTED' based on the ClamAV Virus scan or 'N/A' for scans triggered by S3 folder creation events marked (Default: Creates and publishes to a new Event Bridge Bus if unspecified). |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.reservedConcurrency">reservedConcurrency</a></code> | <code>number</code> | Optionally set a reserved concurrency for the virus scanning Lambda. |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.scanFunctionMemorySize">scanFunctionMemorySize</a></code> | <code>number</code> | Optionally set the memory allocation for the scan function. |
+| <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.scanFunctionTimeout">scanFunctionTimeout</a></code> | <code>aws-cdk-lib.Duration</code> | Optionally set the timeout for the scan function. |
 
 ---
 
@@ -537,6 +538,20 @@ Optionally set the memory allocation for the scan function.
 Note that low memory allocations may cause errors. (Default: 10240).
 
 > [https://docs.aws.amazon.com/lambda/latest/operatorguide/computing-power.html](https://docs.aws.amazon.com/lambda/latest/operatorguide/computing-power.html)
+
+---
+
+##### `scanFunctionTimeout`<sup>Optional</sup> <a name="scanFunctionTimeout" id="cdk-serverless-clamscan.ServerlessClamscanProps.property.scanFunctionTimeout"></a>
+
+```typescript
+public readonly scanFunctionTimeout: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+
+Optionally set the timeout for the scan function.
+
+(Default: 15 minutes).
 
 ---
 
