@@ -23,12 +23,12 @@ Update the docker images of the Lambda functions with the latest version of Clam
 Successful Scan Event format
 ```json
 {
-    "source": "serverless-clamscan",
-    "input_bucket": <input_bucket_name>,
-    "input_key": <object_key>,
-    "status": <"CLEAN"|"INFECTED"|"N/A">,
-    "message": <scan_summary>,
-  }
+   "source": "serverless-clamscan",
+   "input_bucket": <input_bucket_name>,
+   "input_key": <object_key>,
+   "status": <"CLEAN"|"INFECTED"|"N/A">,
+   "message": <scan_summary>,
+ }
 ```
 
 Note: The Virus Definitions bucket policy will likely cause a deletion error if you choose to delete
