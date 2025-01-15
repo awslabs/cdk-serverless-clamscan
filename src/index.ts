@@ -4,6 +4,7 @@
 import * as path from 'path';
 import {
   CustomResource, Duration, RemovalPolicy,
+  Size,
   Stack,
 } from 'aws-cdk-lib';
 import {
@@ -32,10 +33,9 @@ import {
   EventBridgeDestination,
   SqsDestination,
 } from 'aws-cdk-lib/aws-lambda-destinations';
-import { Bucket, BucketEncryption, EventType, IBucket, ObjectOwnership } from 'aws-cdk-lib/aws-s3';
+import { Bucket, BucketEncryption, EventType, IBucket, NotificationKeyFilter, ObjectOwnership } from 'aws-cdk-lib/aws-s3';
 import { LambdaDestination } from 'aws-cdk-lib/aws-s3-notifications';
 import { Queue, QueueEncryption } from 'aws-cdk-lib/aws-sqs';
-import { Size } from 'aws-cdk-lib/core';
 import { Construct } from 'constructs';
 
 /**
@@ -53,13 +53,25 @@ export interface ServerlessClamscanLoggingProps {
 }
 
 /**
+ * Interface for bucket with notification filters. Used to configure a bucket with key filters.
+ */
+export interface FilteredClamscanBucket {
+  bucket: IBucket;
+  keyFilters: NotificationKeyFilter[];
+}
+
+/**
+ * Union type. Can be use as AWS Bucket or Bucket with key filters.
+ */
+export type ServerlessClamscanBucket = IBucket | FilteredClamscanBucket;
+/**
  * Interface for creating a ServerlessClamscan.
  */
 export interface ServerlessClamscanProps {
   /**
    * An optional list of S3 buckets to configure for ClamAV Virus Scanning; buckets can be added later by calling addSourceBucket.
    */
-  readonly buckets?: IBucket[];
+  readonly buckets?: ServerlessClamscanBucket[];
   /**
    * Optionally set a reserved concurrency for the virus scanning Lambda.
    * @see https://docs.aws.amazon.com/lambda/latest/operatorguide/reserved-concurrency.html
@@ -508,7 +520,11 @@ export class ServerlessClamscan extends Construct {
 
     if (props.buckets) {
       props.buckets.forEach((bucket) => {
-        this.addSourceBucket(bucket);
+        if (bucket instanceof Bucket) {
+          this.addSourceBucket(bucket);
+        } else if (bucket instanceof Object && 'bucket' in bucket) {
+          this.addSourceBucket(bucket.bucket, ...bucket.keyFilters);
+        }
       });
     }
   }
@@ -567,10 +583,11 @@ export class ServerlessClamscan extends Construct {
      Adds a bucket policy to disallow GetObject operations on files that are tagged 'IN PROGRESS', 'INFECTED', or 'ERROR'.
    * @param bucket The bucket to add the scanning bucket policy and s3:ObjectCreate* trigger to.
    */
-  addSourceBucket(bucket: IBucket) {
+  addSourceBucket(bucket: IBucket, ...keyFilters: NotificationKeyFilter[]): void {
     bucket.addEventNotification(
       EventType.OBJECT_CREATED,
       new LambdaDestination(this._scanFunction),
+      ...keyFilters,
     );
 
     bucket.grantRead(this._scanFunction);
