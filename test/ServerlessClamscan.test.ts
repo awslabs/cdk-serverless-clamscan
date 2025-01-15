@@ -10,8 +10,6 @@ import { Bucket, NotificationKeyFilter } from 'aws-cdk-lib/aws-s3';
 import { Queue } from 'aws-cdk-lib/aws-sqs';
 import { ServerlessClamscan, ServerlessClamscanBucket } from '../src';
 import '@aws-cdk/assert/jest';
-import { Template } from 'aws-cdk-lib/assertions';
-
 
 test('expect default EventBridge Lambda destination and Event Rules for onSuccess and SQS Destination for onDelete', () => {
   const stack = new Stack();
@@ -1009,25 +1007,6 @@ test('should handle FilteredClamscanBucket correctly', () => {
   const filteredBucket: ServerlessClamscanBucket = { bucket, keyFilters };
   new ServerlessClamscan(stack, 'default', { buckets: [filteredBucket] });
 
-  const template = Template.fromStack(stack);
-  console.log(JSON.stringify(template.toJSON(), null, 2));
-// Check for the S3 bucket notification configuration
-// template.hasResourceProperties('AWS::S3::Bucket', {
-//   NotificationConfiguration: {
-//     LambdaConfigurations: [
-//       {
-//         Event: 's3:ObjectCreated:*',
-//         Filter: {
-//           S3Key: {
-//             Rules: [
-//               { Name: 'prefix', Value: 'sample/' },
-//             ],
-//           },
-//         },
-//       },
-//     ],
-//   },
-// });
   expect(stack).toHaveResource('AWS::Lambda::Permission', {
     Action: 'lambda:InvokeFunction',
     FunctionName: {

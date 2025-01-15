@@ -55,15 +55,15 @@ export interface ServerlessClamscanLoggingProps {
 /**
  * Interface for bucket with notification filters. Used to configure a bucket with key filters.
  */
-export interface FilteredClamscanBucket {
-  bucket: IBucket;
-  keyFilters: NotificationKeyFilter[];
+export interface IFilteredClamscanBucket {
+  readonly bucket: IBucket;
+  readonly keyFilters: NotificationKeyFilter[];
 }
 
 /**
  * Union type. Can be use as AWS Bucket or Bucket with key filters.
  */
-export type ServerlessClamscanBucket = IBucket | FilteredClamscanBucket;
+export type ServerlessClamscanBucket = IBucket | IFilteredClamscanBucket;
 /**
  * Interface for creating a ServerlessClamscan.
  */
@@ -584,11 +584,20 @@ export class ServerlessClamscan extends Construct {
    * @param bucket The bucket to add the scanning bucket policy and s3:ObjectCreate* trigger to.
    */
   addSourceBucket(bucket: IBucket, ...keyFilters: NotificationKeyFilter[]): void {
-    bucket.addEventNotification(
-      EventType.OBJECT_CREATED,
-      new LambdaDestination(this._scanFunction),
-      ...keyFilters,
-    );
+    if (keyFilters?.length) {
+      keyFilters.map((keyFilter) => {
+        bucket.addEventNotification(
+          EventType.OBJECT_CREATED,
+          new LambdaDestination(this._scanFunction),
+          keyFilter,
+        );
+      });
+    } else {
+      bucket.addEventNotification(
+        EventType.OBJECT_CREATED,
+        new LambdaDestination(this._scanFunction),
+      );
+    }
 
     bucket.grantRead(this._scanFunction);
     this._scanFunction.addToRolePolicy(
