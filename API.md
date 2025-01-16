@@ -96,7 +96,7 @@ Returns a string representation of this construct.
 ##### `addSourceBucket` <a name="addSourceBucket" id="cdk-serverless-clamscan.ServerlessClamscan.addSourceBucket"></a>
 
 ```typescript
-public addSourceBucket(bucket: IBucket): void
+public addSourceBucket(bucket: IBucket, keyFilters: ...NotificationKeyFilter[]): void
 ```
 
 Sets the specified S3 Bucket as a s3:ObjectCreate* for the ClamAV function.
@@ -109,6 +109,12 @@ Adds a bucket policy to disallow GetObject operations on files that are tagged '
 - *Type:* aws-cdk-lib.aws_s3.IBucket
 
 The bucket to add the scanning bucket policy and s3:ObjectCreate* trigger to.
+
+---
+
+###### `keyFilters`<sup>Required</sup> <a name="keyFilters" id="cdk-serverless-clamscan.ServerlessClamscan.addSourceBucket.parameter.keyFilters"></a>
+
+- *Type:* ...aws-cdk-lib.aws_s3.NotificationKeyFilter[]
 
 ---
 
@@ -367,7 +373,7 @@ const serverlessClamscanProps: ServerlessClamscanProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.acceptResponsibilityForUsingImportedBucket">acceptResponsibilityForUsingImportedBucket</a></code> | <code>boolean</code> | Allows the use of imported buckets. |
-| <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.buckets">buckets</a></code> | <code>aws-cdk-lib.aws_s3.IBucket[]</code> | An optional list of S3 buckets to configure for ClamAV Virus Scanning; |
+| <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.buckets">buckets</a></code> | <code>aws-cdk-lib.aws_s3.IBucket \| <a href="#cdk-serverless-clamscan.IFilteredClamscanBucket">IFilteredClamscanBucket</a>[]</code> | An optional list of S3 buckets to configure for ClamAV Virus Scanning; |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.defsBucketAccessLogsConfig">defsBucketAccessLogsConfig</a></code> | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanLoggingProps">ServerlessClamscanLoggingProps</a></code> | Whether or not to enable Access Logging for the Virus Definitions bucket, you can specify an existing bucket and prefix (Default: Creates a new S3 Bucket for access logs). |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.defsBucketAllowPolicyMutation">defsBucketAllowPolicyMutation</a></code> | <code>boolean</code> | Allow for non-root users to modify/delete the bucket policy on the Virus Definitions bucket. |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscanProps.property.efsEncryption">efsEncryption</a></code> | <code>boolean</code> | Whether or not to enable encryption on EFS filesystem (Default: enabled). |
@@ -399,10 +405,10 @@ When using imported buckets the user is responsible for adding the required poli
 ##### `buckets`<sup>Optional</sup> <a name="buckets" id="cdk-serverless-clamscan.ServerlessClamscanProps.property.buckets"></a>
 
 ```typescript
-public readonly buckets: IBucket[];
+public readonly buckets: IBucket | IFilteredClamscanBucket[];
 ```
 
-- *Type:* aws-cdk-lib.aws_s3.IBucket[]
+- *Type:* aws-cdk-lib.aws_s3.IBucket | <a href="#cdk-serverless-clamscan.IFilteredClamscanBucket">IFilteredClamscanBucket</a>[]
 
 An optional list of S3 buckets to configure for ClamAV Virus Scanning;
 
@@ -556,4 +562,43 @@ Optionally set the timeout for the scan function.
 ---
 
 
+## Protocols <a name="Protocols" id="Protocols"></a>
+
+### IFilteredClamscanBucket <a name="IFilteredClamscanBucket" id="cdk-serverless-clamscan.IFilteredClamscanBucket"></a>
+
+- *Implemented By:* <a href="#cdk-serverless-clamscan.IFilteredClamscanBucket">IFilteredClamscanBucket</a>
+
+Interface for bucket with notification filters.
+
+Used to configure a bucket with key filters.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk-serverless-clamscan.IFilteredClamscanBucket.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | *No description.* |
+| <code><a href="#cdk-serverless-clamscan.IFilteredClamscanBucket.property.keyFilters">keyFilters</a></code> | <code>aws-cdk-lib.aws_s3.NotificationKeyFilter[]</code> | *No description.* |
+
+---
+
+##### `bucket`<sup>Required</sup> <a name="bucket" id="cdk-serverless-clamscan.IFilteredClamscanBucket.property.bucket"></a>
+
+```typescript
+public readonly bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+---
+
+##### `keyFilters`<sup>Required</sup> <a name="keyFilters" id="cdk-serverless-clamscan.IFilteredClamscanBucket.property.keyFilters"></a>
+
+```typescript
+public readonly keyFilters: NotificationKeyFilter[];
+```
+
+- *Type:* aws-cdk-lib.aws_s3.NotificationKeyFilter[]
+
+---
 
