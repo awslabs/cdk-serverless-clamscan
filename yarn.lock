@@ -1420,9 +1420,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.35.6"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.35.6.tgz#d49382e9542c2edab3ec620e89d0fdec043a4150"
-  integrity sha512-OemnCGLcsyhSSS4sCc79wg3FX5KCnD/iCcoWzynPPvHsP/ZSfYVlQpiHE6FnV9vIh5cSMqJZFJCcIWp12q2auA==
+  version "2.35.7"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.35.7.tgz#b4624c858e74d1fb03aebe9b06fc799d317fc79d"
+  integrity sha512-jUj12cT/LN1Vd6k1DrpCxGGIKZFVhibYa4TtdllB7Jygakd5NlC3ShLFoeb0HIswg3ho/NVLL95wzZgtMoT1Ug==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -5339,9 +5339,9 @@ trim-newlines@^3.0.0:
   integrity sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==
 
 ts-api-utils@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/ts-api-utils/-/ts-api-utils-2.0.0.tgz#b9d7d5f7ec9f736f4d0f09758b8607979044a900"
-  integrity sha512-xCt/TOAc+EOHS1XPnijD3/yzpH6qg2xppZO1YDqGoVsNXfQfzHpOdNuXwrwOU8u4ITXJyDCTyt8w5g1sZv9ynQ==
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/ts-api-utils/-/ts-api-utils-2.0.1.tgz#660729385b625b939aaa58054f45c058f33f10cd"
+  integrity sha512-dnlgjFSVetynI8nzgJ+qF62efpglpWRk8isUEWZGWlJYySCTD6aKvbUDu+zbPeDakk3bg5H4XpitHukgfL1m9w==
 
 ts-jest@^27:
   version "27.1.5"
