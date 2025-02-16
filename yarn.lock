@@ -1427,9 +1427,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.35.19"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.35.19.tgz#e83b20b3ef3b222e22d1a3640c06618c6694eed1"
-  integrity sha512-GcPC3V0t5iQ0cDX9xLeuD6GVvPt6pi2vO23/UshIRekkZAp86wXDm+AWyfJ8gWJV7CiY4zwo7afvXdfX68HaYg==
+  version "2.35.20"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.35.20.tgz#2c0738f87aa108e62fbd2e2510eb61807c20c6bb"
+  integrity sha512-xefEpc4alrZAHXZ0+eIJzVj6HMTojqce01INdS2XVmJQ8oNI6KCf363u6ZZ3JEbMCSFhAv/kkbaDhkCFDkeCsA==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -2012,9 +2012,9 @@ dunder-proto@^1.0.0, dunder-proto@^1.0.1:
     gopd "^1.2.0"
 
 electron-to-chromium@^1.5.73:
-  version "1.5.100"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.100.tgz#c99b7cfe49ec72c5e22237f036bb8b1d8b7f0621"
-  integrity sha512-u1z9VuzDXV86X2r3vAns0/5ojfXBue9o0+JDUDBKYqGLjxLkSqsSUoPU/6kW0gx76V44frHaf6Zo+QF74TQCMg==
+  version "1.5.101"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.101.tgz#c26490fb2c1363d804e798e138a2a544fc7f7075"
+  integrity sha512-L0ISiQrP/56Acgu4/i/kfPwWSgrzYZUnQrC0+QPFuhqlLP1Ir7qzPPDVS9BcKIyWTRU8+o6CC8dKw38tSWhYIA==
 
 emittery@^0.8.1:
   version "0.8.1"
@@ -4540,10 +4540,10 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-projen@^0.91.10:
-  version "0.91.10"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.91.10.tgz#d0ac45ee98dd0ed81e7bab0205b0f7ea431d83e3"
-  integrity sha512-l5ES+SoVowNmBbXaVLjK8cvGaCsX6T/rT4aHzzUn5xAnCRmViWA9KuP4zSglfUfNLm4wSgdLvOWE6lgw3wHx3Q==
+projen@^0.91.11:
+  version "0.91.11"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.91.11.tgz#d035a0375499a7ecef4c430f9a91031c6a24dc58"
+  integrity sha512-FaBbwMGQ4+be4oMR6MgwlVboA32CaAKPotPbVy4kPkxvqTiWxzjoAqKM51iOgrytMzFfU5pb+VX3H1unuIVOqA==
   dependencies:
     "@iarna/toml" "^2.2.5"
     case "^1.6.3"
