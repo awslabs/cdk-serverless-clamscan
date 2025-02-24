@@ -315,7 +315,8 @@ def delete(download_path, input_key=None):
                 shutil.rmtree(obj)
             else:
                 os.remove(obj)
-
+        # Remove the download_path folder itself
+        shutil.rmtree(download_path)
 
 def report_failure(input_bucket, input_key, download_path, message):
     """Set the S3 object tag to ERROR if scan function fails"""
