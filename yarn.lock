@@ -1426,9 +1426,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.35.58"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.35.58.tgz#2b7fcf9ce7f10bb436ca28234be690880fd4c008"
-  integrity sha512-isWkFX9vKhid5yg01g9zg+dd2GTtDd1xU2jTLlRByvLqtsjoNPkmqUjoGP5QmjUN1jJQy2dTY2+JOZXT04fcnA==
+  version "2.35.59"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.35.59.tgz#8ccb3acd880be3a9f5c68e4f70330eb2594a54eb"
+  integrity sha512-CtCvSSW3GzVoe/tliRCz2HgMANWEuIhA96UoKGU3TaxQv40jSVJdCsz0h9Bai92yEfjawWy7gw9I9JH5JPIqHQ==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -5912,9 +5912,9 @@ yaml@1.10.2:
   integrity sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==
 
 yaml@^2.2.2, yaml@^2.4.1:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.7.0.tgz#aef9bb617a64c937a9a748803786ad8d3ffe1e98"
-  integrity sha512-+hSoy/QHluxmC9kCIJyL/uyFmLmc+e5CFR5Wa+bpIhIj85LVb9ZH2nVnqrHoSvKogwODv0ClqZkmiSSaIH5LTA==
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.7.1.tgz#44a247d1b88523855679ac7fa7cda6ed7e135cf6"
+  integrity sha512-10ULxpnOCQXxJvBgxsn9ptjq6uviG/htZKk9veJGhlqn3w/DxQ631zFF+nlQXLwmImeS5amR2dl2U8sg6U9jsQ==
 
 yargs-parser@20.x, yargs-parser@^20.2.2, yargs-parser@^20.2.3:
   version "20.2.9"
