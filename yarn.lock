@@ -868,9 +868,9 @@
   integrity sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==
 
 "@types/node@*":
-  version "22.14.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.14.0.tgz#d3bfa3936fef0dbacd79ea3eb17d521c628bb47e"
-  integrity sha512-Kmpl+z84ILoG+3T/zQFyAJsU6EPTmOCj8/2+83fSN6djd6I4o7uOuGIH6vq3PrjY5BGitSbFuMN18j3iknubbA==
+  version "22.14.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-22.14.1.tgz#53b54585cec81c21eee3697521e31312d6ca1e6f"
+  integrity sha512-u0HuPQwe/dHrItgHHpmw3N2fYCR6x4ivMNbPHRkBVP4CvN+kiRrKHWk3i8tXiO/joPwXLMYvF9TTF0eqgHIuOw==
   dependencies:
     undici-types "~6.21.0"
 
@@ -1433,9 +1433,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.35.67"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.35.67.tgz#85f6fce71bb43caf3d9ecb000e0625126d386fb9"
-  integrity sha512-5KnQNNNdTm82bK4kg3hOKfzqA96r2C+19urPO7LmwWnsAGL7GbM8DQVWmZfrznKbmMZ6M/MV5GLOPt5FU3VrbA==
+  version "2.35.68"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.35.68.tgz#3b8c76cf5de6aa96211cac6062d98c43ec7f5c71"
+  integrity sha512-B5pWiM/q7+LXCU8G92i1yrhTKXgW9iUEB/gUjD9jTmpkXB8gdVJgayUSj8P6CogYg94vQrXiVsLgpu641Tv7Sw==
 
 chalk@^2.4.2:
   version "2.4.2"
