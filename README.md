@@ -175,6 +175,41 @@ When ClamAV publishes updates to the scanner you will see “Your ClamAV install
 
 Update the docker images of the Lambda functions with the latest version of ClamAV by re-running `cdk deploy`.
 
+## Optionally Skip Files
+
+In certain situations, you may have files which are already scanned and you wish to omit them from ClamAV scanning. In that case, simply tag the s3 object with `"scan-status": "N/A"` and the file will be automatically skipped.
+
+### Example 1. (Upload file to skip)
+
+<details><summary>python/boto</summary>
+<p>
+
+```python
+boto3.client('s3').upload_file(
+    Filename=file_path,
+    Bucket=bucket_name,
+    Key=object_key,
+    ExtraArgs={'Tagging': 'scan-status=N/A'}
+)
+```
+</p></details>
+
+<details><summary>typscript/aws-sdk</summary>
+<p>
+  
+```typescript
+const params = {
+  Bucket: bucketName,
+  Key: objectKey,
+  Body: fileContent,
+  Tagging: 'scan-status=N/A',
+};
+const command = new PutObjectCommand(params);
+const response = await (new S3Client()).send(command);
+```
+</p>
+</details>
+
 ## API Reference
 
 See [API.md](./API.md).
