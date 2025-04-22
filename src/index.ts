@@ -577,7 +577,7 @@ export class ServerlessClamscan extends Construct {
     this._scanFunction.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
-        actions: ['s3:PutObjectTagging', 's3:PutObjectVersionTagging'],
+        actions: ['s3:GetObjectTagging', 's3:GetObjectVersionTagging', 's3:PutObjectTagging', 's3:PutObjectVersionTagging'],
         resources: [bucket.arnForObjects('*')],
       }),
     );
@@ -595,7 +595,7 @@ export class ServerlessClamscan extends Construct {
       this._s3Gw.addToPolicy(
         new PolicyStatement({
           effect: Effect.ALLOW,
-          actions: ['s3:PutObjectTagging', 's3:PutObjectVersionTagging'],
+          actions: ['s3:GetObjectTagging', 's3:GetObjectVersionTagging', 's3:PutObjectTagging', 's3:PutObjectVersionTagging'],
           resources: [bucket.arnForObjects('*')],
           principals: [this._scanFunction.role, scan_assumed_principal],
         }),
