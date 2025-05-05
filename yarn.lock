@@ -1470,9 +1470,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.35.88"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.35.88.tgz#e06913a952ff9052e9ff7c1fe1da5631a63e0ba6"
-  integrity sha512-5I5RPgDg8i8NAqTIyC5786r9USXFJRhh0ZTEQgNj7QiOc+UF0iXY+8Vl7CYaQ7eJ7e14IljhINkx/n1CkeU6jA==
+  version "2.35.89"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.35.89.tgz#6776c4854eccaccdd3b503d0e6d3d6568ea373e7"
+  integrity sha512-QM4e4nNSL7gKi3e5vHgG7vpQa3oRi9kprgQ+6z69G37muu1p+aM6OltP8ycrXuQQN5YwgewnSOJAQaZZQdiu0Q==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -6338,6 +6338,6 @@ zod-to-json-schema@^3.24.1:
   integrity sha512-/AuWwMP+YqiPbsJx5D6TfgRTc4kTLjsh5SOcd4bLsfUg2RcEXrFMJl1DGgdHy2aCfsIA/cr/1JM0xcB2GZji8g==
 
 zod@^3.23.8, zod@^3.24.2:
-  version "3.24.3"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-3.24.3.tgz#1f40f750a05e477396da64438e0e1c0995dafd87"
-  integrity sha512-HhY1oqzWCQWuUqvBFnsyrtZRhyPeR7SUGv+C4+MsisMuVfSPx8HpwWqH8tRahSlt6M3PiFAcoeFhZAqIXTxoSg==
+  version "3.24.4"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.24.4.tgz#e2e2cca5faaa012d76e527d0d36622e0a90c315f"
+  integrity sha512-OdqJE9UDRPwWsrHjLN2F8bPxvwJBK22EHLWtanu0LSYr5YqzsaaW3RMgmjwr8Rypg5k+meEJdSPXJZXE/yqOMg==
