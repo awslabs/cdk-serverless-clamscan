@@ -6,11 +6,10 @@ import { Duration, Size, Stack } from 'aws-cdk-lib';
 import { PerformanceMode, ThroughputMode } from 'aws-cdk-lib/aws-efs';
 import { EventBus } from 'aws-cdk-lib/aws-events';
 import { SqsDestination, EventBridgeDestination } from 'aws-cdk-lib/aws-lambda-destinations';
-import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { Bucket, NotificationKeyFilter } from 'aws-cdk-lib/aws-s3';
 import { Queue } from 'aws-cdk-lib/aws-sqs';
-import { ServerlessClamscan } from '../src';
+import { ServerlessClamscan, ServerlessClamscanBucket } from '../src';
 import '@aws-cdk/assert/jest';
-
 
 test('expect default EventBridge Lambda destination and Event Rules for onSuccess and SQS Destination for onDelete', () => {
   const stack = new Stack();
@@ -976,3 +975,108 @@ test('expect scan function timeout to be set as configured', () => {
   });
 });
 
+test('should handle IBucket correctly', () => {
+  const stack = new Stack();
+  const bucket = new Bucket(stack, 'TestBucket');
+  new ServerlessClamscan(stack, 'default', { buckets: [bucket] });
+  expect(stack).toHaveResource('AWS::Lambda::Permission', {
+    Action: 'lambda:InvokeFunction',
+    FunctionName: {
+      'Fn::GetAtt': [
+        stringLike('*ServerlessClamscan*'),
+        'Arn',
+      ],
+    },
+    Principal: 's3.amazonaws.com',
+    SourceAccount: {
+      Ref: 'AWS::AccountId',
+    },
+    SourceArn: {
+      'Fn::GetAtt': [
+        stringLike('TestBucket*'),
+        'Arn',
+      ],
+    },
+  });
+});
+
+test('should handle FilteredClamscanBucket correctly', () => {
+  const stack = new Stack();
+  const bucket = new Bucket(stack, 'TestBucket');
+  const keyFilters: NotificationKeyFilter[] = [{ prefix: 'sample/' }];
+  const filteredBucket: ServerlessClamscanBucket = { bucket, keyFilters };
+  new ServerlessClamscan(stack, 'default', { buckets: [filteredBucket] });
+
+  expect(stack).toHaveResource('AWS::Lambda::Permission', {
+    Action: 'lambda:InvokeFunction',
+    FunctionName: {
+      'Fn::GetAtt': [
+        stringLike('*ServerlessClamscan*'),
+        'Arn',
+      ],
+    },
+    Principal: 's3.amazonaws.com',
+    SourceAccount: {
+      Ref: 'AWS::AccountId',
+    },
+    SourceArn: {
+      'Fn::GetAtt': [
+        stringLike('TestBucket*'),
+        'Arn',
+      ],
+    },
+  });
+  expect(stack).toHaveResource('AWS::S3::BucketPolicy', {
+    Bucket: {
+      Ref: stringLike('TestBucket*'),
+    },
+    PolicyDocument: {
+      Statement: arrayWith(
+        {
+          Action: 's3:GetObject',
+          Condition: {
+            StringEquals: {
+              's3:ExistingObjectTag/scan-status': [
+                'IN PROGRESS',
+                'INFECTED',
+                'ERROR',
+              ],
+            },
+            ArnNotEquals: {
+              'aws:PrincipalArn': [
+                {
+                  'Fn::GetAtt': [
+                    stringLike('*ServerlessClamscan*'),
+                    'Arn',
+                  ],
+                },
+                {
+                  'Fn::Join': ['', arrayWith(stringLike('*sts*'), stringLike('*assumed-role*'), { Ref: stringLike('*ServerlessClamscan*') })],
+                },
+              ],
+            },
+          },
+          Effect: 'Deny',
+          Principal: {
+            AWS: '*',
+          },
+          Resource: {
+            'Fn::Join': [
+              '',
+              [
+                {
+                  'Fn::GetAtt': [
+                    stringLike('TestBucket*'),
+                    'Arn',
+                  ],
+                },
+                '/*',
+              ],
+            ],
+          },
+        },
+      ),
+      Version: '2012-10-17',
+    },
+  });
+});
