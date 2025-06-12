@@ -8,6 +8,7 @@ import pwd
 import shutil
 import subprocess
 import time
+from enum import StrEnum
 from urllib.parse import unquote_plus
 
 import boto3
@@ -20,12 +21,15 @@ metrics = Metrics()
 s3_resource = boto3.resource("s3")
 s3_client = boto3.client("s3")
 
-INPROGRESS = "IN PROGRESS"
-CLEAN = "CLEAN"
-DELETED = "DELETED"
-INFECTED = "INFECTED"
-ERROR = "ERROR"
-SKIP = "N/A"
+
+class ScanStatus(StrEnum):
+    IN_PROGRESS = "IN PROGRESS"
+    CLEAN = "CLEAN"
+    DELETED = "DELETED"
+    INFECTED = "INFECTED"
+    ERROR = "ERROR"
+    SKIP = "N/A"
+
 
 MAX_BYTES = 4000000000
 
@@ -80,10 +84,10 @@ def lambda_handler(event, context):
             "source": "serverless-clamscan",
             "input_bucket": input_bucket,
             "input_key": input_key,
-            "status": SKIP,
+            "status": ScanStatus.SKIP,
             "message": "S3 Event trigger was for a non-file object",
         }
-    elif (status := get_status(input_bucket, input_key, version_id)) == SKIP:
+    elif (status := get_status(input_bucket, input_key, version_id)) == ScanStatus.SKIP:
         summary = {
             "source": "serverless-clamscan",
             "input_bucket": input_bucket,
@@ -91,7 +95,7 @@ def lambda_handler(event, context):
             "status": status,
             "message": "S3 Event trigger was for a file already marked to skip",
         }
-    elif status == DELETED:
+    elif status == ScanStatus.DELETED:
         summary = {
             "source": "serverless-clamscan",
             "input_bucket": input_bucket,
@@ -104,7 +108,7 @@ def lambda_handler(event, context):
         definitions_path = f"{mount_path}/{os.environ['EFS_DEF_PATH']}"
         payload_path = f"{mount_path}/{context.aws_request_id}"
         tmp_path = f"{payload_path}-tmp"
-        set_status(input_bucket, input_key, INPROGRESS, version_id)
+        set_status(input_bucket, input_key, ScanStatus.IN_PROGRESS, version_id)
         create_dir(input_bucket, input_key, payload_path)
         create_dir(input_bucket, input_key, tmp_path)
         download_object(input_bucket, input_key, payload_path, version_id)
@@ -401,9 +405,9 @@ def scan(
             stdout=subprocess.PIPE,
         )
         if scan_summary.returncode == 0:
-            status = CLEAN
+            status = ScanStatus.CLEAN
         elif scan_summary.returncode == 1:
-            status = INFECTED
+            status = ScanStatus.INFECTED
         else:
             raise ClamAVException(
                 f"ClamAV exited with unexpected code: {scan_summary.returncode}."
@@ -455,13 +459,13 @@ def report_failure(
     input_bucket, input_key, download_path, message, version_id=None
 ):
     """Set the S3 object tag to ERROR if scan function fails"""
-    set_status(input_bucket, input_key, ERROR, version_id)
+    set_status(input_bucket, input_key, ScanStatus.ERROR, version_id)
     delete(download_path)
     exception_json = {
         "source": "serverless-clamscan",
         "input_bucket": input_bucket,
         "input_key": input_key,
-        "status": ERROR,
+        "status": ScanStatus.ERROR,
         "message": message,
     }
     if version_id:
