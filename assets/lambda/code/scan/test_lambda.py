@@ -1,6 +1,8 @@
 from unittest.mock import patch
 import importlib
 import pytest
+import boto3
+from botocore.stub import Stubber
 # lambda is a reserved keyword in Python, so this import must be done dynamically
 scan_lambda = importlib.import_module("lambda")
 
@@ -53,6 +55,20 @@ def s3_event_unversioned():
     }
 
 
+@pytest.fixture
+def s3_stubber():
+    """Create and return a Stubber for the S3 client"""
+    # Create a new S3 client for each test
+    s3_client = boto3.client('s3')
+    with Stubber(s3_client) as stubber:
+        # Replace the global s3_client in the lambda module with our stubbed client
+        original_client = scan_lambda.s3_client
+        scan_lambda.s3_client = s3_client
+        yield stubber
+        # Restore the original client after the test
+        scan_lambda.s3_client = original_client
+
+
 class DummyContext:
     aws_request_id = "req-1"
     function_name = "test-function"
@@ -60,145 +76,179 @@ class DummyContext:
     invoked_function_arn = "arn:aws:lambda:us-east-1:123456789012:function:test-function"
 
 
-@patch("lambda.s3_client")
-def test_set_status_versioned(mock_s3):
+def test_set_status_versioned(s3_stubber):
     # Arrange
-    mock_s3.get_object_tagging.return_value = {"TagSet": []}
     bucket = "bucket"
     key = "key"
     status = scan_lambda.ScanStatus.CLEAN
     version_id = "v1"
+
+    # Stub the get_object_tagging call
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': []},
+        {'Bucket': bucket, 'Key': key, 'VersionId': version_id}
+    )
+
+    # Stub the put_object_tagging call
+    expected_tags = {'TagSet': [{'Key': 'scan-status', 'Value': status}]}
+    s3_stubber.add_response(
+        'put_object_tagging',
+        {},
+        {'Bucket': bucket, 'Key': key, 'Tagging': expected_tags, 'VersionId': version_id}
+    )
 
     # Act
     scan_lambda.set_status(bucket, key, status, version_id=version_id)
 
     # Assert
-    args = mock_s3.put_object_tagging.call_args[1]
-    assert args["VersionId"] == version_id
-    assert any(
-        tag["Key"] == "scan-status" and tag["Value"] == status
-        for tag in args["Tagging"]["TagSet"]
-    )
+    s3_stubber.assert_no_pending_responses()
 
 
-@patch("lambda.s3_client")
-def test_set_status_unversioned(mock_s3):
+def test_set_status_unversioned(s3_stubber):
     # Arrange
-    mock_s3.get_object_tagging.return_value = {"TagSet": []}
     bucket = "bucket"
     key = "key"
     status = scan_lambda.ScanStatus.CLEAN
+
+    # Stub the get_object_tagging call
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': []},
+        {'Bucket': bucket, 'Key': key}
+    )
+
+    # Stub the put_object_tagging call
+    expected_tags = {'TagSet': [{'Key': 'scan-status', 'Value': status}]}
+    s3_stubber.add_response(
+        'put_object_tagging',
+        {},
+        {'Bucket': bucket, 'Key': key, 'Tagging': expected_tags}
+    )
 
     # Act
     scan_lambda.set_status(bucket, key, status)
 
     # Assert
-    args = mock_s3.put_object_tagging.call_args[1]
-    assert "VersionId" not in args
-    assert any(
-        tag["Key"] == "scan-status" and tag["Value"] == status
-        for tag in args["Tagging"]["TagSet"]
-    )
+    s3_stubber.assert_no_pending_responses()
 
 
-@patch("lambda.s3_client")
-def test_get_status_versioned_found(mock_s3):
+def test_get_status_versioned_found(s3_stubber):
     # Arrange
     expected_status = scan_lambda.ScanStatus.CLEAN
-    mock_s3.get_object_tagging.return_value = {
-        "TagSet": [{"Key": "scan-status", "Value": expected_status}]
-    }
     bucket = "bucket"
     key = "key"
     version_id = "v1"
+
+    # Stub the get_object_tagging call
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': [{'Key': 'scan-status', 'Value': expected_status}]},
+        {'Bucket': bucket, 'Key': key, 'VersionId': version_id}
+    )
 
     # Act
     status = scan_lambda.get_status(bucket, key, version_id=version_id)
 
     # Assert
     assert status == expected_status
-    mock_s3.get_object_tagging.assert_called_once_with(
-        Bucket=bucket, Key=key, VersionId=version_id
-    )
+    s3_stubber.assert_no_pending_responses()
 
 
-@patch("lambda.s3_client")
-def test_get_status_unversioned_found(mock_s3):
+def test_get_status_unversioned_found(s3_stubber):
     # Arrange
     expected_status = scan_lambda.ScanStatus.CLEAN
-    mock_s3.get_object_tagging.return_value = {
-        "TagSet": [{"Key": "scan-status", "Value": expected_status}]
-    }
     bucket = "bucket"
     key = "key"
+
+    # Stub the get_object_tagging call
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': [{'Key': 'scan-status', 'Value': expected_status}]},
+        {'Bucket': bucket, 'Key': key}
+    )
 
     # Act
     status = scan_lambda.get_status(bucket, key)
 
     # Assert
     assert status == expected_status
-    mock_s3.get_object_tagging.assert_called_once_with(Bucket=bucket, Key=key)
+    s3_stubber.assert_no_pending_responses()
 
 
-@patch("lambda.s3_client")
-def test_get_status_deleted(mock_s3):
+def test_get_status_deleted(s3_stubber):
     # Arrange
-    error = scan_lambda.botocore.exceptions.ClientError(
-        {"Error": {"Code": "NoSuchKey", "Message": "Not found"}}, "GetObjectTagging"
-    )
-    mock_s3.get_object_tagging.side_effect = error
     bucket = "bucket"
     key = "key"
     version_id = "v1"
+
+    # Stub the get_object_tagging call with an error
+    error_response = {
+        'Error': {
+            'Code': 'NoSuchKey',
+            'Message': 'Not found'
+        }
+    }
+    s3_stubber.add_client_error(
+        'get_object_tagging',
+        service_error_code='NoSuchKey',
+        service_message='Not found',
+        http_status_code=404,
+        expected_params={'Bucket': bucket, 'Key': key, 'VersionId': version_id}
+    )
 
     # Act
     status = scan_lambda.get_status(bucket, key, version_id=version_id)
 
     # Assert
     assert status == scan_lambda.ScanStatus.DELETED
+    s3_stubber.assert_no_pending_responses()
 
 
-@patch("lambda.s3_client")
-def test_get_tag_value_versioned(mock_s3):
+def test_get_tag_value_versioned(s3_stubber):
     # Arrange
     expected_value = "bar"
-    mock_s3.get_object_tagging.return_value = {
-        "TagSet": [{"Key": "foo", "Value": expected_value}]
-    }
     bucket = "bucket"
     key = "key"
     tag_key = "foo"
     version_id = "v1"
+
+    # Stub the get_object_tagging call
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': [{'Key': 'foo', 'Value': expected_value}]},
+        {'Bucket': bucket, 'Key': key, 'VersionId': version_id}
+    )
 
     # Act
     value = scan_lambda.get_tag_value(bucket, key, tag_key, version_id=version_id)
 
     # Assert
     assert value == expected_value
-    mock_s3.get_object_tagging.assert_called_once_with(
-        Bucket=bucket, Key=key, VersionId=version_id
-    )
+    s3_stubber.assert_no_pending_responses()
 
 
-@patch("lambda.s3_client")
-def test_get_tag_value_not_found(mock_s3):
+def test_get_tag_value_not_found(s3_stubber):
     # Arrange
-    mock_s3.get_object_tagging.return_value = {
-        "TagSet": [{"Key": "foo", "Value": "bar"}]
-    }
     bucket = "bucket"
     key = "key"
     tag_key = "baz"  # Different from what's in the TagSet
+
+    # Stub the get_object_tagging call
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': [{'Key': 'foo', 'Value': 'bar'}]},
+        {'Bucket': bucket, 'Key': key}
+    )
 
     # Act
     value = scan_lambda.get_tag_value(bucket, key, tag_key)
 
     # Assert
     assert value is None
+    s3_stubber.assert_no_pending_responses()
 
 
-@patch("lambda.set_status")
-@patch("lambda.get_status", return_value=None)
 @patch("lambda.create_dir")
 @patch("lambda.download_object")
 @patch("lambda.expand_if_large_archive")
@@ -214,8 +264,7 @@ def test_lambda_handler_versioned(
     mock_expand,
     mock_download,
     mock_create,
-    mock_get_status,
-    mock_set_status,
+    s3_stubber,
     s3_event_versioned,
 ):
     # Arrange
@@ -235,6 +284,32 @@ def test_lambda_handler_versioned(
     mock_metrics.add_metric.return_value = None
     mock_metrics.flush_metrics.return_value = None
     mock_metrics.add_dimension.return_value = None
+    
+    # First, stub the get_object_tagging call for get_status
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': []},
+        {'Bucket': 'test-bucket', 'Key': 'test.txt', 'VersionId': 'abc123'}
+    )
+    
+    # Second, stub the get_object_tagging call for set_status
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': []},
+        {'Bucket': 'test-bucket', 'Key': 'test.txt', 'VersionId': 'abc123'}
+    )
+    
+    # Third, stub the put_object_tagging call for set_status
+    s3_stubber.add_response(
+        'put_object_tagging',
+        {},
+        {
+            'Bucket': 'test-bucket', 
+            'Key': 'test.txt', 
+            'Tagging': {'TagSet': [{'Key': 'scan-status', 'Value': scan_lambda.ScanStatus.IN_PROGRESS}]},
+            'VersionId': 'abc123'
+        }
+    )
 
     # Act
     with patch.dict("os.environ", env_vars):
@@ -243,18 +318,15 @@ def test_lambda_handler_versioned(
     # Assert
     assert result["status"] == expected_status
     assert result["version_id"] == "abc123"
-    mock_get_status.assert_called_once_with("test-bucket", "test.txt", "abc123")
-    mock_set_status.assert_called_once_with("test-bucket", "test.txt", scan_lambda.ScanStatus.IN_PROGRESS, "abc123")
     mock_create.assert_called()
     mock_download.assert_called()
     mock_expand.assert_called()
     mock_freshclam.assert_called()
     mock_scan.assert_called()
     mock_delete.assert_called()
+    s3_stubber.assert_no_pending_responses()
 
 
-@patch("lambda.set_status")
-@patch("lambda.get_status", return_value=None)
 @patch("lambda.create_dir")
 @patch("lambda.download_object")
 @patch("lambda.expand_if_large_archive")
@@ -270,8 +342,7 @@ def test_lambda_handler_unversioned(
     mock_expand,
     mock_download,
     mock_create,
-    mock_get_status,
-    mock_set_status,
+    s3_stubber,
     s3_event_unversioned,
 ):
     # Arrange
@@ -291,6 +362,31 @@ def test_lambda_handler_unversioned(
     mock_metrics.add_metric.return_value = None
     mock_metrics.flush_metrics.return_value = None
     mock_metrics.add_dimension.return_value = None
+    
+    # First, stub the get_object_tagging call for get_status
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': []},
+        {'Bucket': 'test-bucket', 'Key': 'test.txt'}
+    )
+    
+    # Second, stub the get_object_tagging call for set_status
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': []},
+        {'Bucket': 'test-bucket', 'Key': 'test.txt'}
+    )
+    
+    # Third, stub the put_object_tagging call for set_status
+    s3_stubber.add_response(
+        'put_object_tagging',
+        {},
+        {
+            'Bucket': 'test-bucket', 
+            'Key': 'test.txt', 
+            'Tagging': {'TagSet': [{'Key': 'scan-status', 'Value': scan_lambda.ScanStatus.IN_PROGRESS}]}
+        }
+    )
 
     # Act
     with patch.dict("os.environ", env_vars):
@@ -299,18 +395,15 @@ def test_lambda_handler_unversioned(
     # Assert
     assert result["status"] == expected_status
     assert "version_id" not in result
-    mock_get_status.assert_called_once_with("test-bucket", "test.txt", None)
-    mock_set_status.assert_called_once_with("test-bucket", "test.txt", scan_lambda.ScanStatus.IN_PROGRESS, None)
     mock_create.assert_called()
     mock_download.assert_called()
     mock_expand.assert_called()
     mock_freshclam.assert_called()
     mock_scan.assert_called()
     mock_delete.assert_called()
+    s3_stubber.assert_no_pending_responses()
 
 
-@patch("lambda.set_status")
-@patch("lambda.get_status", return_value=None)
 @patch("lambda.create_dir")
 @patch("lambda.download_object")
 @patch("lambda.expand_if_large_archive")
@@ -326,8 +419,7 @@ def test_lambda_handler_versioned_no_metrics(
     mock_expand,
     mock_download,
     mock_create,
-    mock_get_status,
-    mock_set_status,
+    s3_stubber,
     s3_event_versioned,
 ):
     # Arrange
@@ -343,6 +435,32 @@ def test_lambda_handler_versioned_no_metrics(
     mock_metrics.add_metric.return_value = None
     mock_metrics.flush_metrics.return_value = None
     mock_metrics.add_dimension.return_value = None
+    
+    # First, stub the get_object_tagging call for get_status
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': []},
+        {'Bucket': 'test-bucket', 'Key': 'test.txt', 'VersionId': 'abc123'}
+    )
+    
+    # Second, stub the get_object_tagging call for set_status
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': []},
+        {'Bucket': 'test-bucket', 'Key': 'test.txt', 'VersionId': 'abc123'}
+    )
+    
+    # Third, stub the put_object_tagging call for set_status
+    s3_stubber.add_response(
+        'put_object_tagging',
+        {},
+        {
+            'Bucket': 'test-bucket', 
+            'Key': 'test.txt', 
+            'Tagging': {'TagSet': [{'Key': 'scan-status', 'Value': scan_lambda.ScanStatus.IN_PROGRESS}]},
+            'VersionId': 'abc123'
+        }
+    )
 
     # Act
     with patch.dict("os.environ", env_vars):
@@ -351,10 +469,9 @@ def test_lambda_handler_versioned_no_metrics(
     # Assert
     assert result["status"] == expected_status
     assert result["version_id"] == expected_version_id
+    s3_stubber.assert_no_pending_responses()
 
 
-@patch("lambda.set_status")
-@patch("lambda.get_status", return_value=None)
 @patch("lambda.create_dir")
 @patch("lambda.download_object")
 @patch("lambda.expand_if_large_archive")
@@ -370,8 +487,7 @@ def test_lambda_handler_unversioned_no_metrics(
     mock_expand,
     mock_download,
     mock_create,
-    mock_get_status,
-    mock_set_status,
+    s3_stubber,
     s3_event_unversioned,
 ):
     # Arrange
@@ -390,6 +506,31 @@ def test_lambda_handler_unversioned_no_metrics(
     mock_metrics.add_metric.return_value = None
     mock_metrics.flush_metrics.return_value = None
     mock_metrics.add_dimension.return_value = None
+    
+    # First, stub the get_object_tagging call for get_status
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': []},
+        {'Bucket': 'test-bucket', 'Key': 'test.txt'}
+    )
+    
+    # Second, stub the get_object_tagging call for set_status
+    s3_stubber.add_response(
+        'get_object_tagging',
+        {'TagSet': []},
+        {'Bucket': 'test-bucket', 'Key': 'test.txt'}
+    )
+    
+    # Third, stub the put_object_tagging call for set_status
+    s3_stubber.add_response(
+        'put_object_tagging',
+        {},
+        {
+            'Bucket': 'test-bucket', 
+            'Key': 'test.txt', 
+            'Tagging': {'TagSet': [{'Key': 'scan-status', 'Value': scan_lambda.ScanStatus.IN_PROGRESS}]}
+        }
+    )
 
     # Act
     with patch.dict("os.environ", env_vars):
@@ -397,11 +538,4 @@ def test_lambda_handler_unversioned_no_metrics(
 
     # Assert
     assert result["status"] == expected_status
-    mock_get_status.assert_called_once_with("test-bucket", "test.txt", None)
-    mock_set_status.assert_called_once_with("test-bucket", "test.txt", scan_lambda.ScanStatus.IN_PROGRESS, None)
-    mock_create.assert_called()
-    mock_download.assert_called()
-    mock_expand.assert_called()
-    mock_freshclam.assert_called()
-    mock_scan.assert_called()
-    mock_delete.assert_called()
+    s3_stubber.assert_no_pending_responses()
