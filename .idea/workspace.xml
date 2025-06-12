@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5fba4d96-6bf4-444b-a79f-7061a594f727" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/assets/lambda/code/scan/requirements.test.in" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lambda/code/scan/requirements.test.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/lambda/code/scan/test_lambda.py" beforeDir="false" afterPath="$PROJECT_DIR$/assets/lambda/code/scan/test_lambda.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="bmartin/m/allow-timeout-prop" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;bdmartin&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/awslabs/cdk-serverless-clamscan.git&quot;,
+    &quot;accountId&quot;: &quot;32a37602-aa44-414c-b631-3cc92e1c79f1&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/node_modules/aws-cdk-lib/aws-events-targets/lib/sns.d.ts" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/aws-cdk-lib/aws-events/lib/rule.d.ts" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/aws-cdk-lib/aws-events/lib/target.d.ts" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2h7CXXD3nZtln0JzNxuCZC9cJGA" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests for test_lambda.test_placeholder.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_lambda.py.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;bmartin/m/handled-deleted-and-versions&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/bmartin/git/cdk-serverless-clamscan&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/bmartin/git/cdk-serverless-clamscan/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/lambda/code/scan/" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python tests.Python tests in test_lambda.py">
+    <configuration name="Python tests for test_lambda.test_placeholder" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="cdk-serverless-clamscan" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/assets/lambda/code/scan" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_lambda.test_placeholder&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_lambda.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="cdk-serverless-clamscan" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/assets/lambda/code/scan" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/assets/lambda/code/scan/test_lambda.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Python tests in test_lambda.py" />
+        <item itemvalue="Python tests.Python tests for test_lambda.test_placeholder" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-9f8e2b94138c-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.26094.141" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5fba4d96-6bf4-444b-a79f-7061a594f727" name="Changes" comment="" />
+      <created>1716935768547</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1716935768547</updated>
+      <workItem from="1716935769570" duration="30000" />
+      <workItem from="1716935810752" duration="1638000" />
+      <workItem from="1717030986667" duration="10804000" />
+      <workItem from="1717050880236" duration="1656000" />
+      <workItem from="1717522326901" duration="198000" />
+      <workItem from="1717522529514" duration="1418000" />
+      <workItem from="1717713787943" duration="2641000" />
+      <workItem from="1718302160559" duration="599000" />
+      <workItem from="1719248595953" duration="11000" />
+      <workItem from="1719533333590" duration="1377000" />
+      <workItem from="1721076311274" duration="115000" />
+      <workItem from="1721076892775" duration="614000" />
+      <workItem from="1721232030154" duration="803000" />
+      <workItem from="1721344949219" duration="6853000" />
+      <workItem from="1721407899158" duration="12000" />
+      <workItem from="1722621469483" duration="2861000" />
+      <workItem from="1722656829766" duration="36000" />
+      <workItem from="1725577214250" duration="1661000" />
+      <workItem from="1725927262177" duration="52000" />
+      <workItem from="1727392871259" duration="253000" />
+      <workItem from="1727455889443" duration="489000" />
+      <workItem from="1727466829328" duration="1295000" />
+      <workItem from="1727732263391" duration="599000" />
+      <workItem from="1727738663928" duration="599000" />
+      <workItem from="1733254451118" duration="4798000" />
+      <workItem from="1733418624620" duration="43000" />
+      <workItem from="1737669713631" duration="2905000" />
+      <workItem from="1737673820814" duration="335000" />
+      <workItem from="1737756292051" duration="6000" />
+      <workItem from="1739350052042" duration="2864000" />
+      <workItem from="1739474641452" duration="18000" />
+      <workItem from="1742236318249" duration="749000" />
+      <workItem from="1742238092259" duration="1650000" />
+      <workItem from="1742244756082" duration="800000" />
+      <workItem from="1742422677824" duration="24000" />
+      <workItem from="1745355078971" duration="906000" />
+      <workItem from="1745356990051" duration="1040000" />
+      <workItem from="1745941293199" duration="107000" />
+      <workItem from="1745941411697" duration="21000" />
+      <workItem from="1746722893705" duration="1900000" />
+      <workItem from="1746739224662" duration="180000" />
+      <workItem from="1748371429751" duration="297000" />
+      <workItem from="1749586406476" duration="119000" />
+      <workItem from="1749586535831" duration="3289000" />
+      <workItem from="1749593563863" duration="305000" />
+      <workItem from="1749595044689" duration="3123000" />
+      <workItem from="1749665518837" duration="601000" />
+      <workItem from="1749752917994" duration="101000" />
+      <workItem from="1749754216602" duration="52000" />
+      <workItem from="1749754293206" duration="2241000" />
+      <workItem from="1749760320731" duration="4658000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/cdk_serverless_clamscan$.coverage" NAME=" Coverage Results" MODIFIED="1749764979625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/assets/lambda/code/scan" />
+  </component>
+</project>

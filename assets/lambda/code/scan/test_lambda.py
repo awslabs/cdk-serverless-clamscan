@@ -3,8 +3,38 @@ import importlib
 import pytest
 import boto3
 from botocore.stub import Stubber
+from assertpy import assert_that, add_extension
+
 # lambda is a reserved keyword in Python, so this import must be done dynamically
 scan_lambda = importlib.import_module("lambda")
+
+
+# Add custom extensions to assertpy for boto3 stubber and mocks
+def has_no_pending_responses(self):
+    self.val.assert_no_pending_responses()
+    return self
+
+
+def is_called(self):
+    self.val.assert_called()
+    return self
+
+
+def is_called_once(self):
+    self.val.assert_called_once()
+    return self
+
+
+def is_called_with(self, *args, **kwargs):
+    self.val.assert_called_with(*args, **kwargs)
+    return self
+
+
+# Register the custom extensions
+add_extension(has_no_pending_responses)
+add_extension(is_called)
+add_extension(is_called_once)
+add_extension(is_called_with)
 
 # Get the original, undecorated lambda_handler function
 original_handler = None
@@ -82,14 +112,14 @@ def test_set_status_versioned(s3_stubber):
     key = "key"
     status = scan_lambda.ScanStatus.CLEAN
     version_id = "v1"
-
+    
     # Stub the get_object_tagging call
     s3_stubber.add_response(
         'get_object_tagging',
         {'TagSet': []},
         {'Bucket': bucket, 'Key': key, 'VersionId': version_id}
     )
-
+    
     # Stub the put_object_tagging call
     expected_tags = {'TagSet': [{'Key': 'scan-status', 'Value': status}]}
     s3_stubber.add_response(
@@ -102,7 +132,7 @@ def test_set_status_versioned(s3_stubber):
     scan_lambda.set_status(bucket, key, status, version_id=version_id)
 
     # Assert
-    s3_stubber.assert_no_pending_responses()
+    assert_that(s3_stubber).has_no_pending_responses()
 
 
 def test_set_status_unversioned(s3_stubber):
@@ -110,14 +140,14 @@ def test_set_status_unversioned(s3_stubber):
     bucket = "bucket"
     key = "key"
     status = scan_lambda.ScanStatus.CLEAN
-
+    
     # Stub the get_object_tagging call
     s3_stubber.add_response(
         'get_object_tagging',
         {'TagSet': []},
         {'Bucket': bucket, 'Key': key}
     )
-
+    
     # Stub the put_object_tagging call
     expected_tags = {'TagSet': [{'Key': 'scan-status', 'Value': status}]}
     s3_stubber.add_response(
@@ -130,7 +160,7 @@ def test_set_status_unversioned(s3_stubber):
     scan_lambda.set_status(bucket, key, status)
 
     # Assert
-    s3_stubber.assert_no_pending_responses()
+    assert_that(s3_stubber).has_no_pending_responses()
 
 
 def test_get_status_versioned_found(s3_stubber):
@@ -151,8 +181,8 @@ def test_get_status_versioned_found(s3_stubber):
     status = scan_lambda.get_status(bucket, key, version_id=version_id)
 
     # Assert
-    assert status == expected_status
-    s3_stubber.assert_no_pending_responses()
+    assert_that(status).is_equal_to(expected_status)
+    assert_that(s3_stubber).has_no_pending_responses()
 
 
 def test_get_status_unversioned_found(s3_stubber):
@@ -172,8 +202,8 @@ def test_get_status_unversioned_found(s3_stubber):
     status = scan_lambda.get_status(bucket, key)
 
     # Assert
-    assert status == expected_status
-    s3_stubber.assert_no_pending_responses()
+    assert_that(status).is_equal_to(expected_status)
+    assert_that(s3_stubber).has_no_pending_responses()
 
 
 def test_get_status_deleted(s3_stubber):
@@ -201,8 +231,8 @@ def test_get_status_deleted(s3_stubber):
     status = scan_lambda.get_status(bucket, key, version_id=version_id)
 
     # Assert
-    assert status == scan_lambda.ScanStatus.DELETED
-    s3_stubber.assert_no_pending_responses()
+    assert_that(status).is_equal_to(scan_lambda.ScanStatus.DELETED)
+    assert_that(s3_stubber).has_no_pending_responses()
 
 
 def test_get_tag_value_versioned(s3_stubber):
@@ -224,8 +254,8 @@ def test_get_tag_value_versioned(s3_stubber):
     value = scan_lambda.get_tag_value(bucket, key, tag_key, version_id=version_id)
 
     # Assert
-    assert value == expected_value
-    s3_stubber.assert_no_pending_responses()
+    assert_that(value).is_equal_to(expected_value)
+    assert_that(s3_stubber).has_no_pending_responses()
 
 
 def test_get_tag_value_not_found(s3_stubber):
@@ -245,8 +275,8 @@ def test_get_tag_value_not_found(s3_stubber):
     value = scan_lambda.get_tag_value(bucket, key, tag_key)
 
     # Assert
-    assert value is None
-    s3_stubber.assert_no_pending_responses()
+    assert_that(value).is_none()
+    assert_that(s3_stubber).has_no_pending_responses()
 
 
 @patch("lambda.create_dir")
@@ -316,15 +346,15 @@ def test_lambda_handler_versioned(
         result = original_handler(s3_event_versioned, ctx)
 
     # Assert
-    assert result["status"] == expected_status
-    assert result["version_id"] == "abc123"
-    mock_create.assert_called()
-    mock_download.assert_called()
-    mock_expand.assert_called()
-    mock_freshclam.assert_called()
-    mock_scan.assert_called()
-    mock_delete.assert_called()
-    s3_stubber.assert_no_pending_responses()
+    assert_that(result).has_status(expected_status)
+    assert_that(result).has_version_id("abc123")
+    assert_that(mock_create).is_called()
+    assert_that(mock_download).is_called()
+    assert_that(mock_expand).is_called()
+    assert_that(mock_freshclam).is_called()
+    assert_that(mock_scan).is_called()
+    assert_that(mock_delete).is_called()
+    assert_that(s3_stubber).has_no_pending_responses()
 
 
 @patch("lambda.create_dir")
@@ -393,15 +423,15 @@ def test_lambda_handler_unversioned(
         result = original_handler(s3_event_unversioned, ctx)
 
     # Assert
-    assert result["status"] == expected_status
-    assert "version_id" not in result
-    mock_create.assert_called()
-    mock_download.assert_called()
-    mock_expand.assert_called()
-    mock_freshclam.assert_called()
-    mock_scan.assert_called()
-    mock_delete.assert_called()
-    s3_stubber.assert_no_pending_responses()
+    assert_that(result).has_status(expected_status)
+    assert_that(result).does_not_contain_key("version_id")
+    assert_that(mock_create).is_called()
+    assert_that(mock_download).is_called()
+    assert_that(mock_expand).is_called()
+    assert_that(mock_freshclam).is_called()
+    assert_that(mock_scan).is_called()
+    assert_that(mock_delete).is_called()
+    assert_that(s3_stubber).has_no_pending_responses()
 
 
 @patch("lambda.create_dir")
@@ -467,9 +497,9 @@ def test_lambda_handler_versioned_no_metrics(
         result = original_handler(s3_event_versioned, ctx)
 
     # Assert
-    assert result["status"] == expected_status
-    assert result["version_id"] == expected_version_id
-    s3_stubber.assert_no_pending_responses()
+    assert_that(result).has_status(expected_status)
+    assert_that(result).has_version_id(expected_version_id)
+    assert_that(s3_stubber).has_no_pending_responses()
 
 
 @patch("lambda.create_dir")
@@ -537,5 +567,5 @@ def test_lambda_handler_unversioned_no_metrics(
         result = original_handler(s3_event_unversioned, ctx)
 
     # Assert
-    assert result["status"] == expected_status
-    s3_stubber.assert_no_pending_responses()
+    assert_that(result).has_status(expected_status)
+    assert_that(s3_stubber).has_no_pending_responses()
