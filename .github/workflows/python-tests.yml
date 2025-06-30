@@ -31,9 +31,14 @@ jobs:
           coverage run -m pytest
           coverage report
           coverage xml
+      - name: Display coverage in logs
+        run: |
+          echo "::group::Code Coverage Report"
+          cd assets/lambda/code/scan
+          coverage report -m
+          echo "::endgroup::"
       - name: Upload coverage to GitHub Actions
         uses: actions/upload-artifact@v4
         with:
           name: python-coverage-report
           path: assets/lambda/code/scan/coverage.xml
-
