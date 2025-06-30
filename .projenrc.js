@@ -28,6 +28,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
   license: 'Apache-2.0',
   gitignore: [
+    '.coverage',
     '.vscode/',
     '.venv/',
     'cdk.out',
@@ -35,6 +36,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'dockerAssets.d',
     'package-lock.json',
     'yarn-error.log',
+    '*.pyc',
   ],
   pullRequestTemplateContents: [
     '',
