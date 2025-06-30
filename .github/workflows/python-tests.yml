@@ -12,8 +12,13 @@ on:
       - '.github/workflows/python-tests.yml'
       - '../../assets/lambda/code/scan/requirements.test.in'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
+    name: Run Python Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
