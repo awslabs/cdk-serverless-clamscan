@@ -662,7 +662,7 @@ def test_download_object_success(mock_download_file):
         Bucket=bucket,
         Key=key,
         Filename=f"{download_path}/{key}",
-        VersionId=version_id,
+        ExtraArgs={'VersionId': version_id},
     )
 
 

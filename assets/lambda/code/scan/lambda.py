@@ -270,7 +270,9 @@ def download_object(input_bucket, input_key, download_path, version_id=None):
         }
 
         if version_id:
-            download_args["VersionId"] = version_id
+            download_args["ExtraArgs"] = {
+                "VersionId": version_id,
+            }
 
         s3_client.download_file(**download_args)
     except botocore.exceptions.ClientError as e:
