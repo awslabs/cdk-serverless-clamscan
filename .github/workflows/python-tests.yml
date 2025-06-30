@@ -28,9 +28,9 @@ jobs:
       - name: Run tests with coverage
         run: |
           cd assets/lambda/code/scan
-          coverage run -m pytest
+          coverage run --omit="*test_*.py,*conftest.py,*__init__.py" -m pytest --junitxml=junit.xml
           coverage report
-          coverage xml
+          coverage xml -o coverage.xml
       - name: Display coverage in logs
         run: |
           echo "::group::Code Coverage Report"
