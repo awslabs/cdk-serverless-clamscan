@@ -1,0 +1,4 @@
+-r requirements.in
+assertpy
+pytest
+coverage
