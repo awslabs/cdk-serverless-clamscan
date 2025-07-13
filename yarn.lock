@@ -312,9 +312,9 @@
     debug "^4.3.1"
 
 "@babel/types@^7.0.0", "@babel/types@^7.20.7", "@babel/types@^7.27.1", "@babel/types@^7.27.6", "@babel/types@^7.28.0", "@babel/types@^7.3.0", "@babel/types@^7.3.3":
-  version "7.28.0"
-  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.28.0.tgz#2fd0159a6dc7353933920c43136335a9b264d950"
-  integrity sha512-jYnje+JyZG5YThjHiF28oT4SIZLnYOcSBb6+SDaFIyzDVSkXQmQQYclJ2R+YxcdmK0AX6x1E5OQNtuh3jHDrUg==
+  version "7.28.1"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.28.1.tgz#2aaf3c10b31ba03a77ac84f52b3912a0edef4cf9"
+  integrity sha512-x0LvFTekgSX+83TI28Y9wYPUfzrnl2aT5+5QLnO6v7mSJYtEEevuDRN0F0uSHRk1G1IWZC43o00Y0xDDrpBGPQ==
   dependencies:
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.27.1"
@@ -1443,9 +1443,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.36.37"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.36.37.tgz#5437ba876ba2f6476f7b39487429ce7532aa1271"
-  integrity sha512-T6l7wcKwpz90wr6mOHL7uxX6RqABCsLdVMSm0JVUkfVjHgERIcs08tHeY+PijmeZ7igYhLVCAMj9YgktZjtghQ==
+  version "2.36.38"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.36.38.tgz#5779ad2cd8d84769ad6fb36ce9c556f751bb38cf"
+  integrity sha512-ztzkEOb/ewBR1LTSHWgA0FQZa6VmE0Qr2MNsM8VtUeK9vs0berv2DSjbYi0ZImjk5UmJdujPwSwzRizLByGShg==
 
 chalk@^2.4.2:
   version "2.4.2"
