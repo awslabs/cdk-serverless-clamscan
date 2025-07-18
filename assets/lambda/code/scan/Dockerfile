@@ -6,11 +6,14 @@ LABEL name=lambda/python/clamav
 LABEL version=1.0
 
 ARG CACHE_DATE=1
+COPY requirements.in /var/task/requirements.in
 RUN dnf update -y \
     && dnf -y install clamav clamav-update clamd p7zip \
     && dnf clean all \
-    && pip3 install --no-cache-dir cffi awslambdaric boto3 requests aws-lambda-powertools \
+    && pip3 install --no-cache-dir -r /var/task/requirements.in awslambdaric \
     && ln -s /etc/freshclam.conf /tmp/freshclam.conf
+
+# Copy requirements file and install dependencies
 
 COPY clamd.conf /etc/clamd.conf
 COPY lambda.py /var/task/lambda.py
