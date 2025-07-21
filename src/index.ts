@@ -303,13 +303,13 @@ export class ServerlessClamscan extends Construct {
 
     const lambda_ap = fileSystem.addAccessPoint('ScanLambdaAP', {
       createAcl: {
-        ownerGid: '1000',
-        ownerUid: '1000',
+        ownerGid: '0',
+        ownerUid: '0',
         permissions: '755',
       },
       posixUser: {
-        gid: '1000',
-        uid: '1000',
+        gid: '0',
+        uid: '0',
       },
       path: this._efsRootPath,
     });
