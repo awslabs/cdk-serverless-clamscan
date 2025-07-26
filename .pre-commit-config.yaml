@@ -23,3 +23,12 @@ repos:
     rev: v1.1.1
     hooks:
       - id: dockerfile_lint
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: bash -c 'cd assets/lambda/code/scan && python -m venv .venv && .venv/bin/pip install -r requirements.test.in && .venv/bin/python -m pytest'
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true
