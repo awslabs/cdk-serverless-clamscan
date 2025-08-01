@@ -28,7 +28,7 @@ INFECTED = "INFECTED"
 ERROR = "ERROR"
 SKIP = "N/A"
 
-MAX_BYTES = 4000000000
+MAX_BYTES = 2147483647
 
 
 class ClamAVException(Exception):
@@ -290,7 +290,9 @@ def freshclam_update(input_bucket, input_key, download_path, definitions_path):
                 stderr=subprocess.STDOUT,
                 stdout=subprocess.PIPE,
             )
-            if update_summary.returncode != 0:
+            if update_summary.returncode == 0:
+                logger.info(f"Database update output: {update_summary.stdout.decode('utf-8')}")
+            else:
                 raise ClamAVException(
                     f"FreshClam exited with unexpected code: {update_summary.returncode}"
                     f"\nOutput: {update_summary.stdout.decode('utf-8')}"
