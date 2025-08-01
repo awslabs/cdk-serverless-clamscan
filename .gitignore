@@ -31,6 +31,7 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
+.coverage
 .vscode/
 .venv/
 cdk.out
@@ -38,6 +39,7 @@ cdk.context.json
 dockerAssets.d
 package-lock.json
 yarn-error.log
+*.pyc
 /test-reports/
 junit.xml
 /coverage/

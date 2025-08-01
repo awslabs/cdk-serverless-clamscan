@@ -1,0 +1,49 @@
+name: Python Lambda Tests
+
+on:
+  push:
+    paths:
+      - 'assets/lambda/code/scan/**.py'
+      - '.github/workflows/python-tests.yml'
+      - '../../assets/lambda/code/scan/requirements.test.in'
+  pull_request:
+    paths:
+      - 'assets/lambda/code/scan/**.py'
+      - '.github/workflows/python-tests.yml'
+      - '../../assets/lambda/code/scan/requirements.test.in'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Run Python Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ./assets/lambda/code/scan/requirements.test.in
+      - name: Run tests with coverage
+        run: |
+          cd assets/lambda/code/scan
+          coverage run --omit="*test_*.py,*conftest.py,*__init__.py" -m pytest --junitxml=junit.xml
+          coverage report
+          coverage xml -o coverage.xml
+      - name: Display coverage in logs
+        run: |
+          echo "::group::Code Coverage Report"
+          cd assets/lambda/code/scan
+          coverage report -m
+          echo "::endgroup::"
+      - name: Upload coverage to GitHub Actions
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-coverage-report
+          path: assets/lambda/code/scan/coverage.xml
