@@ -7,7 +7,7 @@ LABEL version=1.0
 
 ARG CACHE_DATE=1
 RUN dnf update -y \
-    && dnf -y install clamav clamav-update clamd \
+    && dnf -y install clamav1.4 clamd1.4 \
     && dnf clean all \
     && pip3 install --no-cache-dir cffi awslambdaric boto3 requests aws-lambda-powertools \
     && ln -s /etc/freshclam.conf /tmp/freshclam.conf

@@ -8,7 +8,7 @@ LABEL version=1.0
 ARG CACHE_DATE=1
 COPY requirements.in /var/task/requirements.in
 RUN dnf update -y \
-    && dnf -y install clamav clamav-update clamd p7zip \
+    && dnf -y install clamav1.4 clamd1.4 p7zip \
     && dnf clean all \
     && pip3 install --no-cache-dir -r /var/task/requirements.in awslambdaric \
     && ln -s /etc/freshclam.conf /tmp/freshclam.conf
