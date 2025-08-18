@@ -87,7 +87,9 @@ def lambda_handler(event, context):
             "status": ScanStatus.SKIP,
             "message": "S3 Event trigger was for a non-file object",
         }
-    elif (status := get_status(input_bucket, input_key, version_id)) == ScanStatus.SKIP:
+    elif (
+        status := get_status(input_bucket, input_key, version_id)
+    ) == ScanStatus.SKIP:
         summary = {
             "source": "serverless-clamscan",
             "input_bucket": input_bucket,
@@ -364,7 +366,9 @@ def freshclam_update(input_bucket, input_key, download_path, definitions_path):
                 stdout=subprocess.PIPE,
             )
             if update_summary.returncode == 0:
-                logger.info(f"Database update output: {update_summary.stdout.decode('utf-8')}")
+                logger.info(
+                    f"Database update output: {update_summary.stdout.decode('utf-8')}"
+                )
             else:
                 raise ClamAVException(
                     f"FreshClam exited with unexpected code: {update_summary.returncode}"
