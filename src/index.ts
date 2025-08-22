@@ -491,7 +491,7 @@ export class ServerlessClamscan extends Construct {
     });
 
     const init_defs_cr = new Function(this, 'InitDefs', {
-      runtime: Runtime.PYTHON_3_9,
+      runtime: Runtime.PYTHON_3_12,
       code: Code.fromAsset(
         path.join(__dirname, '../assets/lambda/code/initialize_defs_cr'),
       ),

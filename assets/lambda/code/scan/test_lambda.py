@@ -95,7 +95,7 @@ def s3_event_unversioned():
 def s3_stubber():
     """Create and return a Stubber for the S3 client"""
     # Create a new S3 client for each test
-    s3_client = boto3.client('s3')
+    s3_client = boto3.client("s3")
     with Stubber(s3_client) as stubber:
         # Replace the global s3_client in the lambda module with our stubbed client
         original_client = scan_lambda.s3_client
@@ -117,7 +117,9 @@ class DummyContext:
     aws_request_id = "req-1"
     function_name = "test-function"
     memory_limit_in_mb = 512
-    invoked_function_arn = "arn:aws:lambda:us-east-1:123456789012:function:test-function"
+    invoked_function_arn = (
+        "arn:aws:lambda:us-east-1:123456789012:function:test-function"
+    )
 
 
 def test_set_status_versioned(s3_stubber):
@@ -129,17 +131,22 @@ def test_set_status_versioned(s3_stubber):
 
     # Stub the get_object_tagging call
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': []},
-        {'Bucket': bucket, 'Key': key, 'VersionId': version_id}
+        "get_object_tagging",
+        {"TagSet": []},
+        {"Bucket": bucket, "Key": key, "VersionId": version_id},
     )
 
     # Stub the put_object_tagging call
-    expected_tags = {'TagSet': [{'Key': 'scan-status', 'Value': status}]}
+    expected_tags = {"TagSet": [{"Key": "scan-status", "Value": status}]}
     s3_stubber.add_response(
-        'put_object_tagging',
+        "put_object_tagging",
         {},
-        {'Bucket': bucket, 'Key': key, 'Tagging': expected_tags, 'VersionId': version_id}
+        {
+            "Bucket": bucket,
+            "Key": key,
+            "Tagging": expected_tags,
+            "VersionId": version_id,
+        },
     )
 
     # Act
@@ -157,17 +164,15 @@ def test_set_status_unversioned(s3_stubber):
 
     # Stub the get_object_tagging call
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': []},
-        {'Bucket': bucket, 'Key': key}
+        "get_object_tagging", {"TagSet": []}, {"Bucket": bucket, "Key": key}
     )
 
     # Stub the put_object_tagging call
-    expected_tags = {'TagSet': [{'Key': 'scan-status', 'Value': status}]}
+    expected_tags = {"TagSet": [{"Key": "scan-status", "Value": status}]}
     s3_stubber.add_response(
-        'put_object_tagging',
+        "put_object_tagging",
         {},
-        {'Bucket': bucket, 'Key': key, 'Tagging': expected_tags}
+        {"Bucket": bucket, "Key": key, "Tagging": expected_tags},
     )
 
     # Act
@@ -186,9 +191,9 @@ def test_get_status_versioned_found(s3_stubber):
 
     # Stub the get_object_tagging call
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': [{'Key': 'scan-status', 'Value': expected_status}]},
-        {'Bucket': bucket, 'Key': key, 'VersionId': version_id}
+        "get_object_tagging",
+        {"TagSet": [{"Key": "scan-status", "Value": expected_status}]},
+        {"Bucket": bucket, "Key": key, "VersionId": version_id},
     )
 
     # Act
@@ -207,9 +212,9 @@ def test_get_status_unversioned_found(s3_stubber):
 
     # Stub the get_object_tagging call
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': [{'Key': 'scan-status', 'Value': expected_status}]},
-        {'Bucket': bucket, 'Key': key}
+        "get_object_tagging",
+        {"TagSet": [{"Key": "scan-status", "Value": expected_status}]},
+        {"Bucket": bucket, "Key": key},
     )
 
     # Act
@@ -227,18 +232,16 @@ def test_get_status_deleted(s3_stubber):
     version_id = "v1"
 
     # Stub the get_object_tagging call with an error
-    error_response = {
-        'Error': {
-            'Code': 'NoSuchKey',
-            'Message': 'Not found'
-        }
-    }
     s3_stubber.add_client_error(
-        'get_object_tagging',
-        service_error_code='NoSuchKey',
-        service_message='Not found',
+        "get_object_tagging",
+        service_error_code="NoSuchKey",
+        service_message="Not found",
         http_status_code=404,
-        expected_params={'Bucket': bucket, 'Key': key, 'VersionId': version_id}
+        expected_params={
+            "Bucket": bucket,
+            "Key": key,
+            "VersionId": version_id,
+        },
     )
 
     # Act
@@ -259,13 +262,15 @@ def test_get_tag_value_versioned(s3_stubber):
 
     # Stub the get_object_tagging call
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': [{'Key': 'foo', 'Value': expected_value}]},
-        {'Bucket': bucket, 'Key': key, 'VersionId': version_id}
+        "get_object_tagging",
+        {"TagSet": [{"Key": "foo", "Value": expected_value}]},
+        {"Bucket": bucket, "Key": key, "VersionId": version_id},
     )
 
     # Act
-    value = scan_lambda.get_tag_value(bucket, key, tag_key, version_id=version_id)
+    value = scan_lambda.get_tag_value(
+        bucket, key, tag_key, version_id=version_id
+    )
 
     # Assert
     assert_that(value).is_equal_to(expected_value)
@@ -280,9 +285,9 @@ def test_get_tag_value_not_found(s3_stubber):
 
     # Stub the get_object_tagging call
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': [{'Key': 'foo', 'Value': 'bar'}]},
-        {'Bucket': bucket, 'Key': key}
+        "get_object_tagging",
+        {"TagSet": [{"Key": "foo", "Value": "bar"}]},
+        {"Bucket": bucket, "Key": key},
     )
 
     # Act
@@ -332,28 +337,35 @@ def test_lambda_handler_versioned(
 
     # First, stub the get_object_tagging call for get_status
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': []},
-        {'Bucket': 'test-bucket', 'Key': 'test.txt', 'VersionId': 'abc123'}
+        "get_object_tagging",
+        {"TagSet": []},
+        {"Bucket": "test-bucket", "Key": "test.txt", "VersionId": "abc123"},
     )
 
     # Second, stub the get_object_tagging call for set_status
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': []},
-        {'Bucket': 'test-bucket', 'Key': 'test.txt', 'VersionId': 'abc123'}
+        "get_object_tagging",
+        {"TagSet": []},
+        {"Bucket": "test-bucket", "Key": "test.txt", "VersionId": "abc123"},
     )
 
     # Third, stub the put_object_tagging call for set_status
     s3_stubber.add_response(
-        'put_object_tagging',
+        "put_object_tagging",
         {},
         {
-            'Bucket': 'test-bucket',
-            'Key': 'test.txt',
-            'Tagging': {'TagSet': [{'Key': 'scan-status', 'Value': scan_lambda.ScanStatus.IN_PROGRESS}]},
-            'VersionId': 'abc123'
-        }
+            "Bucket": "test-bucket",
+            "Key": "test.txt",
+            "Tagging": {
+                "TagSet": [
+                    {
+                        "Key": "scan-status",
+                        "Value": scan_lambda.ScanStatus.IN_PROGRESS,
+                    }
+                ]
+            },
+            "VersionId": "abc123",
+        },
     )
 
     # Act
@@ -411,27 +423,34 @@ def test_lambda_handler_unversioned(
 
     # First, stub the get_object_tagging call for get_status
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': []},
-        {'Bucket': 'test-bucket', 'Key': 'test.txt'}
+        "get_object_tagging",
+        {"TagSet": []},
+        {"Bucket": "test-bucket", "Key": "test.txt"},
     )
 
     # Second, stub the get_object_tagging call for set_status
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': []},
-        {'Bucket': 'test-bucket', 'Key': 'test.txt'}
+        "get_object_tagging",
+        {"TagSet": []},
+        {"Bucket": "test-bucket", "Key": "test.txt"},
     )
 
     # Third, stub the put_object_tagging call for set_status
     s3_stubber.add_response(
-        'put_object_tagging',
+        "put_object_tagging",
         {},
         {
-            'Bucket': 'test-bucket',
-            'Key': 'test.txt',
-            'Tagging': {'TagSet': [{'Key': 'scan-status', 'Value': scan_lambda.ScanStatus.IN_PROGRESS}]}
-        }
+            "Bucket": "test-bucket",
+            "Key": "test.txt",
+            "Tagging": {
+                "TagSet": [
+                    {
+                        "Key": "scan-status",
+                        "Value": scan_lambda.ScanStatus.IN_PROGRESS,
+                    }
+                ]
+            },
+        },
     )
 
     # Act
@@ -479,7 +498,7 @@ def test_lambda_handler_directory_path(mock_add_metric, mock_flush_metrics):
     original_metrics = scan_lambda.metrics
     try:
         # Act
-        with patch.dict('os.environ', env_vars):
+        with patch.dict("os.environ", env_vars):
             # Set namespace directly before the test
             scan_lambda.metrics.namespace = "test-namespace"
             result = scan_lambda.lambda_handler(event, ctx)
@@ -494,7 +513,9 @@ def test_lambda_handler_directory_path(mock_add_metric, mock_flush_metrics):
 
 @patch("lambda.metrics.flush_metrics")
 @patch("lambda.metrics.add_metric")
-def test_lambda_handler_skip_status(mock_add_metric, mock_flush_metrics, s3_stubber):
+def test_lambda_handler_skip_status(
+    mock_add_metric, mock_flush_metrics, s3_stubber
+):
     # Arrange
     ctx = DummyContext()
     event = {
@@ -519,16 +540,20 @@ def test_lambda_handler_skip_status(mock_add_metric, mock_flush_metrics, s3_stub
 
     # Stub the get_object_tagging call for get_status
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': [{'Key': 'scan-status', 'Value': scan_lambda.ScanStatus.SKIP}]},
-        {'Bucket': 'test-bucket', 'Key': 'test.txt'}
+        "get_object_tagging",
+        {
+            "TagSet": [
+                {"Key": "scan-status", "Value": scan_lambda.ScanStatus.SKIP}
+            ]
+        },
+        {"Bucket": "test-bucket", "Key": "test.txt"},
     )
 
     # Create a mock metrics object
     original_metrics = scan_lambda.metrics
     try:
         # Act
-        with patch.dict('os.environ', env_vars):
+        with patch.dict("os.environ", env_vars):
             # Set namespace directly before the test
             scan_lambda.metrics.namespace = "test-namespace"
             result = scan_lambda.lambda_handler(event, ctx)
@@ -544,7 +569,9 @@ def test_lambda_handler_skip_status(mock_add_metric, mock_flush_metrics, s3_stub
 
 @patch("lambda.metrics.flush_metrics")
 @patch("lambda.metrics.add_metric")
-def test_lambda_handler_deleted_status(mock_add_metric, mock_flush_metrics, s3_stubber):
+def test_lambda_handler_deleted_status(
+    mock_add_metric, mock_flush_metrics, s3_stubber
+):
     # Arrange
     ctx = DummyContext()
     event = {
@@ -569,18 +596,18 @@ def test_lambda_handler_deleted_status(mock_add_metric, mock_flush_metrics, s3_s
 
     # Stub the get_object_tagging call for get_status with an error
     s3_stubber.add_client_error(
-        'get_object_tagging',
-        service_error_code='NoSuchKey',
-        service_message='Not found',
+        "get_object_tagging",
+        service_error_code="NoSuchKey",
+        service_message="Not found",
         http_status_code=404,
-        expected_params={'Bucket': 'test-bucket', 'Key': 'test.txt'}
+        expected_params={"Bucket": "test-bucket", "Key": "test.txt"},
     )
 
     # Create a mock metrics object
     original_metrics = scan_lambda.metrics
     try:
         # Act
-        with patch.dict('os.environ', env_vars):
+        with patch.dict("os.environ", env_vars):
             # Set namespace directly before the test
             scan_lambda.metrics.namespace = "test-namespace"
             result = scan_lambda.lambda_handler(event, ctx)
@@ -628,7 +655,7 @@ def test_create_dir_success(mock_makedirs, mock_exists):
 
 @patch("os.path.exists")
 @patch("os.makedirs")
-@patch.object(scan_lambda, 'report_failure')
+@patch.object(scan_lambda, "report_failure")
 def test_create_dir_error(mock_report_failure, mock_makedirs, mock_exists):
     # Arrange
     mock_exists.return_value = False
@@ -643,10 +670,12 @@ def test_create_dir_error(mock_report_failure, mock_makedirs, mock_exists):
     # Assert
     mock_exists.assert_called_once()
     mock_makedirs.assert_called_once_with(download_path, exist_ok=True)
-    mock_report_failure.assert_called_once_with(bucket, key, download_path, "Test error")
+    mock_report_failure.assert_called_once_with(
+        bucket, key, download_path, "Test error"
+    )
 
 
-@patch.object(scan_lambda.s3_client, 'download_file')
+@patch.object(scan_lambda.s3_client, "download_file")
 def test_download_object_success(mock_download_file):
     # Arrange
     bucket = "test-bucket"
@@ -662,12 +691,12 @@ def test_download_object_success(mock_download_file):
         Bucket=bucket,
         Key=key,
         Filename=f"{download_path}/{key}",
-        ExtraArgs={'VersionId': version_id},
+        ExtraArgs={"VersionId": version_id},
     )
 
 
-@patch.object(scan_lambda.s3_client, 'download_file')
-@patch.object(scan_lambda, 'report_failure')
+@patch.object(scan_lambda.s3_client, "download_file")
+@patch.object(scan_lambda, "report_failure")
 def test_download_object_error(mock_report_failure, mock_download_file):
     # Arrange
     bucket = "test-bucket"
@@ -693,7 +722,9 @@ def test_download_object_error(mock_report_failure, mock_download_file):
 def test_scan_clean_result(mock_run, s3_stubber):
     # Arrange
     mock_run.return_value.returncode = 0
-    mock_run.return_value.stdout = b"----------- SCAN SUMMARY -----------\nInfected files: 0\n"
+    mock_run.return_value.stdout = (
+        b"----------- SCAN SUMMARY -----------\nInfected files: 0\n"
+    )
     input_bucket = "test-bucket"
     input_key = "test-file.txt"
     download_path = tempfile.mkdtemp()
@@ -703,28 +734,44 @@ def test_scan_clean_result(mock_run, s3_stubber):
 
     # Stub the get_object_tagging call for set_status
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': []},
-        {'Bucket': input_bucket, 'Key': input_key, 'VersionId': version_id}
+        "get_object_tagging",
+        {"TagSet": []},
+        {"Bucket": input_bucket, "Key": input_key, "VersionId": version_id},
     )
 
     # Stub the put_object_tagging call for set_status
     s3_stubber.add_response(
-        'put_object_tagging',
+        "put_object_tagging",
         {},
         {
-            'Bucket': input_bucket,
-            'Key': input_key,
-            'Tagging': {'TagSet': [{'Key': 'scan-status', 'Value': scan_lambda.ScanStatus.CLEAN}]},
-            'VersionId': version_id
-        }
+            "Bucket": input_bucket,
+            "Key": input_key,
+            "Tagging": {
+                "TagSet": [
+                    {
+                        "Key": "scan-status",
+                        "Value": scan_lambda.ScanStatus.CLEAN,
+                    }
+                ]
+            },
+            "VersionId": version_id,
+        },
     )
 
     # Act
-    with patch.object(scan_lambda.metrics, 'add_metric'), \
-         patch.object(scan_lambda.metrics, 'flush_metrics'), \
-         patch.dict('os.environ', {'POWERTOOLS_METRICS_NAMESPACE': 'test-namespace'}):
-        result = scan_lambda.scan(input_bucket, input_key, download_path, definitions_path, tmp_path, version_id)
+    with patch.object(scan_lambda.metrics, "add_metric"), patch.object(
+        scan_lambda.metrics, "flush_metrics"
+    ), patch.dict(
+        "os.environ", {"POWERTOOLS_METRICS_NAMESPACE": "test-namespace"}
+    ):
+        result = scan_lambda.scan(
+            input_bucket,
+            input_key,
+            download_path,
+            definitions_path,
+            tmp_path,
+            version_id,
+        )
 
     # Assert
     assert_that(result).is_not_none()
@@ -736,8 +783,10 @@ def test_scan_clean_result(mock_run, s3_stubber):
 def test_scan_infected_result(mock_run, s3_stubber):
     # Arrange
     mock_run.return_value.returncode = 1
-    mock_run.return_value.stdout = (b"----------- SCAN SUMMARY -----------\nInfected files: "
-                                    b"1\n/tmp/path/test-file.txt: Eicar-Test-Signature FOUND\n")
+    mock_run.return_value.stdout = (
+        b"----------- SCAN SUMMARY -----------\nInfected files: "
+        b"1\n/tmp/path/test-file.txt: Eicar-Test-Signature FOUND\n"
+    )
     input_bucket = "test-bucket"
     input_key = "test-file.txt"
     download_path = tempfile.mkdtemp()
@@ -747,28 +796,44 @@ def test_scan_infected_result(mock_run, s3_stubber):
 
     # Stub the get_object_tagging call for set_status
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': []},
-        {'Bucket': input_bucket, 'Key': input_key, 'VersionId': version_id}
+        "get_object_tagging",
+        {"TagSet": []},
+        {"Bucket": input_bucket, "Key": input_key, "VersionId": version_id},
     )
 
     # Stub the put_object_tagging call for set_status
     s3_stubber.add_response(
-        'put_object_tagging',
+        "put_object_tagging",
         {},
         {
-            'Bucket': input_bucket,
-            'Key': input_key,
-            'Tagging': {'TagSet': [{'Key': 'scan-status', 'Value': scan_lambda.ScanStatus.INFECTED}]},
-            'VersionId': version_id
-        }
+            "Bucket": input_bucket,
+            "Key": input_key,
+            "Tagging": {
+                "TagSet": [
+                    {
+                        "Key": "scan-status",
+                        "Value": scan_lambda.ScanStatus.INFECTED,
+                    }
+                ]
+            },
+            "VersionId": version_id,
+        },
     )
 
     # Act
-    with patch.object(scan_lambda.metrics, 'add_metric'), \
-         patch.object(scan_lambda.metrics, 'flush_metrics'), \
-         patch.dict('os.environ', {'POWERTOOLS_METRICS_NAMESPACE': 'test-namespace'}):
-        result = scan_lambda.scan(input_bucket, input_key, download_path, definitions_path, tmp_path, version_id)
+    with patch.object(scan_lambda.metrics, "add_metric"), patch.object(
+        scan_lambda.metrics, "flush_metrics"
+    ), patch.dict(
+        "os.environ", {"POWERTOOLS_METRICS_NAMESPACE": "test-namespace"}
+    ):
+        result = scan_lambda.scan(
+            input_bucket,
+            input_key,
+            download_path,
+            definitions_path,
+            tmp_path,
+            version_id,
+        )
 
     # Assert
     assert_that(result).is_not_none()
@@ -780,7 +845,9 @@ def test_scan_infected_result(mock_run, s3_stubber):
 def test_scan_error_result(mock_run, s3_stubber):
     # Arrange
     mock_run.return_value.returncode = 2  # Error code
-    mock_run.return_value.stdout = b"----------- SCAN SUMMARY -----------\nError: Some error occurred\n"
+    mock_run.return_value.stdout = (
+        b"----------- SCAN SUMMARY -----------\nError: Some error occurred\n"
+    )
     input_bucket = "test-bucket"
     input_key = "test-file.txt"
     download_path = tempfile.mkdtemp()
@@ -789,32 +856,46 @@ def test_scan_error_result(mock_run, s3_stubber):
 
     # Stub the get_object_tagging call for set_status and report_failure
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': []},
-        {'Bucket': input_bucket, 'Key': input_key}
+        "get_object_tagging",
+        {"TagSet": []},
+        {"Bucket": input_bucket, "Key": input_key},
     )
 
     # Stub the put_object_tagging call for set_status and report_failure
     s3_stubber.add_response(
-        'put_object_tagging',
+        "put_object_tagging",
         {},
         {
-            'Bucket': input_bucket,
-            'Key': input_key,
-            'Tagging': {'TagSet': [{'Key': 'scan-status', 'Value': scan_lambda.ScanStatus.ERROR}]}
-        }
+            "Bucket": input_bucket,
+            "Key": input_key,
+            "Tagging": {
+                "TagSet": [
+                    {
+                        "Key": "scan-status",
+                        "Value": scan_lambda.ScanStatus.ERROR,
+                    }
+                ]
+            },
+        },
     )
 
     # Act & Assert
-    with patch.object(scan_lambda.metrics, 'add_metric'), \
-         patch.object(scan_lambda.metrics, 'flush_metrics'), \
-         patch.dict('os.environ', {'POWERTOOLS_METRICS_NAMESPACE': 'test-namespace'}), \
-         pytest.raises(Exception) as excinfo:
-        scan_lambda.scan(input_bucket, input_key, download_path, definitions_path, tmp_path)
-    
+    with patch.object(scan_lambda.metrics, "add_metric"), patch.object(
+        scan_lambda.metrics, "flush_metrics"
+    ), patch.dict(
+        "os.environ", {"POWERTOOLS_METRICS_NAMESPACE": "test-namespace"}
+    ), pytest.raises(
+        Exception
+    ) as excinfo:
+        scan_lambda.scan(
+            input_bucket, input_key, download_path, definitions_path, tmp_path
+        )
+
     # Verify exception contains expected data
     exception_data = json.loads(str(excinfo.value))
-    assert_that(exception_data["status"]).is_equal_to(scan_lambda.ScanStatus.ERROR)
+    assert_that(exception_data["status"]).is_equal_to(
+        scan_lambda.ScanStatus.ERROR
+    )
     assert_that(exception_data["input_bucket"]).is_equal_to(input_bucket)
     assert_that(exception_data["input_key"]).is_equal_to(input_key)
     assert_that(s3_stubber).has_no_pending_responses()
@@ -823,7 +904,9 @@ def test_scan_error_result(mock_run, s3_stubber):
 @patch("lambda.subprocess.run")
 def test_scan_subprocess_error(mock_run, s3_stubber):
     # Arrange
-    mock_run.side_effect = subprocess.CalledProcessError(1, "clamscan", output=b"Error output")
+    mock_run.side_effect = subprocess.CalledProcessError(
+        1, "clamscan", output=b"Error output"
+    )
     input_bucket = "test-bucket"
     input_key = "test-file.txt"
     download_path = tempfile.mkdtemp()
@@ -832,39 +915,53 @@ def test_scan_subprocess_error(mock_run, s3_stubber):
 
     # Stub the get_object_tagging call for set_status and report_failure
     s3_stubber.add_response(
-        'get_object_tagging',
-        {'TagSet': []},
-        {'Bucket': input_bucket, 'Key': input_key}
+        "get_object_tagging",
+        {"TagSet": []},
+        {"Bucket": input_bucket, "Key": input_key},
     )
 
     # Stub the put_object_tagging call for set_status and report_failure
     s3_stubber.add_response(
-        'put_object_tagging',
+        "put_object_tagging",
         {},
         {
-            'Bucket': input_bucket,
-            'Key': input_key,
-            'Tagging': {'TagSet': [{'Key': 'scan-status', 'Value': scan_lambda.ScanStatus.ERROR}]}
-        }
+            "Bucket": input_bucket,
+            "Key": input_key,
+            "Tagging": {
+                "TagSet": [
+                    {
+                        "Key": "scan-status",
+                        "Value": scan_lambda.ScanStatus.ERROR,
+                    }
+                ]
+            },
+        },
     )
 
     # Act & Assert
-    with patch.object(scan_lambda.metrics, 'add_metric'), \
-         patch.object(scan_lambda.metrics, 'flush_metrics'), \
-         patch.dict('os.environ', {'POWERTOOLS_METRICS_NAMESPACE': 'test-namespace'}), \
-         pytest.raises(Exception) as excinfo:
-        scan_lambda.scan(input_bucket, input_key, download_path, definitions_path, tmp_path)
-    
+    with patch.object(scan_lambda.metrics, "add_metric"), patch.object(
+        scan_lambda.metrics, "flush_metrics"
+    ), patch.dict(
+        "os.environ", {"POWERTOOLS_METRICS_NAMESPACE": "test-namespace"}
+    ), pytest.raises(
+        Exception
+    ) as excinfo:
+        scan_lambda.scan(
+            input_bucket, input_key, download_path, definitions_path, tmp_path
+        )
+
     # Verify exception contains expected data
     exception_data = json.loads(str(excinfo.value))
-    assert_that(exception_data["status"]).is_equal_to(scan_lambda.ScanStatus.ERROR)
+    assert_that(exception_data["status"]).is_equal_to(
+        scan_lambda.ScanStatus.ERROR
+    )
     assert_that(exception_data["input_bucket"]).is_equal_to(input_bucket)
     assert_that(exception_data["input_key"]).is_equal_to(input_key)
     assert_that(s3_stubber).has_no_pending_responses()
 
 
-@patch('os.path.exists')
-@patch('os.remove')
+@patch("os.path.exists")
+@patch("os.remove")
 def test_delete_file(mock_remove, mock_exists):
     # Arrange
     mock_exists.return_value = True
@@ -878,8 +975,8 @@ def test_delete_file(mock_remove, mock_exists):
     mock_remove.assert_called_once_with(f"{download_path}/{input_key}")
 
 
-@patch('os.path.exists')
-@patch('shutil.rmtree')
+@patch("os.path.exists")
+@patch("shutil.rmtree")
 def test_delete_directory(mock_rmtree, mock_exists):
     # Arrange
     mock_exists.return_value = True
@@ -894,9 +991,13 @@ def test_delete_directory(mock_rmtree, mock_exists):
 
 def test_report_failure():
     # Arrange
-    with patch.object(scan_lambda, 'set_status') as mock_set_status, \
-         patch.object(scan_lambda, 'delete') as mock_delete, \
-         patch.object(scan_lambda.logger, 'error') as mock_logger_error:
+    with patch.object(
+        scan_lambda, "set_status"
+    ) as mock_set_status, patch.object(
+        scan_lambda, "delete"
+    ) as mock_delete, patch.object(
+        scan_lambda.logger, "error"
+    ) as mock_logger_error:
         input_bucket = "test-bucket"
         input_key = "test-file.txt"
         download_path = tempfile.mkdtemp()
@@ -905,16 +1006,20 @@ def test_report_failure():
 
         # Act & Assert
         with pytest.raises(Exception) as excinfo:
-            scan_lambda.report_failure(input_bucket, input_key, download_path, message, version_id)
-        
+            scan_lambda.report_failure(
+                input_bucket, input_key, download_path, message, version_id
+            )
+
         # Verify exception contains expected data
         exception_data = json.loads(str(excinfo.value))
-        assert_that(exception_data["status"]).is_equal_to(scan_lambda.ScanStatus.ERROR)
+        assert_that(exception_data["status"]).is_equal_to(
+            scan_lambda.ScanStatus.ERROR
+        )
         assert_that(exception_data["input_bucket"]).is_equal_to(input_bucket)
         assert_that(exception_data["input_key"]).is_equal_to(input_key)
         assert_that(exception_data["message"]).is_equal_to(message)
         assert_that(exception_data["version_id"]).is_equal_to(version_id)
-        
+
         # Verify mocks were called
         mock_set_status.assert_called_once_with(
             input_bucket, input_key, scan_lambda.ScanStatus.ERROR, version_id
