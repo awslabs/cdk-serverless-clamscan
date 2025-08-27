@@ -29,9 +29,9 @@
     "@aws-cdk/cloudformation-diff" "2.68.0"
 
 "@aws-cdk/asset-awscli-v1@^2.2.201":
-  version "2.2.249"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/asset-awscli-v1/-/asset-awscli-v1-2.2.249.tgz#75d67468bf3598470836a59453f13a785d7dc3fd"
-  integrity sha512-VtTIdYPJ8SPvafsuGRBloaMwiKRBd6rgS8QGyTmsOnKbK4dWL24MA9hVJx3f+MX7J51F9FukPmaFmP4iuMarkA==
+  version "2.2.250"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/asset-awscli-v1/-/asset-awscli-v1-2.2.250.tgz#9d397fd2ddddee685d5adb8e319cdca2e3eb531c"
+  integrity sha512-OWprXv59KZQxPOV3UsZUZ1MGF/xFTvBr2nWoz+CSnQV84kxnLnwj3wIfAqqVTnELla3tA7mjPXWwK6Fvm0te9w==
 
 "@aws-cdk/asset-kubectl-v20@^2.1.2":
   version "2.1.4"
@@ -1453,9 +1453,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.37.9"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.37.9.tgz#e709b465519d06db4195de2539707ce69c36959e"
-  integrity sha512-Wy8EcKNuQOHpmOzOAtvSB06vQMu9kc4u3Y+bVu8nUoTCYQIBGNoZ/JNoKPtBGubfRMtU9EQTyjvwCSC1KoJjbg==
+  version "2.37.10"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.37.10.tgz#620e692bc9905508535fc201cfb4d4f91dfb0590"
+  integrity sha512-Rp1crxftsfalWlbX8J6BFxXx+KfQyU6U9ihhUcD02buAKkgBo+YMq/BMuwNNxmuRxgLYltecuzpF4xnzmO7rQw==
 
 chalk@^2.4.2:
   version "2.4.2"
