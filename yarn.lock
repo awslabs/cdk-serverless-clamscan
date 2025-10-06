@@ -1446,9 +1446,9 @@ camelcase@^6.2.0, camelcase@^6.3.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001746:
-  version "1.0.30001747"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001747.tgz#2cfbbb7f1f046439ebaf34bba337ee3d3474c7e5"
-  integrity sha512-mzFa2DGIhuc5490Nd/G31xN1pnBnYMadtkyTjefPI7wzypqgCEpeWu9bJr0OnDsyKrW75zA9ZAt7pbQFmwLsQg==
+  version "1.0.30001748"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001748.tgz#628a5a9293014e58f8ba1216bb4966b04c58bee0"
+  integrity sha512-5P5UgAr0+aBmNiplks08JLw+AW/XG/SurlgZLgB1dDLfAw7EfRGxIwzPHxdSCGY/BTKDqIVyJL87cCN6s0ZR0w==
 
 case@1.6.3, case@^1.6.3:
   version "1.6.3"
@@ -1456,9 +1456,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.37.44"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.37.44.tgz#553407cde1e7b12cb37457c27719bc5555112f54"
-  integrity sha512-q7QBB/hUFVhV+914HQguyBl8MUzb/VUSSbY965mlnADvSr+KAJVeqhZ91MhdxEhOnAFoUGlqCkcXPHngrEvIBw==
+  version "2.37.45"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.37.45.tgz#8ebed1144e3fda9030253f7c187dfeab35ef1794"
+  integrity sha512-P7V/U58FNCi7qVxy8gVEJbX0SSCtDZ4KobEEkRiHBfm1Jle2+/mY1H2rh+YMYbSdlr+qR27odokHA7dRtfyqOQ==
 
 chalk@^2.4.2:
   version "2.4.2"
