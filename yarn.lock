@@ -1334,9 +1334,9 @@ balanced-match@^1.0.0:
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
 baseline-browser-mapping@^2.8.9:
-  version "2.8.15"
-  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.8.15.tgz#78d795047dcd878e29c0c0f7a916c782fb96e062"
-  integrity sha512-qsJ8/X+UypqxHXN75M7dF88jNK37dLBRW7LeUzCPz+TNs37G8cfWy9nWzS+LS//g600zrt2le9KuXt0rWfDz5Q==
+  version "2.8.16"
+  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.8.16.tgz#e17789673e7f4b7654f81ab2ef25e96ab6a895f9"
+  integrity sha512-OMu3BGQ4E7P1ErFsIPpbJh0qvDudM/UuJeHgkAvfWe+0HFJCXh+t/l8L6fVLR55RI/UbKrVLnAXZSVwd9ysWYw==
 
 brace-expansion@^1.1.7:
   version "1.1.12"
@@ -1456,9 +1456,9 @@ case@1.6.3, case@^1.6.3:
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
 cdk-nag@^2.15.18:
-  version "2.37.49"
-  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.37.49.tgz#3831fc6e2134ce88753cbb5ace33fa04140ef9de"
-  integrity sha512-bBoaFJOSsaWDT44fHVtMhpliC+PtRwk2xhhYGevJKjxy8e2qh3vy2duwvP3Yo2iT8dIgIfeFASCJDW+2kfaYUg==
+  version "2.37.50"
+  resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.37.50.tgz#068d35d8b479b7f9bbce065af0ae7b141ddd9871"
+  integrity sha512-uz5ejc09bikDmUw4QtXdGIzPWJOkS4MoKOz1LiwjeOqQS1Ti4dYjIsWT/juuK43r82TZACrXjO+ZwY6z0FzBnA==
 
 chalk@^2.4.2:
   version "2.4.2"
