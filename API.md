@@ -80,6 +80,7 @@ A `ServerlessClamscanProps` interface.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscan.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk-serverless-clamscan.ServerlessClamscan.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscan.addSourceBucket">addSourceBucket</a></code> | Sets the specified S3 Bucket as a s3:ObjectCreate* for the ClamAV function. |
 | <code><a href="#cdk-serverless-clamscan.ServerlessClamscan.getPolicyStatementForBucket">getPolicyStatementForBucket</a></code> | Returns the statement that should be added to the bucket policy in order to prevent objects to be accessed when they are not clean or there have been scanning errors: this policy should be added manually if external buckets are passed to addSourceBucket(). |
 
@@ -92,6 +93,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="cdk-serverless-clamscan.ServerlessClamscan.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="cdk-serverless-clamscan.ServerlessClamscan.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `addSourceBucket` <a name="addSourceBucket" id="cdk-serverless-clamscan.ServerlessClamscan.addSourceBucket"></a>
 
