@@ -2470,9 +2470,9 @@ flat-cache@^4.0.0:
     keyv "^4.5.4"
 
 flatted@^3.2.7, flatted@^3.2.9:
-  version "3.3.4"
-  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.3.4.tgz#0986e681008f0f13f58e18656c47967682db5ff6"
-  integrity sha512-3+mMldrTAPdta5kjX2G2J7iX4zxtnwpdA8Tr2ZSjkyPSanvbZAcy6flmtnXbEybHrDcU9641lxrMfFuUxVz9vA==
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.4.0.tgz#92ab2efec9b272eb85a3a25a106c3afbbc990d8b"
+  integrity sha512-kC6Bb+ooptOIvWj5B63EQWkF0FEnNjV2ZNkLMLZRDDduIiWeFF4iKnslwhiWxjAdbg4NzTNo6h0qLuvFrcx+Sw==
 
 for-each@^0.3.3, for-each@^0.3.5:
   version "0.3.5"
@@ -3757,9 +3757,9 @@ jsii-reflect@^1.127.0:
     yargs "^17.7.2"
 
 jsii-rosetta@~5.9.0:
-  version "5.9.34"
-  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.34.tgz#f77ebb9d84dde8b25fb9dbd4ebfbf8f610999bf5"
-  integrity sha512-enlh+DitCe8IsjuhUBMhVfeW4PrRYQJKgfWAm1vkEmJbi39+ZWOj9RGXok9snhkY3ivf28uj9zkS3tKntI6GfA==
+  version "5.9.35"
+  resolved "https://registry.yarnpkg.com/jsii-rosetta/-/jsii-rosetta-5.9.35.tgz#71038f656e8c550b839aad318563c5b3e47822f0"
+  integrity sha512-70VITVYYMBTqjKdi/W/pJsZPxYpR5AdCyeWCFK3VYYUmUinMLmOkD+8jgHdj7NaLolVxAyrCXvGiHmvXVHlkYw==
   dependencies:
     "@jsii/check-node" "^1.127.0"
     "@jsii/spec" "^1.127.0"
