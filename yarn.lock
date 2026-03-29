@@ -1283,9 +1283,9 @@ balanced-match@^4.0.2:
   integrity sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==
 
 baseline-browser-mapping@^2.9.0:
-  version "2.10.11"
-  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.10.11.tgz#957bea71ccc2e9854287c2575a037d36b3a94b73"
-  integrity sha512-DAKrHphkJyiGuau/cFieRYhcTFeK/lBuD++C7cZ6KZHbMhBrisoi+EvhQ5RZrIfV5qwsW8kgQ07JIC+MDJRAhg==
+  version "2.10.12"
+  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.10.12.tgz#60f9e2172e962839ac313d4e0c8e182090fb6621"
+  integrity sha512-qyq26DxfY4awP2gIRXhhLWfwzwI+N5Nxk6iQi8EFizIaWIjqicQTE4sLnZZVdeKPRcVNoJOkkpfzoIYuvCKaIQ==
 
 brace-expansion@^1.1.7:
   version "1.1.13"
@@ -4538,10 +4538,10 @@ process-nextick-args@~2.0.0:
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
 
-projen@^0.99.25:
-  version "0.99.25"
-  resolved "https://registry.yarnpkg.com/projen/-/projen-0.99.25.tgz#fd9190c9baeadab588a8a5dca3f779e46280da0d"
-  integrity sha512-9A9G6pnav5Cb0aJK8fFsvwIhilbxY+8ky5VhshkSRHAi0feEHRqHChzOvKBCCOd2VVVFB3aNLHzkf0rtYaHd6A==
+projen@^0.99.26:
+  version "0.99.26"
+  resolved "https://registry.yarnpkg.com/projen/-/projen-0.99.26.tgz#fa35d04140a7154439593a64e597f96e33acb97b"
+  integrity sha512-FGaMrSa+BgydIs61enxqgHPePB4r3pOTPFldaN+OmWW65WDWoMyGAqVEb3UaGRtiX6rP9qeQVnvufnEfZfaPRg==
   dependencies:
     "@iarna/toml" "^2.2.5"
     case "^1.6.3"
