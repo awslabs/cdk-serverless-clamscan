@@ -182,6 +182,41 @@ def test_set_status_unversioned(s3_stubber):
     assert_that(s3_stubber).has_no_pending_responses()
 
 
+def test_set_status_put_tagging_nosuchkey(s3_stubber):
+    """If the object is deleted mid-scan, put_object_tagging raises NoSuchKey.
+    set_status should handle this gracefully instead of raising."""
+    # Arrange
+    bucket = "bucket"
+    key = "key"
+    status = scan_lambda.ScanStatus.CLEAN
+
+    # Stub the get_object_tagging call (fetching old tags) - succeeds
+    s3_stubber.add_response(
+        "get_object_tagging", {"TagSet": []}, {"Bucket": bucket, "Key": key}
+    )
+
+    # Stub the put_object_tagging call to fail because the object
+    # was deleted between the scan finishing and the tagging attempt
+    expected_tags = {"TagSet": [{"Key": "scan-status", "Value": status}]}
+    s3_stubber.add_client_error(
+        "put_object_tagging",
+        service_error_code="NoSuchKey",
+        service_message="The specified key does not exist.",
+        http_status_code=404,
+        expected_params={
+            "Bucket": bucket,
+            "Key": key,
+            "Tagging": expected_tags,
+        },
+    )
+
+    # Act & Assert - should not raise
+    scan_lambda.set_status(bucket, key, status)
+
+    # Assert
+    assert_that(s3_stubber).has_no_pending_responses()
+
+
 def test_get_status_versioned_found(s3_stubber):
     # Arrange
     expected_status = scan_lambda.ScanStatus.CLEAN
