@@ -4,7 +4,6 @@
 import glob
 import json
 import os
-import pwd
 import shutil
 import subprocess
 import time
@@ -13,6 +12,8 @@ from urllib.parse import unquote_plus
 
 import boto3
 import botocore
+
+# pyrefly: ignore [missing-import]
 from aws_lambda_powertools import Logger, Metrics
 
 logger = Logger()
@@ -175,8 +176,21 @@ def set_status(bucket, key, status, version_id=None):
     if version_id:
         tagging_args["VersionId"] = version_id
 
-    s3_client.put_object_tagging(**tagging_args)
-    metrics.add_metric(name=status, unit="Count", value=1)
+    try:
+        s3_client.put_object_tagging(**tagging_args)
+        metrics.add_metric(name=status, unit="Count", value=1)
+    except botocore.exceptions.ClientError as e:
+        error_code = e.response.get("Error", {}).get("Code", "")
+        if error_code in ("NoSuchKey", "404"):
+            logger.info(
+                f"Could not set scan-status for {key}"
+                f"{' version ' + version_id if version_id else ''} "
+                "because the object no longer exists (likely deleted mid-scan)"
+            )
+        else:
+            logger.warning(
+                "Error setting status: %s", e.response["Error"]["Message"]
+            )
 
 
 def get_status(bucket_name, object_key, version_id=None):
@@ -357,7 +371,7 @@ def freshclam_update(input_bucket, input_key, download_path, definitions_path):
                 f"--config-file={conf}",
                 "--stdout",
                 "-u",
-                f"{pwd.getpwuid(os.getuid()).pw_name}",
+                f"{__import__('pwd').getpwuid(os.getuid()).pw_name}",
                 f"--datadir={definitions_path}",
             ]
             update_summary = subprocess.run(
