@@ -51,12 +51,12 @@ junit.xml
 !/.github/workflows/upgrade-main.yml
 !/.github/pull_request_template.md
 !/test/
-!/tsconfig.dev.json
+!/tsconfig.json
+!/test/tsconfig.json
 !/src/
 /lib
 /dist/
 !/.eslintrc.json
 .jsii
-tsconfig.json
 !/API.md
 !/.projenrc.js
