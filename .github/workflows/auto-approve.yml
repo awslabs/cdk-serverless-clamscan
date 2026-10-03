@@ -16,6 +16,9 @@ jobs:
       pull-requests: write
     if: contains(github.event.pull_request.labels.*.name, 'auto-approve') && (github.event.pull_request.user.login == 'dontirun')
     steps:
-      - env:
+      - id: auto_08f238e2
+        env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr review --approve "${{ github.event.pull_request.number }}"
+          GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: gh pr review --approve "$PR_NUMBER" --repo "$GH_REPO"
